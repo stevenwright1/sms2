@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!-- CtxSTA.dtd                                                           -->
+<!-- Copyright (c) 1999 - 2010 Citrix Systems, Inc. All Rights Reserved.  -->
+<!-- DTD for the CtxSTA protocol                                          -->
+<!-- Version 4.0   13 Sep 2004                                            -->
+<!--                                                                      -->
+<!--  <!DOCTYPE CtxSTAProtocol [                                          -->
+
+<!ELEMENT CtxSTAProtocol (
+                          RequestTicket |
+                          ResponseTicket |
+                          RequestData |
+                          ResponseData |
+                          RequestSave |
+                          ResponseSave |
+                          RequestTicketRefresh |
+                          ResponseTicketRefresh |
+                          ResponseError
+                          )>
+
+<!ATTLIST CtxSTAProtocol  version CDATA  #REQUIRED >        <!-- 1.0      -->
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!--                   Protocol message declarations                      -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!ELEMENT RequestTicket (
+  AllowedTicketType+,
+  AllowedAuthorityIDType+,
+  ((Data, XData)
+   |(TicketData, Control) ) )>
+
+<!ELEMENT ResponseTicket (
+  (AuthorityID,
+   Ticket,
+   TicketVersion,
+   TicketLifetime?)
+  |ErrorId )>
+
+<!ELEMENT RequestData ( Ticket, TicketVersion )>
+
+<!ELEMENT ResponseData (
+  ((Data,XData)
+   |TicketData)
+  |ErrorId )>
+
+<!ELEMENT RequestSave ( ( Ticket, TicketVersion, Data, XData ) )>
+
+<!ELEMENT ResponseSave ( Accepted | ErrorId )>
+
+<!ELEMENT RequestTicketRefresh ( Ticket | ErrorId )>
+
+<!ELEMENT ResponseTicketRefresh ( TicketLifetime )>
+
+<!ELEMENT ResponseError ( ErrorId )>
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!--                        Data type declarations                        -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!ELEMENT ErrorId (#PCDATA)>                 <!-- unspecified | bad-request |
+                                                  out-of-memory | invalid-ticket |
+                                                  save-not-supported | ticket-type-not-supported |
+                                                  max-tickets-exceeded | non-refreshable
+                                                  -->
+
+<!ELEMENT Accepted (#PCDATA)>                <!-- ok   -->
+
+<!ELEMENT AllowedAuthorityIDType (#PCDATA)>  <!-- STA-v1   -->
+
+<!ELEMENT AllowedTicketType (#PCDATA)>       <!-- STA-v1   -->
+
+<!ELEMENT AuthorityID (#PCDATA)>             <!-- A-Z or 0-9
+                                                  max length of 16
+                                                  -->
+
+<!ATTLIST AuthorityID
+  authorityType ( STA-v1 ) "STA-v1" >
+
+<!ELEMENT Control (Refreshable?)>
+
+<!ELEMENT Data (#PCDATA)>                    <!-- max length of 16k -->
+
+<!ELEMENT Refreshable (#PCDATA)>             <!-- true | false -->
+
+<!ELEMENT Ticket (#PCDATA)>                  <!-- A-Z or 0-9
+                                                  max length of 32
+                                                  -->
+
+<!ATTLIST Ticket
+  ticketType CDATA #REQUIRED>                <!--  STA-v1 | STA-v4 -->
+
+<!ELEMENT TicketData ( Value* )>
+
+<!ELEMENT TicketLifetime (#PCDATA)>          <!-- in seconds -->
+
+<!ELEMENT TicketVersion (#PCDATA)>           <!-- A-Z or 0-9
+                                                  max length of 2 -->
+
+<!ELEMENT Value (#PCDATA)>
+
+<!ATTLIST Value
+  name CDATA #REQUIRED>
+
+<!ELEMENT XData (#PCDATA)>                   <!-- max length of 16k -->
+
+<!--  ]> -->

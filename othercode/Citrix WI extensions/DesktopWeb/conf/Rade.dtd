@@ -1,0 +1,130 @@
+<!-- Copyright (c) 2006 - 2010 Citrix Systems, Inc. All Rights Reserved.           -->
+
+<!-- DTD for the Citrix RADE protocol.                                      -->
+<!-- This protocol allows RADE clients to comminicate with RADE servers.    -->
+<!--                                                                        -->
+<!-- Version 1.0  11/11/2005                                                -->
+<!-- Draft 1                                                                -->
+<!--                                                                        -->
+
+<!--  <!DOCTYPE RadeProtocol [  -->
+
+
+  <!ELEMENT RadeProtocol (
+        RequestLicense
+      | ResponseLicense
+      | RequestAppStarted
+      | ResponseAppStarted
+      | RequestKeepAlive
+      | ResponseKeepAlive
+      | RequestAppClosed
+      | ResponseAppClosed
+      | RequestResetSession
+      | ResponseResetSession
+      | RequestAppStartFailed
+      | ResponseAppStartFailed
+      | RequestPreLaunchError
+      | ResponsePreLaunchError
+      | RequestNewHost
+      | ResponseNewHost
+      | ResponseError )>
+
+  <!ATTLIST RadeProtocol version CDATA #REQUIRED>         <!-- version: 1.0 -->
+
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!--                   Protocol message declarations                      -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+  <!ELEMENT RequestLicense ( Routing, Ticket, ClientId, ClientName, LicenseType )>
+
+  <!ELEMENT ResponseLicense ( (Routing, SessionId, Duration?, Annoyance?) | (ErrorId, ErrorCode?) )>
+
+  <!ELEMENT RequestAppStarted ( Routing, SessionId, ClientId, ClientName, AppInfo )>
+
+  <!ELEMENT ResponseAppStarted ( (ErrorId, ErrorCode?)? )>
+
+  <!ELEMENT RequestKeepAlive ( Routing, SessionId, ClientId )>
+
+  <!ELEMENT ResponseKeepAlive ( (ErrorId, ErrorCode?)? )>
+
+  <!ELEMENT RequestRenewLicense ( Routing, SessionId, ClientId, ClientName )>
+
+  <!ELEMENT ResponseRenewLicense ( Duration? | (ErrorId, ErrorCode?) )>
+
+  <!ELEMENT RequestAppClosed ( Routing, SessionId, ClientId , AppId )>
+
+  <!ELEMENT ResponseAppClosed ( (ErrorId, ErrorCode?)? )>
+
+  <!ELEMENT RequestResetSession ( Routing, SessionId, ClientId, ClientName, UserId, LicenseType, AppInfo+ )>
+
+  <!ELEMENT ResponseResetSession ( (ErrorId, ErrorCode?)? )>
+
+  <!ELEMENT RequestAppStartFailed ( Routing, SessionId, ClientId, ClientName, AppInfo, Reason )>
+
+  <!ELEMENT ResponseAppStartFailed ( (ErrorId, ErrorCode?)? )>
+
+  <!ELEMENT RequestPreLaunchError ( Routing, ClientName, AppInfo, Reason )>
+
+  <!ELEMENT ResponsePreLaunchError ( (ErrorId, ErrorCode?)? )>
+
+  <!ELEMENT RequestNewHost ( Routing, SessionId, ClientId )>
+
+  <!ELEMENT ResponseNewHost ( Routing | (ErrorId, ErrorCode?) )>
+
+  <!ELEMENT ResponseError ( ErrorId )>
+
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!--                        Data type declarations                        -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+  <!ELEMENT SessionId (#PCDATA)>
+
+  <!ELEMENT UserId (UserName, Domain)>
+
+  <!ELEMENT UserName (#PCDATA)>
+
+  <!ELEMENT Domain (#PCDATA)>
+
+  <!ATTLIST Domain type CDATA #REQUIRED>
+
+  <!ELEMENT ServerAddress (#PCDATA)>
+
+  <!ATTLIST ServerAddress addresstype CDATA #REQUIRED>       <!-- uri -->
+
+  <!ELEMENT AppInfo (InName, FName, AppId?, ServerAddress)>
+
+  <!ELEMENT InName (#PCDATA)>
+
+  <!ELEMENT FName (#PCDATA)>
+
+  <!ELEMENT AppId (#PCDATA)>
+
+  <!ELEMENT Ticket (#PCDATA)>
+
+  <!ELEMENT ClientId (#PCDATA)>
+
+  <!ELEMENT ClientName (#PCDATA)>
+
+  <!ELEMENT Duration (#PCDATA)>
+
+  <!ELEMENT LicenseType (#PCDATA)>         <!-- online | offline | online-streaming | offline-streaming -->
+
+  <!ELEMENT Reason (#PCDATA)>                                 <!-- unspecified -->
+
+  <!ELEMENT Routing (#PCDATA)>
+
+  <!ELEMENT ErrorId (#PCDATA)>                                <!-- unspecified | parse-error |
+                                                                  invalid-ticket | no-license |
+                                                                  no-session | no-route |
+                                                                  overloaded | disallowed -->
+
+  <!ELEMENT ErrorCode (#PCDATA)>
+
+  <!ELEMENT Annoyance (#PCDATA)>
+
+<!--  ]> -->
+
+
+
+
+

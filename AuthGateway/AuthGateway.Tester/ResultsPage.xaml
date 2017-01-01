@@ -1,0 +1,39 @@
+﻿<Page x:Class="AuthGateway.Tester.ResultsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Results Page"
+      WindowTitle="WrightCCS - Results"
+>
+	<Grid Margin="10">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding UsersPolledFromAd}" ></TextBlock>
+		<TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding UsersPolledFromAdSkipped}" ></TextBlock>
+		<TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding UsersPolledFromAdProcessed}" ></TextBlock>
+		<TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding UsersPolledFromAdActive}" ></TextBlock>
+		<TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding UsersPolledFromAdInactive}" ></TextBlock>
+		<TextBlock Grid.Row="5" Grid.Column="0" Text="{Binding UsersPolledFromAdAlreadyInDatabase}"></TextBlock>
+		<TextBlock Grid.Row="6" Grid.Column="0" Text="{Binding UsersInDatabase}"></TextBlock>
+		<TextBlock Grid.Row="7" Grid.Column="0" Text="{Binding UsersInDatabaseActive}"></TextBlock>
+		
+		<ListBox Grid.Row="8" Grid.Column="0" Name="LogBox" Margin="0,10,0,0" ItemsSource="{Binding LogLines}"></ListBox>
+		
+		<StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Right">
+			<Button Width="125"
+				Height="25" Margin="20,0,0,0" Click="Save_Click" IsEnabled="{Binding NextEnabled}" Name="btnSaveLog">Save Result</Button>
+		</StackPanel>
+	</Grid>
+</Page>

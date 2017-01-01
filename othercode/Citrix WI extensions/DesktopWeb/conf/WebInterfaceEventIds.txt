@@ -1,0 +1,238 @@
+﻿#Loggable Messages are logged with Event Ids.
+#This file maps the keys for loggable messages to Event Ids.
+#Messages and Event Ids are grouped together according to component
+#The Event Ids are limited by the Windows API to values between 0 and 65535
+#The Event Id 0 is reserved to indicate an error finding an event id for any reason
+
+# Configuration Errors
+
+ConfParseError=10001
+ConfLoadError=10002
+PNAClientConfLoadError=10003
+ConfReloaded=10004
+ConfDuplicateEntry=10005
+UnknownAuthPoint=10006
+AnonymousAuthAndRoamingUserEnabled=10007
+NDSUnsupported=10008
+SSOUnsupported=10009
+2FactorConfigError=10010
+NoAuthenticationMethods=10011
+
+# ICA File Signing Service Configuration Errors
+NoIFSForJSP=10201
+NoIFSForLegacyClientSupport=10202
+NoIFSForStreamingOnlySite=10203
+NoIFSForNonNativeClient=10204
+ICAFileSigningFailed=10205
+ICAFileSigningSecurityAccessDenied=10206
+
+# Protocol Transition Service Configuration Errors
+
+PTSConfigurationError=10101
+
+# Client Detection Wizard Logging
+
+InvalidRedirectUrl=11001
+NoClientToDetect=11002
+UnsupportedOS=11003
+NullUserAgent=11004
+
+# Log Suppression
+
+LogSuppressionInformation=12001
+LogSuppressionWarning=12002
+NoEventLogIds=12003
+InvalidEventLogId=12004
+
+# Web Service Errors
+
+WebServiceSslError=13001
+CannotGetGroupSIDs=13002
+
+# RSA and Safeword Login Problems
+
+RSADLLProblem=14001
+RSADLLVersionProblem=14002
+SafewordDLLProblem=14003
+RSASetPasswordFailed=14004
+RSAGetPasswordFailed=14005
+SafewordAuthenticatorError=14006
+RSADLLIncorrectBitness=14007
+
+# Multilanguage Support
+
+FailedClientVersionDetect=15001
+InvalidMarkerFile=15002
+CannotAccessDirectory=15003
+MissingLanguagePackVersion=15004
+InvalidLanguagePackVersion=15005
+DefaultLocaleFallback=15006
+
+# RADIUS
+
+SecretReadError=16001
+SecretEmpty=16002
+RadiusAuthenticatorError=16003
+NASIdentifierOrIPAddressRequired=16004
+
+# NDS
+
+NDSServerFailedContextSearch=17001
+NDSAllServersFailed=17002
+
+# Citrix Access Gateway Integration and Authentication
+
+AuthSvcUnknownAccessInfoError=18001
+AuthSvcUnknownLogoutError=18002
+AuthSvcAccessInfoFailed=18003
+AuthSvcLogoutFailed=18004
+AuthSvcBadURL=18005
+ProtocolTransitionFailed=18006
+AGChangePasswordNotSupported=18007
+
+# Workspace control
+
+DisconnectInternalError=19001
+ReconnectInternalError=19002
+
+# Account self service
+
+CPMServiceUnknownError=20001
+CPMServiceBadURL=20002
+
+# General Problems
+
+JavaFatalError=21001
+DotNetFatalError=21002
+ErrorCreatingFileWatcher=21003
+UnderscoreInDomainName=21004
+ICOClientLaunchFailed=21005
+RCOClientLaunchFailed=21006
+
+# Missing Client Errors
+
+NoJavaClientOnServer=22001
+
+# LID Errors
+
+DACIcaLaunchError=23001
+DACObjectLaunchZoneError=23002
+DACInvalidAuthConfig=23003
+DACMoreThanOneDesktop=23004
+DACInvalidEmbeddedAuthConfig=23005
+DACInvalidMultiAuthConfig=23006
+
+# General Authentication
+
+ADFSUnauthenticatedUser=24001
+UnauthenticatedUser=24002
+
+# xmlclient_strings
+
+WireException.ServerReadError=30001
+WireException.ServerWriteError=30002
+WireException.ConnectionRefused=30003
+WireException.UnknownHost=30004
+WireException.BadHTTPSyntax=30005
+WireException.BadCharlotteSyntax=30006
+WireException.PrematurePacketEnd=30008
+WireException.HttpErrorPacket=30009
+WireException.CharlotteErrorNoServerAvailable=30010
+WireException.CharlotteErrorOther=30011
+WireException.CharlotteErrorVersionMismatch=30012
+WireException.CharlotteErrorBadRequest=30013
+WireException.CharlotteErrorParserError=30014
+WireException.CharlotteErrorServiceUnavailable=30015
+WireException.HttpErrorPacket404=30016
+WireException.HttpErrorPacket405=30017
+WireException.HttpErrorPacket406=30018
+WireException.HttpErrorPacket411=30019
+WireException.HttpErrorPacket409=30020
+WireException.HttpErrorPacket413=30021
+WireException.HttpErrorPacket503=30022
+WireException.XmlParserErrorGeneric=30023
+WireException.XmlParserErrorBadXml=30024
+WireException.ServerReadErrorSsl=30025
+WireException.ConnectionFailedSsl=30026
+WireException.NFuseServerLowerVersion=30027
+WireException.UnknownRelayServer=30028
+WireException.SslErrorGeneralError=30029
+WireException.SocksErrorGeneralError=30030
+WireException.CapabilityNotSupported=30031
+TransactionStatusException.ChangePasswordConsistencyCheck=30101
+TransactionStatusException.CharlotteErrorUnspecified=30102
+TransactionStatusException.CharlotteErrorNoAlternateAddress=30103
+TransactionStatusException.CharlotteAppHostUnreachable=30104
+TransactionStatusException.WorkspaceControlNotTrusted=30105
+TransactionStatusException.NotLicensed=30106
+TransactionStatusException.CharlotteMFServerOverloaded=30107
+TransactionStatusException.TicketingDisabled=30108
+TransactionStatusException.NotRegistered=30109
+TransactionStatusException.IMAError=30110
+TransactionStatusException.UnsupportedAddressType=30111
+TransactionStatusException.NoAvailableWorkstation=30112
+TransactionStatusException.ConnectionRefused=30113
+TransactionStatusException.SidEnumerationDenied=30114
+TransactionStatusException.SidEnumerationFailed=30115
+TransactionStatusException.WorkstationInMaintenance=30116
+TransactionStatusException.OperationNotSupported=30117
+TransactionStatusException.ServerTimedOut=30118
+TransactionStatusException.WorkstationInMaintenancePowerOff=30119
+TransactionStatusException.UserNotFound=30120
+STAClientImpl.InvalidSTAAddress=30201
+STAClientImpl.V4TicketsNotSupported=30202
+STAClientImpl.BadTicket=30203
+STAClientImpl.STAFailed=30204
+STAClientImpl.AllSTAsFailed=30205
+CtxTransactionTransport.UnexpectedClosedConnection=30301
+CitrixHttpStream.PooledSocketDestroyed=30401
+
+# mpssourceimpl_strings
+
+MPSFarmFacade.XMLService.Log.XmlServiceFailed=31001
+MPSFarmFacade.XMLService.Log.XmlServiceTried=31002
+MPSFarmFacade.XMLService.Log.AllXMLServicesFailed=31003
+MPSFarmFacade.XMLService.Log.AccessStatusCodeConversionFailed=31004
+MPSFarmFacade.XMLService.Log.PartialEnumeration=31005
+MPSFarmFacade.XMLService.Log.LogInLicenseError=31006
+MPSFarmFacade.XMLService.Log.WorkspaceControlNotLicensed=31007
+MPSFarmFacade.XMLService.Log.LaunchNotLicensed=31008
+MPSFarmFacade.XMLService.Log.ErrorRetrievingAccountInfo=31009
+MPSSource.AppData.SessionWithNoApp=31101
+MPSLaunch.Launch.TicketingNotSupported=31201
+MPSLaunch.Launch.LaunchedDisabledApp=31202
+MPSLaunch.Launch.LaunchReferencesNotSupported=31203
+MPSFarmFacade.Config.Log.InvalidFarmConfig=31301
+
+# pnaagentimpl_strings
+
+PNAgentBuilder.Config.Log.NoFarms=32001
+PNAgentBuilder.Config.Log.ConfigParseError=32002
+PNAgentBuilder.Config.Log.SystemError=32003
+
+# radeimpl_strings
+
+RadeService.XMLService.Log.XmlServiceFailed=33001
+RadeService.XMLService.Log.XmlServiceTried=33002
+RadeService.XMLService.Log.AllXMLServicesFailed=33003
+RadeService.Config.Log.InvalidFarmConfig=33004
+RadeBuilder.Config.Log.NoFarms=33005
+RadeService.Config.Log.NoValidationRulesFile=33006
+RadeService.Config.Log.InvalidValidationRule=33007
+
+# webpnimpl_strings
+
+WebPNBuilder.Config.Log.NoFarms=34001
+WebPNBuilder.Config.Log.ConfigParseError=34002
+WebPNBuilder.Config.Log.SystemError=34003
+
+#pnagent_strings
+
+EnumerateXMLProtocolError=40001
+LaunchXMLProtocolError=40002
+ReconnectXMLProtocolError=40003
+NonexistentPNAConfigRequested=40004
+PNALaunchError=40005
+DesktopControlXMLProtocolError=40006
+
+

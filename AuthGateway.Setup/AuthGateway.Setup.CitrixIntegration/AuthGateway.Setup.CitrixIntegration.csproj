@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{802D0233-1DC8-4577-A82C-D0155375393A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AuthGateway.Setup.CitrixIntegration</RootNamespace>
+    <AssemblyName>AuthGateway.Setup.CitrixIntegration</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>AuthGateway.Setup.CitrixIntegration.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AuthGateway\AuthGateway.Shared\CryptoHelper.cs">
+      <Link>Helpers\CryptoHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AuthGateway\AuthGateway.Shared\CryptoRandom.cs">
+      <Link>Helpers\CryptoRandom.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AuthGateway\AuthGateway.Shared\HexConversion.cs">
+      <Link>Helpers\HexConversion.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AuthGateway\AuthGateway.Shared\Log\ILogger.cs">
+      <Link>Log\ILogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AuthGateway\AuthGateway.Shared\Log\Logger.cs">
+      <Link>Log\Logger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AuthGateway\AuthGateway.Shared\Log\Loggers\ConsoleLogger.cs">
+      <Link>Log\Loggers\ConsoleLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AuthGateway\AuthGateway.Shared\Log\Loggers\FileLogger.cs">
+      <Link>Log\Loggers\FileLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AuthGateway\AuthGateway.Shared\Log\Loggers\MemoryLogger.cs">
+      <Link>Log\Loggers\MemoryLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AuthGateway\AuthGateway.Shared\Serializer\Generic.cs">
+      <Link>Serializer\Generic.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AuthGateway\AuthGateway.Shared\Serializer\Writer.cs">
+      <Link>Serializer\Writer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\AuthGateway\AuthGateway.Shared\SystemConfiguration.cs">
+      <Link>SystemConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="Helpers\WindowHandleWrapper.cs" />
+    <Compile Include="SetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SetupForm.Designer.cs">
+      <DependentUpon>SetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SetupForm.resx">
+      <DependentUpon>SetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CitrixMod\app_code\PagesJava\com\citrix\wi\controls\CheckPinPageControl.java" />
+    <Content Include="CitrixMod\app_code\PagesJava\com\citrix\wi\pages\auth\CheckPin.java" />
+    <Content Include="CitrixMod\app_code\PagesJava\com\citrix\wi\pages\auth\Explicit.java" />
+    <Content Include="CitrixMod\app_code\PagesJava\com\citrix\wi\pages\auth\Login.java" />
+    <Content Include="CitrixMod\app_code\PagesJava\custom\auth\TcpClients.java" />
+    <Content Include="CitrixMod\app_code\PagesJava\custom\auth\ValidateUserRet.java" />
+    <Content Include="CitrixMod\app_data\clientscripts\check_pin.js" />
+    <Content Include="CitrixMod\app_data\clientscripts\check_pinClientScript.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="CitrixMod\app_data\include\check_pin.inc" />
+    <Content Include="CitrixMod\app_data\include\check_pinView.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="CitrixMod\app_data\include\check_pin_layout.ascx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="CitrixMod\auth\check_pin.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <None Include="Libs\DotNetZip\Ionic.Zip.dll" />
+    <Content Include="Libs\DotNetZip\License.bzip2.txt" />
+    <Content Include="Libs\DotNetZip\License.txt" />
+    <Content Include="Libs\DotNetZip\License.zlib.txt" />
+    <Content Include="Libs\DotNetZip\Readme.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

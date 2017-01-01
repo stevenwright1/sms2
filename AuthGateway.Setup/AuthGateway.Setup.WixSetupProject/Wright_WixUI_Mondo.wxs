@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	<copyright file="WixUI_Mondo.wxs" company="Outercurve Foundation">
+		Copyright (c) 2004, Outercurve Foundation.
+		This software is released under Microsoft Reciprocal License (MS-RL).
+		The license and further copyright text can be found in the file
+		LICENSE.TXT at the root directory of the distribution.
+	</copyright>
+-->
+
+<!--
+First-time install dialog sequence:
+- WixUI_WelcomeDlg
+- WixUI_LicenseAgreementDlg
+- WixUI_SetupTypeDlg
+- WixUI_VerifyReadyDlg
+- WixUI_CustomizeDlg
+- WixUI_DiskCostDlg
+- WixUI_BrowseDlg
+
+Maintenance dialog sequence:
+- WixUI_MaintenanceWelcomeDlg
+- WixUI_MaintenanceTypeDlg
+- WixUI_CustomizeDlg
+- WixUI_VerifyReadyDlg
+
+Patch dialog sequence:
+ - WixUI_WelcomeDlg
+ - WixUI_VerifyReadyDlg
+-->
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+		<UI Id="Wright_WixUI_Mondo">
+			<TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
+			<TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
+			<TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
+
+			<Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
+			<Property Id="WixUI_Mode" Value="Mondo" />
+
+			<DialogRef Id="ErrorDlg" />
+			<DialogRef Id="FatalError" />
+			<DialogRef Id="FilesInUse" />
+			<DialogRef Id="MsiRMFilesInUse" />
+			<DialogRef Id="PrepareDlg" />
+			<DialogRef Id="ProgressDlg" />
+			<DialogRef Id="ResumeDlg" />
+			<DialogRef Id="UserExit" />
+			<DialogRef Id="VerifyReadyDlg" />
+
+			<Publish Dialog="ExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999">1</Publish>
+
+			<Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="WCSS_SetupTypeDlg">NOT Installed AND NOT PATCH</Publish>
+			<Publish Dialog="WelcomeDlg" Control="Next" Event="DoAction" Value="CA_WrightCCS_CA_CheckIAS">1</Publish>
+			<Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="AuthEngineDlg">Installed AND PATCH</Publish>
+
+			<Publish Dialog="CustomizeDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="1">WixUI_InstallMode = "Change"</Publish>
+			<Publish Dialog="CustomizeDlg" Control="Back" Event="NewDialog" Value="WCSS_SetupTypeDlg" Order="2">WixUI_InstallMode = "InstallCustom"</Publish>
+			<Publish Dialog="CustomizeDlg" Control="Next" Event="DoAction" Value="CA_WrightCCS_CA_CheckIAS">1</Publish>
+			<Publish Dialog="CustomizeDlg" Control="Next" Event="NewDialog" Value="AuthEngineDlg">1</Publish>
+
+			<Publish Dialog="AuthEngineDlg" Control="Back" Event="NewDialog" Value="CustomizeDlg" Order="1">WixUI_InstallMode = "InstallCustom"</Publish>
+			<Publish Dialog="AuthEngineDlg" Control="Back" Event="NewDialog" Value="WCSS_SetupTypeDlg" Order="2">WixUI_InstallMode = "InstallTypical" OR WixUI_InstallMode = "InstallComplete"</Publish>
+			<Publish Dialog="AuthEngineDlg" Control="Back" Event="NewDialog" Value="CustomizeDlg" Order="3">WixUI_InstallMode = "Change"</Publish>
+			<Publish Dialog="AuthEngineDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="4">WixUI_InstallMode = "Repair" OR WixUI_InstallMode = "Remove"</Publish>
+			<Publish Dialog="AuthEngineDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="2">WixUI_InstallMode = "Update"</Publish>
+
+			<Publish Dialog="AuthEngineDlg" Control="Next" Event="NewDialog" Value="CitrixIntegrationInstallDirDlg" Order="1"><![CDATA[&WiCustom=3]]></Publish>
+			<Publish Dialog="AuthEngineDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg" Order="2"><![CDATA[&WiCustom<>3]]></Publish>
+
+			<Publish Dialog="CitrixIntegrationInstallDirDlg" Control="Back" Event="NewDialog" Value="AuthEngineDlg">1</Publish>
+      <Publish Dialog="CitrixIntegrationInstallDirDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+      <Publish Dialog="CitrixIntegrationInstallDirDlg" Control="ChangeFolder" Property="_BrowseProperty" Value="CITRIX_INSTALLDIR" Order="1">1</Publish>
+      <Publish Dialog="CitrixIntegrationInstallDirDlg" Control="ChangeFolder" Event="SpawnDialog" Value="BrowseDlg" Order="2">1</Publish>
+            
+			
+			<Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="AuthEngineDlg">1</Publish>
+
+			<Publish Dialog="MaintenanceWelcomeDlg" Control="Next" Event="NewDialog" Value="MaintenanceTypeDlg">1</Publish>
+
+			<Publish Dialog="MaintenanceTypeDlg" Control="ChangeButton" Event="NewDialog" Value="CustomizeDlg">1</Publish>
+			<Publish Dialog="MaintenanceTypeDlg" Control="RepairButton" Event="DoAction" Value="CA_WrightCCS_CA_CheckIAS">1</Publish>
+			<Publish Dialog="MaintenanceTypeDlg" Control="RepairButton" Event="NewDialog" Value="AuthEngineDlg">1</Publish>
+			<Publish Dialog="MaintenanceTypeDlg" Control="RemoveButton" Event="DoAction" Value="CA_WrightCCS_CA_CheckIAS">1</Publish>
+			<Publish Dialog="MaintenanceTypeDlg" Control="RemoveButton" Event="NewDialog" Value="AuthEngineDlg">1</Publish>
+			<Publish Dialog="MaintenanceTypeDlg" Control="Back" Event="NewDialog" Value="MaintenanceWelcomeDlg">1</Publish>
+		</UI>
+		<UIRef Id="WixUI_Common" />
+
+		<UI>
+			<Dialog Id="AuthEngineDlg" Width="370" Height="270" Title="!(loc.WelcomeDlg_Title)">
+				<Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Text="!(loc.WixUINext)" >
+					<Condition Action="enable">
+						<![CDATA[(((NOT (&AuthEngine=3)) OR AUTHENGINE_CONFIGURATION_VALID = "1") AND ((NOT (&CloudSMS=3)) OR CLOUDSMS_CONFIGURATION_VALID = "1") AND ((NOT (&OATHCalc=3)) OR OATHCALC_CONFIGURATION_VALID = "1") AND ((NOT (&IasRadius=3)) OR IASSERVICEINSTALLED = "1"))]]></Condition>
+					<Condition Action="disable">
+						<![CDATA[(((&AuthEngine=3) AND AUTHENGINE_CONFIGURATION_VALID = "0") OR ((&CloudSMS=3) AND CLOUDSMS_CONFIGURATION_VALID = "0") OR ((&OATHCalc=3) AND OATHCALC_CONFIGURATION_VALID = "0") OR ((&IasRadius=3) AND IASSERVICEINSTALLED = "0"))]]></Condition>
+				</Control>
+				<Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+					<Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+				</Control>
+				<Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)">
+				</Control>
+				<Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.LicenseAgreementDlgBannerBitmap)" />
+				<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+				<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+				<Control Id="Title" Type="Text" X="15" Y="6" Width="210" Height="15" Transparent="yes" NoPrefix="yes" Text="{\WixUI_Font_Title}WrightCCS - SMS2" />
+				<Control Id="Description" Type="Text" X="25" Y="23" Width="340" Height="105" Transparent="yes" NoPrefix="yes" 
+								 Text="Services Configuration" />
+
+				<Control Id="BtnConfigAuthEngine" Type="PushButton"  Width="156" Height="16" X="45" Y="108" Text="Configure AuthEngine">
+					<Condition Action="disable"><![CDATA[NOT (&AuthEngine=3)]]></Condition>
+					<Publish Event="DoAction" Value="CA_WrightCCS_CA_ConfigureAuthEngine">1</Publish>
+					<Publish Property="TEMP_VERIFIED" Value="[AUTHENGINE_CONFIGURATION_VALID]">1</Publish>
+					<Publish Property="AUTHENGINE_CONFIGURATION_VALID" Value="[TEMP_VERIFIED]" />
+				</Control>
+				<Control Id="ChkConfigAuthEngine" Type="Text" 
+								 Width="156" Height="16" X="210" Y="110" Text="Needs Configuration">
+					<Condition Action="hide"><![CDATA[((NOT (&AuthEngine=3)) OR AUTHENGINE_CONFIGURATION_VALID = "1")]]></Condition>
+					<Condition Action="show"><![CDATA[((&AuthEngine=3) AND AUTHENGINE_CONFIGURATION_VALID = "0")]]></Condition>
+				</Control>
+				<Control Id="ChkConfigAuthEngineOK" Type="Text"
+								 Width="156" Height="16" X="210" Y="110" Text="OK">
+					<Condition Action="show"><![CDATA[((NOT (&AuthEngine=3)) OR AUTHENGINE_CONFIGURATION_VALID = "1")]]></Condition>
+					<Condition Action="hide"><![CDATA[((&AuthEngine=3) AND AUTHENGINE_CONFIGURATION_VALID = "0")]]></Condition>
+				</Control>
+				<Control Id="BtnConfigCloudSMS" Type="PushButton" Width="156" Height="16" X="45" Y="128" Text="Configure CloudSMS">
+					<Condition Action="disable"><![CDATA[NOT (&CloudSMS=3)]]></Condition>
+					<Publish Event="DoAction" Value="CA_WrightCCS_CA_ConfigureCloudSMS">1</Publish>
+					<Publish Property="TEMP_VERIFIED" Value="[CLOUDSMS_CONFIGURATION_VALID]">1</Publish>
+					<Publish Property="CLOUDSMS_CONFIGURATION_VALID" Value="[TEMP_VERIFIED]" />
+					<Publish Property="CLOUDSMS_CONFIGURATION_TICK" Value="1" Order="1"><![CDATA[TEMP_VERIFIED=1]]></Publish>
+					<Publish Property="CLOUDSMS_CONFIGURATION_TICK" Value="{}" Order="2"><![CDATA[TEMP_VERIFIED<>1]]></Publish>
+				</Control>
+				<Control Id="ChkConfigCloudSMS" Type="Text"
+								 Width="156" Height="16" X="210" Y="128" Text="Needs Configuration">
+					<Condition Action="hide"><![CDATA[((NOT (&CloudSMS=3)) OR CLOUDSMS_CONFIGURATION_VALID = "1")]]></Condition>
+					<Condition Action="show"><![CDATA[((&CloudSMS=3) AND CLOUDSMS_CONFIGURATION_VALID = "0")]]></Condition>
+				</Control>
+				<Control Id="ChkConfigCloudSMSOK" Type="Text"
+								 Width="156" Height="16" X="210" Y="128" Text="OK">
+					<Condition Action="show"><![CDATA[((NOT (&CloudSMS=3)) OR CLOUDSMS_CONFIGURATION_VALID = "1")]]></Condition>
+					<Condition Action="hide"><![CDATA[((&CloudSMS=3) AND CLOUDSMS_CONFIGURATION_VALID = "0")]]></Condition>
+				</Control>
+				<Control Id="BtnConfigOATHCalc" Type="PushButton"  Width="156" Height="16" X="45" Y="148" Text="Configure OATHCalc">
+					<Condition Action="disable"><![CDATA[NOT (&OATHCalc=3)]]></Condition>
+					<Publish Event="DoAction" Value="CA_WrightCCS_CA_ConfigureOATHCalc">1</Publish>
+					<Publish Property="TEMP_VERIFIED" Value="[OATHCALC_CONFIGURATION_VALID]">1</Publish>
+					<Publish Property="OATHCALC_CONFIGURATION_VALID" Value="[TEMP_VERIFIED]" />
+					<Publish Property="OATHCALC_CONFIGURATION_TICK" Value="1" Order="1"><![CDATA[TEMP_VERIFIED=1]]></Publish>
+					<Publish Property="OATHCALC_CONFIGURATION_TICK" Value="{}" Order="2"><![CDATA[TEMP_VERIFIED<>1]]></Publish>
+				</Control>
+				<Control Id="ChkConfigOATHCalc" Type="Text"
+								 Width="156" Height="16" X="210" Y="148" Text="Needs Configuration">
+					<Condition Action="hide"><![CDATA[((NOT (&OATHCalc=3)) OR OATHCALC_CONFIGURATION_VALID = "1")]]></Condition>
+					<Condition Action="show"><![CDATA[((&OATHCalc=3) AND OATHCALC_CONFIGURATION_VALID = "0")]]></Condition>
+				</Control>
+				<Control Id="ChkConfigOATHCalcOK" Type="Text"
+								 Width="156" Height="16" X="210" Y="148" Text="OK">
+					<Condition Action="show"><![CDATA[((NOT (&OATHCalc=3)) OR OATHCALC_CONFIGURATION_VALID = "1")]]></Condition>
+					<Condition Action="hide"><![CDATA[((&OATHCalc=3) AND OATHCALC_CONFIGURATION_VALID = "0")]]></Condition>
+				</Control>
+        <!--<Control Id="BtnConfigMutualAuthImages" Type="PushButton"  Width="156" Height="16" X="45" Y="168" Text="Configure MutualAuthImages">
+          <Condition Action="disable"><![CDATA[NOT (&MutualAuthImages=3)]]></Condition>
+          <Publish Event="DoAction" Value="CA_WrightCCS_CA_ConfigureMutualAuthImages">1</Publish>
+          <Publish Property="TEMP_VERIFIED" Value="[MAI_CONFIGURATION_VALID]">1</Publish>
+          <Publish Property="MAI_CONFIGURATION_VALID" Value="[TEMP_VERIFIED]" />          
+        </Control>
+        <Control Id="ChkConfigMutualAuthImages" Type="Text"
+								 Width="156" Height="16" X="210" Y="168" Text="Needs Configuration">
+          <Condition Action="hide"><![CDATA[((NOT (&MutualAuthImages=3)) OR MAI_CONFIGURATION_VALID = "1")]]></Condition>
+          <Condition Action="show"><![CDATA[((&MutualAuthImages=3) AND MAI_CONFIGURATION_VALID = "0")]]></Condition>
+        </Control>
+        <Control Id="ChkConfigMutualAuthImagesOK" Type="Text"
+								 Width="156" Height="16" X="210" Y="168" Text="OK">
+          <Condition Action="show"><![CDATA[((NOT (&MutualAuthImages=3)) OR MAI_CONFIGURATION_VALID = "1")]]></Condition>
+          <Condition Action="hide"><![CDATA[((&MutualAuthImages=3) AND MAI_CONFIGURATION_VALID = "0")]]></Condition>
+        </Control>-->
+
+				<Control Id="BtnConfigClients" Type="PushButton"  Width="156" Height="16" X="45" Y="168" Text="Configure AdminGUI/Clients">
+					<Condition Action="disable"><![CDATA[NOT (&AdminGUI=3) AND NOT (&IasRadius=3) AND NOT (&WiCustom=3) AND NOT (&GuiClient=3) AND NOT (&GsmGuiClient=3)]]></Condition>
+					<!-- AdminGUI IasRadius WiCustom GuiClient GsmGuiClient -->
+					<Publish Event="DoAction" Value="CA_WrightCCS_CA_ConfigureClients">1</Publish>
+					<Publish Property="TEMP_VERIFIED" Value="[CLIENTS_CONFIGURATION_VALID]">1</Publish>
+					<Publish Property="CLIENTS_CONFIGURATION_VALID" Value="[TEMP_VERIFIED]" />
+					<Publish Property="CLIENTS_CONFIGURATION_TICK" Value="1" Order="1"><![CDATA[TEMP_VERIFIED=1]]></Publish>
+					<Publish Property="CLIENTS_CONFIGURATION_TICK" Value="{}" Order="2"><![CDATA[TEMP_VERIFIED<>1]]></Publish>
+				</Control>
+				<Control Id="ChkConfigClients" Type="Text"
+								 Width="156" Height="16" X="210" Y="168" Text="Needs Configuration">
+					<Condition Action="hide"><![CDATA[((NOT (&AdminGUI=3) AND NOT (&IasRadius=3) AND NOT (&WiCustom=3) AND NOT (&GuiClient=3) AND NOT (&GsmGuiClient=3)) OR CLIENTS_CONFIGURATION_VALID = "1")]]></Condition>
+					<Condition Action="show"><![CDATA[(((&AdminGUI=3) OR (&IasRadius=3) OR (&WiCustom=3) OR (&GuiClient=3) OR (&GsmGuiClient=3)) AND CLIENTS_CONFIGURATION_VALID = "0")]]></Condition>
+				</Control>
+				<Control Id="ChkConfigClientsOK" Type="Text"
+								 Width="156" Height="16" X="210" Y="168" Text="OK">
+					<Condition Action="show"><![CDATA[((NOT (&AdminGUI=3) AND NOT (&IasRadius=3) AND NOT (&WiCustom=3) AND NOT (&GuiClient=3) AND NOT (&GsmGuiClient=3)) OR CLIENTS_CONFIGURATION_VALID = "1")]]></Condition>
+					<Condition Action="hide"><![CDATA[(((&AdminGUI=3) OR (&IasRadius=3) OR (&WiCustom=3) OR (&GuiClient=3) OR (&GsmGuiClient=3)) AND CLIENTS_CONFIGURATION_VALID = "0")]]></Condition>
+				</Control>        
+
+        <Control Id="BtnConfigCommonProperties" Type="PushButton"  Width="156" Height="16" X="45" Y="188" Text="Configure Common Properties">
+          <Condition Action="disable"><![CDATA[NOT (&AuthEngine=3)]]></Condition>
+          <Publish Event="DoAction" Value="CA_WrightCCS_CA_ConfigureCommonProperties">1</Publish>
+          <Publish Property="TEMP_VERIFIED" Value="[COMMON_PROPERTIES_CONFIGURATION_VALID]">1</Publish>
+          <Publish Property="COMMON_PROPERTIES_CONFIGURATION_VALID" Value="[TEMP_VERIFIED]" />
+        </Control>
+        <Control Id="ChkConfigComonProperties" Type="Text"
+								 Width="156" Height="16" X="210" Y="188" Text="Needs Configuration">
+          <Condition Action="hide"><![CDATA[((NOT (&AuthEngine=3)) OR COMMON_PROPERTIES_CONFIGURATION_VALID = "1")]]></Condition>
+          <Condition Action="show"><![CDATA[(((&AuthEngine=3)) AND COMMON_PROPERTIES_CONFIGURATION_VALID = "0")]]></Condition>
+        </Control>
+        <Control Id="ChkConfigCommonPropertiesOK" Type="Text"
+								 Width="156" Height="16" X="210" Y="188" Text="OK">
+          <Condition Action="show"><![CDATA[((NOT (&AuthEngine=3)) OR COMMON_PROPERTIES_CONFIGURATION_VALID = "1")]]></Condition>
+          <Condition Action="hide"><![CDATA[(((&AuthEngine=3)) AND COMMON_PROPERTIES_CONFIGURATION_VALID = "0")]]></Condition>
+        </Control>
+        
+				<Control Id="IASNotInstalled" Type="Text" X="45" Y="190" Width="300" Height="105" Transparent="yes" NoPrefix="yes"
+								 Text="{\ErrorFont}IAS/NPS RADIUS client needs IAS or NPS installed on the server to continue">
+					<Condition Action="hide"><![CDATA[(((NOT (&IasRadius=3)) OR IASSERVICEINSTALLED = "1"))]]></Condition>
+					<Condition Action="show"><![CDATA[(((&IasRadius=3) AND IASSERVICEINSTALLED = "0"))]]></Condition>
+				</Control>
+			</Dialog>
+			<TextStyle Id="ErrorFont" FaceName="Tahoma" Size="10" Bold="yes" Red="255" Green="10" Blue="10" /> 
+		</UI>
+
+		<UI>
+			<Dialog Id="CitrixIntegrationInstallDirDlg" Width="370" Height="270" Title="Citrix Web Interface Directory">
+				<Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)" />
+				<Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
+				<Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+					<Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+				</Control>
+
+				<Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" Text="Select your current Citrix 6.5 WI directory" />
+				<Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.InstallDirDlgTitle)" />
+				<Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
+				<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+				<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+
+				<Control Id="FolderLabel" Type="Text" X="20" Y="60" Width="290" Height="30" NoPrefix="yes" Text="Citrix Web Interface Directory" />
+				<Control Id="Folder" Type="PathEdit" X="20" Y="100" Width="320" Height="18" Property="CITRIX_INSTALLDIR" />
+				<Control Id="ChangeFolder" Type="PushButton" X="20" Y="120" Width="56" Height="17" Text="!(loc.InstallDirDlgChange)" />
+			</Dialog>
+		</UI>
+		<UI>
+			<Dialog Id="WCSS_SetupTypeDlg" Width="370" Height="270" Title="!(loc.SetupTypeDlg_Title)">
+				<Control Id="SingleServerNPS" Type="PushButton" X="40" Y="60" Width="140" Height="17" ToolTip="This will install services and the IAS/NPS plugin on this server." Default="yes" Text="Single server - NPS">
+					<Publish Property="WixUI_InstallMode" Value="InstallTypical">1</Publish>
+					<!--
+					<Publish Event="SetInstallLevel" Value="1000">1</Publish>
+					-->
+					<Publish Event="SetInstallLevel" Value="1">1</Publish>
+					<Publish Event="AddLocal" Value="ALL">1</Publish>
+					
+					<Publish Event="Remove" Value="WiCustom">1</Publish>
+					<Publish Event="Remove" Value="GuiClient">1</Publish>
+					<Publish Event="Remove" Value="Sms2PremiumAccess">1</Publish>
+          <!--
+					<Publish Event="Remove" Value="OathCmdClient">1</Publish>
+          -->
+					<Publish Event="Remove" Value="GsmGuiClient">1</Publish>
+					
+					<Publish Event="DoAction" Value="CA_WrightCCS_CA_CheckIAS">1</Publish>
+					<Publish Event="NewDialog" Value="AuthEngineDlg">1</Publish>
+				</Control>
+				<Control Id="NPSOnly" Type="PushButton" X="40" Y="103" Width="140" Height="17" ToolTip="This will install only the IAS/NPS plugin on this server." Default="yes" Text="NPS Plugin Only">
+					<Publish Property="WixUI_InstallMode" Value="InstallTypical">1</Publish>
+					<Publish Event="SetInstallLevel" Value="1">1</Publish>
+					<Publish Event="AddLocal" Value="ALL">1</Publish>
+
+					<!--<Publish Event="Remove" Value="Services">1</Publish>-->
+						<Publish Event="Remove" Value="AuthEngine">1</Publish>
+						<Publish Event="Remove" Value="CloudSMS">1</Publish>
+						<Publish Event="Remove" Value="OATHCalc">1</Publish>
+					<Publish Event="Remove" Value="AdminGUI">1</Publish>
+					<!--<Publish Event="Remove" Value="Clients">1</Publish>-->
+						<!--<Publish Event="Remove" Value="IasRadius">1</Publish>-->
+						<Publish Event="Remove" Value="WiCustom">1</Publish>
+						<Publish Event="Remove" Value="GuiClient">1</Publish>
+						<Publish Event="Remove" Value="Sms2PremiumAccess">1</Publish>
+          <!--<Publish Event="Remove" Value="OathCmdClient">1</Publish>-->
+						<Publish Event="Remove" Value="GsmGuiClient">1</Publish>
+					
+					<Publish Event="DoAction" Value="CA_WrightCCS_CA_CheckIAS">1</Publish>
+					<Publish Event="NewDialog" Value="AuthEngineDlg">1</Publish>
+				</Control>
+				<Control Id="AllButNPS" Type="PushButton" X="40" Y="146" Width="140" Height="17" ToolTip="This will install services and clients but not the IAS/NPS plugin on this server." Text="SMS2 server with remote NPS plugin">
+					<Publish Property="WixUI_InstallMode" Value="InstallComplete">1</Publish>
+					<Publish Event="SetInstallLevel" Value="1">1</Publish>
+					<Publish Event="AddLocal" Value="ALL">1</Publish>
+
+					<Publish Event="Remove" Value="IasRadius">1</Publish>
+					<Publish Event="Remove" Value="WiCustom">1</Publish>
+					<Publish Event="Remove" Value="GuiClient">1</Publish>
+					<Publish Event="Remove" Value="Sms2PremiumAccess">1</Publish>
+          <!--<Publish Event="Remove" Value="OathCmdClient">1</Publish>-->
+					<Publish Event="Remove" Value="GsmGuiClient">1</Publish>
+
+					<Publish Event="DoAction" Value="CA_WrightCCS_CA_CheckIAS">1</Publish>
+					<Publish Event="NewDialog" Value="AuthEngineDlg">1</Publish>
+				</Control>
+				<Control Id="CustomButton" Type="PushButton" X="40" Y="189" Width="140" Height="17" ToolTip="!(loc.SetupTypeDlgCustomButtonTooltip)" Text="!(loc.SetupTypeDlgCustomButton)">
+					<Publish Property="WixUI_InstallMode" Value="InstallCustom">1</Publish>
+					<Publish Event="NewDialog" Value="CustomizeDlg">1</Publish>
+				</Control>
+				<Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)">
+					<Publish Event="NewDialog" Value="WelcomeDlg">1</Publish>
+				</Control>
+				<Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Disabled="yes" Text="!(loc.WixUINext)" />
+				<Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+					<Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+				</Control>
+				<Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.SetupTypeDlgBannerBitmap)" />
+				<Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+				<Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+				<Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.SetupTypeDlgTitle)" />
+				<Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.SetupTypeDlgDescription)" />
+				
+				<Control Id="SingleServerNPSText" Type="Text" X="60" Y="80" Width="280" Height="20" Text="This will install services and the IAS/NPS plugin on this server." />
+				<Control Id="NPSOnlyText" Type="Text" X="60" Y="123" Width="280" Height="20" Text="This will install only the IAS/NPS plugin on this server." />
+				<Control Id="AllButNPSText" Type="Text" X="60" Y="166" Width="280" Height="20" Text="This will install services and clients but not the IAS/NPS plugin on this server." />
+				<Control Id="CustomButtonText" Type="Text" X="60" Y="209" Width="280" Height="20" Text="!(loc.SetupTypeDlgCustomText)" />
+			</Dialog>
+			<!--
+				<Publish Event="Remove" Value="Services">1</Publish>
+					<Publish Event="Remove" Value="AuthEngine">1</Publish>
+					<Publish Event="Remove" Value="CloudSMS">1</Publish>
+					<Publish Event="Remove" Value="OATHCalc">1</Publish>
+				<Publish Event="Remove" Value="AdminGUI">1</Publish>
+				<Publish Event="Remove" Value="Clients">1</Publish>
+					<Publish Event="Remove" Value="IasRadius">1</Publish>
+					<Publish Event="Remove" Value="WiCustom">1</Publish>
+					<Publish Event="Remove" Value="GuiClient">1</Publish>
+					<Publish Event="Remove" Value="Sms2PremiumAccess">1</Publish>
+					<Publish Event="Remove" Value="OathCmdClient">1</Publish>
+					<Publish Event="Remove" Value="GsmGuiClient">1</Publish>
+			-->
+		</UI>
+
+
+		<Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+		<Property Id="CITRIX_INSTALLDIR" Value="c:\inetpub\wwwroot\Citrix\XenApp" />
+		<Property Id="LICENSEXML" Value="0" Secure="yes"/>
+		<Property Id="CONFIGURATIONXML" Value="0" Secure="yes"/>
+		<Property Id="CONFIGURATIONCLIENTXML" Value="0" Secure="yes"/>
+		<Property Id="AUTHENGINE_CONFIGURATION_VALID" Value="0" Secure="yes"/>
+		<Property Id="CLOUDSMS_CONFIGURATION_VALID" Value="0" Secure="yes"/>
+    <Property Id="MAI_CONFIGURATION_VALID" Value="0" Secure="yes"/>
+		<Property Id="OATHCALC_CONFIGURATION_VALID" Value="0" Secure="yes"/>
+		<Property Id="CLIENTS_CONFIGURATION_VALID" Value="0" Secure="yes"/>		
+    <Property Id="COMMON_PROPERTIES_CONFIGURATION_VALID" Value="0" Secure="yes"/>		
+		<Property Id="IASSERVICEINSTALLED" Value="0" Secure="yes"/>
+    <Property Id="SEND_TRACKING_INFO" Value="TRUE" Secure="yes"/>
+	</Fragment>
+</Wix>

@@ -1,0 +1,91 @@
+<!-- Admin.dtd                                                              -->
+<!-- Copyright (c) 2001 - 2010 Citrix Systems, Inc. All Rights Reserved.    -->
+
+<!-- DTD for the Citrix Delegated Administration protocol.                 -->
+<!-- This protocol allows external entities to query and request changes to -->
+<!-- the configuration of a MetaFrame Server Farm.                          -->
+<!--                                                                        -->
+<!-- Version 1.1  22/10/2001                                                -->
+<!--                                                                        -->
+
+
+<!--  <!DOCTYPE AdminProtocol [  -->
+
+
+  <!ELEMENT AdminProtocol (
+    RequestGroup |
+    ResponseGroup |
+    ResponseError )> 
+
+  <!ATTLIST AdminProtocol version CDATA #REQUIRED>        <!-- version: 1.0 -->
+
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!--                   Protocol message declarations                      -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+  <!ELEMENT RequestGroup (
+    Scope,
+    GroupName+ )>
+
+  <!ELEMENT ResponseGroup (
+    Group+ | ErrorId )>
+
+  <!ELEMENT RequestChangePassword (
+    UserName,
+    Domain,
+    OldPassword,
+    NewPassword,
+    Hash )>
+
+  <!ELEMENT ResponseChangePassword (
+    ErrorId? )>
+
+  <!ELEMENT ResponseError (
+    ErrorId )>
+
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!--                        Data type declarations                        -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+  <!ELEMENT Domain (#PCDATA)>
+
+  <!ATTLIST Domain
+    type (NT | NDS | UNIX) "NT">
+
+  <!ELEMENT ErrorId (#PCDATA)>          <!-- bad-request | request-denied |
+                                             not-found | no-permission |
+                                             unspecified -->
+
+  <!ELEMENT Group (
+    (UserName*,
+     GroupName*)
+    | ErrorId )> 
+
+  <!ATTLIST Group 
+    name CDATA #REQUIRED
+    domain CDATA #IMPLIED>    
+
+  <!ELEMENT GroupName (#PCDATA)>
+
+  <!ATTLIST GroupName
+    domain CDATA #IMPLIED>    
+
+  <!ELEMENT Hash (#PCDATA)>
+
+  <!ATTLIST Hash
+    type CDATA #REQUIRED>
+
+  <!ELEMENT NewPassword (#PCDATA)>
+
+  <!ELEMENT OldPassword (#PCDATA)>
+
+  <!ELEMENT Scope EMPTY>
+
+  <!ATTLIST Scope traverse (onelevel | subtree) #REQUIRED>
+
+  <!ELEMENT UserName (#PCDATA)>
+
+  <!ATTLIST UserName
+    domain CDATA #IMPLIED>
+ 
+<!--  ]> -->  

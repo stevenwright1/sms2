@@ -1,0 +1,103 @@
+<<<<<<< local
+﻿BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+
+GO
+
+CREATE TABLE [CloudSMSModule](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[type] [nvarchar](50) NOT NULL,
+	[name] [nvarchar](50) NOT NULL,
+	[parameters] [nvarchar](max) NOT NULL,
+	[order] [int] NOT NULL
+ CONSTRAINT [PK_CloudSMSModule] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+) ) ON [PRIMARY]
+
+
+GO
+
+ALTER TABLE [AuthProviders] ADD [friendlyName] NVARCHAR(50) NULL;
+ALTER TABLE [AuthProviders] ADD [adGroup] NVARCHAR(50) NULL;
+ALTER TABLE [AuthProviders] ADD [enabled] BIT NULL;
+ALTER TABLE [AuthProviders] ADD [config] NVARCHAR(2000) NULL;
+ALTER TABLE [AuthProviders] ADD [default] BIT NULL;
+ALTER TABLE [AuthProviders] ADD [autoSetup] BIT NULL;
+ALTER TABLE [AuthProviders] ADD [order] TINYINT NULL;
+
+GO
+
+UPDATE [AuthProviders] 
+	SET 
+		[friendlyName] = '', 
+		[adGroup] = '', 
+		[enabled] = 0, [config] = '', [default] = 0, 
+		[autoSetup] = 0, [order] = 0
+		;
+	
+GO
+
+ALTER TABLE [AuthProviders] ADD CONSTRAINT DF_AuthProviders_FriendlyName DEFAULT '' FOR [friendlyName];
+ALTER TABLE [AuthProviders] ADD CONSTRAINT DF_AuthProviders_AdGroup DEFAULT '' FOR [adGroup];
+ALTER TABLE [AuthProviders] ADD CONSTRAINT DF_AuthProviders_Enabled DEFAULT 0 FOR [enabled];
+ALTER TABLE [AuthProviders] ADD CONSTRAINT DF_AuthProviders_Config DEFAULT '' FOR [config];
+ALTER TABLE [AuthProviders] ADD CONSTRAINT DF_AuthProviders_Default DEFAULT 0 FOR [default];
+ALTER TABLE [AuthProviders] ADD CONSTRAINT DF_AuthProviders_AutoSetup DEFAULT 0 FOR [autoSetup];
+ALTER TABLE [AuthProviders] ADD CONSTRAINT DF_AuthProviders_Order DEFAULT 0 FOR [order];
+
+GO
+
+ALTER TABLE [AuthProviders] ALTER COLUMN [friendlyName]  NVARCHAR(50) NOT NULL;
+ALTER TABLE [AuthProviders] ALTER COLUMN [adGroup] NVARCHAR(50) NOT NULL;
+ALTER TABLE [AuthProviders] ALTER COLUMN [enabled] BIT NOT NULL;
+ALTER TABLE [AuthProviders] ALTER COLUMN [config] NVARCHAR(2000) NOT NULL;
+ALTER TABLE [AuthProviders] ALTER COLUMN [default] BIT NOT NULL;
+ALTER TABLE [AuthProviders] ALTER COLUMN [autoSetup] BIT NOT NULL;
+ALTER TABLE [AuthProviders] ALTER COLUMN [order] TINYINT NOT NULL;
+
+GO
+
+ALTER TABLE [UserProviders] DROP CONSTRAINT [FK_UserProviders_AuthProviders]
+GO
+
+ALTER TABLE [UserProviders]  WITH CHECK ADD  CONSTRAINT [FK_UserProviders_AuthProviders] FOREIGN KEY([authProviderId])
+REFERENCES [AuthProviders] ([id])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [UserProviders] CHECK CONSTRAINT [FK_UserProviders_AuthProviders]
+GO
+
+ALTER TABLE [AuthProviders]
+ADD CONSTRAINT uc_Name_FriendlyName UNIQUE ([name], [friendlyName])
+
+GO
+
+UPDATE [SETTINGS] SET [VALUE] = '2.3.3' WHERE [SETTING] = 'VERSION'
+GO
+
+COMMIT
+=======
+﻿BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+
+GO
+ALTER TABLE [SMS_CONTACT] ADD [PANIC_PINCODE] VARCHAR(40) NOT NULL DEFAULT ''
+GO
+UPDATE [SETTINGS] SET [VALUE] = '2.3.3' WHERE [SETTING] = 'VERSION'
+GO
+
+COMMIT>>>>>>> other

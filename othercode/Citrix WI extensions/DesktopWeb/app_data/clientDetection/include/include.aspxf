@@ -1,0 +1,20 @@
+<%@ Import Namespace="com.citrix.wi.clientdetect" %>
+<%@ Import Namespace="com.citrix.wi.clientdetect.actions" %>
+<%@ Import Namespace="com.citrix.wi.clientdetect.controllers" %>
+<%@ Import Namespace="com.citrix.wi.clientdetect.models" %>
+<%@ Import Namespace="com.citrix.wi.clientdetect.type" %>
+<%@ Import Namespace="com.citrix.wi.clientdetect.util" %>
+<%@ Import Namespace="com.citrix.wi.config" %>
+<%@ Import Namespace="com.citrix.wi.mvc" %>
+<%@ Import Namespace="com.citrix.wi.mvc.asp" %>
+<%@ Import Namespace="com.citrix.wi.types" %>
+<%@ Import namespace="com.citrix.wi.util" %>
+<%@ Import namespace="com.citrix.wi.ui" %>
+<%@ Import namespace="com.citrix.wi.localization" %>
+<%@ Import namespace="com.citrix.wi.config.client" %>
+<%@ Import namespace="com.citrix.wi.pageutils" %>
+<%@ Import namespace="com.citrix.wing" %>
+<%@ Import namespace="com.citrix.wing.util" %>
+
+
+<%@ Import Namespace="java.util" %>

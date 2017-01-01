@@ -1,0 +1,20 @@
+<%@ Page MasterPageFile="~/app_data/clientDetection/include/wizardLayout.master" Language="C#"%>
+<%@ MasterType TypeName="com.citrix.wi.ui.BaseMasterPage" %>
+
+<!--#include file="~/app_data/clientDetection/include/include.aspxf" -->
+
+<script runat="server">
+    WizardContext wizardContext;
+    void Page_PreInit(object sender, System.EventArgs e) {
+        wizardContext = new WizardContext(AspWebAbstraction.getInstance(Context));
+        WebAbstraction abstraction = wizardContext.getWebAbstraction();
+        if (abstraction.isNewSession())
+        {
+            WizardUtil.handleSessionExpired(abstraction);
+            Response.End();
+        }
+        if (wizardContext.getInputs().getMasterPage() != null){
+            this.MasterPageFile = wizardContext.getInputs().getMasterPage();
+        }
+    }
+</script>

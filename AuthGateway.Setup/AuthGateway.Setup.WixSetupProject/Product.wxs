@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<?include $(sys.CURRENTDIR)vars.wxi ?>
+	<Product Id="*" Name="SMS2 ($(var.binPlatformDir))" Language="1033" Version="$(var.Version)"
+					 Manufacturer="WrightCCS"
+					 UpgradeCode="$(var.UpgradeCode)"
+					 >
+		<Package InstallerVersion="405" Compressed="yes" InstallScope="perMachine" InstallPrivileges="elevated" Platform="$(var.Platform)" />
+
+		<MediaTemplate EmbedCab="yes" />
+
+		<FeatureGroupRef Id="AllFeatures"/>
+
+		<UIRef Id="Wright_WixUI_Mondo" />
+
+		<Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
+
+		<Upgrade Id="$(var.UpgradeCode)">
+			<UpgradeVersion Minimum="1.0.0.0"
+											IncludeMinimum="yes"
+											Maximum="$(var.Version)"
+											IncludeMaximum="no"
+											OnlyDetect="no"
+											MigrateFeatures="yes"
+											Property="PREVIOUSVERSIONSINSTALLED" />
+		</Upgrade>
+
+		<PropertyRef Id="WIX_ACCOUNT_GUESTS" />
+		<PropertyRef Id="WIX_ACCOUNT_USERS" />
+		<PropertyRef Id="WIX_ACCOUNT_ADMINISTRATORS" />
+		<PropertyRef Id="WIX_ACCOUNT_NETWORKSERVICE" />
+		<PropertyRef Id="WIX_ACCOUNT_LOCALSERVICE" />
+		<PropertyRef Id="WIX_ACCOUNT_LOCALSYSTEM" />
+
+		<Property Id="AEUSERNAME" Secure="yes" />
+		<Property Id="AEPASSWORD" Secure="yes" Hidden="yes" />
+		<Property Id="CSMSUSERNAME" Secure="yes" />
+		<Property Id="CSMSPASSWORD" Secure="yes" Hidden="yes" />
+    <Property Id="MAIUSERNAME" Secure="yes" />
+    <Property Id="MAIPASSWORD" Secure="yes" Hidden="yes" />
+    <Property Id="OATHUSERNAME" Secure="yes" />
+		<Property Id="OATHPASSWORD" Secure="yes" Hidden="yes" />
+
+		<PropertyRef Id="NETFRAMEWORK40FULL"/>
+		<Condition Message="You must install Microsoft .NET 4.0">
+			<![CDATA[Installed OR NETFRAMEWORK40FULL]]>
+		</Condition>
+
+    <Property Id="HASVCPP2013">
+      <RegistrySearch Id="HasVCPP2013Search" Root="HKLM" Key="SOFTWARE\Wow6432Node\Microsoft\VisualStudio\12.0\VC\Runtimes\$(var.binPlatformDir)" Name="Installed" Type="raw" />
+    </Property>
+    <Condition Message="Microsoft Visual C++ 2013 Redistributable Package installation is required.">Installed OR (HASVCPP2013)</Condition>
+
+		<Binary Id="WrightCCSCustomActionDLL" SourceFile="..\..\AuthGateway.Setup\AuthGateway.Wix.ServiceConfig\bin\$(var.binPlatformDir)\$(var.Configuration)\AuthGateway.Wix.ServiceConfig.CA.dll" />
+
+		<CustomAction Id="CA_WrightCCS_CA_ConfigureAuthEngine"
+									BinaryKey="WrightCCSCustomActionDLL"
+									DllEntry="WrightCCS_CA_ConfigureAuthEngine"
+									Return="check"
+									Execute="immediate"
+									/>
+		<CustomAction Id="CA_WrightCCS_CA_ConfigureCloudSMS"
+									BinaryKey="WrightCCSCustomActionDLL"
+									DllEntry="WrightCCS_CA_ConfigureCloudSMS"
+									Return="check"
+									Execute="immediate"
+									/>
+    <CustomAction Id="CA_WrightCCS_CA_ConfigureMutualAuthImages"
+									BinaryKey="WrightCCSCustomActionDLL"
+									DllEntry="WrightCCS_CA_ConfigureMutualAuthImages"
+									Return="check"
+									Execute="immediate"
+									/>
+		<CustomAction Id="CA_WrightCCS_CA_ConfigureOATHCalc"
+									BinaryKey="WrightCCSCustomActionDLL"
+									DllEntry="WrightCCS_CA_ConfigureOATHCalc"
+									Return="check"
+									Execute="immediate"
+									/>
+		<CustomAction Id="CA_WrightCCS_CA_ConfigureClients"
+									BinaryKey="WrightCCSCustomActionDLL"
+									DllEntry="WrightCCS_CA_ConfigureClients"
+									Return="check"
+									Execute="immediate"
+									/>
+    <CustomAction Id="CA_WrightCCS_CA_ConfigureCommonProperties"
+									BinaryKey="WrightCCSCustomActionDLL"
+									DllEntry="WrightCCS_CA_ConfigureCommonProperties"
+									Return="check"
+									Execute="immediate"
+									/>
+		
+		<CustomAction Id="CA_WrightCCS_CA_CheckIAS"
+									BinaryKey="WrightCCSCustomActionDLL"
+									DllEntry="WrightCSS_CA_CheckIAS"
+									Execute="immediate"
+									Return="check"
+									/>
+		
+		<UI>
+			<InstallUISequence>
+				<Show Dialog="MaintenanceWelcomeDlg" Before="ProgressDlg">Installed AND NOT RESUME AND NOT PATCH</Show>
+			</InstallUISequence>
+		</UI>
+
+		<CustomAction Id="CA_WrightCCS_CA_After_InstallFiles"
+									BinaryKey="WrightCCSCustomActionDLL"
+									DllEntry="WrightCCS_CA_After_InstallFiles"
+									Execute="deferred"
+									Return="check"
+									Impersonate="no"
+									/>
+		<CustomAction Id="CA_WrightCCS_CA_After_InstallFiles_Rollback"
+									BinaryKey="WrightCCSCustomActionDLL"
+									DllEntry="WrightCCS_CA_After_InstallFiles_Rollback"
+									Execute="deferred"
+									Return="check"
+									Impersonate="no"
+									/>
+
+		<CustomAction Id="CA_WrightCCS_CA_Before_InstallFinalize"
+									BinaryKey="WrightCCSCustomActionDLL"
+									DllEntry="WrightCCS_CA_Before_InstallFinalize"
+									Execute="deferred"
+									Return="check"
+									Impersonate="no"
+									/>
+		<CustomAction Id="CA_WrightCCS_CA_Before_InstallFinalize_Rollback"
+									BinaryKey="WrightCCSCustomActionDLL"
+									DllEntry="WrightCCS_CA_Before_InstallFinalize_Rollback"
+									Execute="deferred"
+									Return="check"
+									Impersonate="no"
+									/>
+		<CustomAction Id="CA_WrightCCS_CA_RemoveOldResidual"
+									BinaryKey="WrightCCSCustomActionDLL"
+									DllEntry="WrightCCS_CA_RemoveOldResidual"
+									Execute="deferred"
+									Return="ignore"
+									Impersonate="no"
+									/>
+		<CustomAction Id="CA_WrightCCS_SetInstallLocation"
+							Property="CA_WrightCCS_CA_After_InstallFiles"
+							Value="InstallDir=[INSTALLLOCATION];ConfigurationXml=[CONFIGURATIONXML];ConfigurationClientXml=[CONFIGURATIONCLIENTXML];LicenseXml=[LICENSEXML];AeUsername=[AEUSERNAME];AePassword=[AEPASSWORD]"
+							/>
+		<InstallExecuteSequence>
+			<Custom Action="CA_WrightCCS_CA_RemoveOldResidual" Before="InstallFiles"><![CDATA[NOT (Installed OR  WIX_UPGRADE_DETECTED OR WIX_DOWNGRADE_DETECTED)]]></Custom>
+			<Custom Action="CA_WrightCCS_SetInstallLocation" Before="CA_WrightCCS_CA_After_InstallFiles"></Custom>
+			<Custom Action="CA_WrightCCS_CA_After_InstallFiles" After="InstallFiles"></Custom>
+			<Custom Action="CA_WrightCCS_CA_After_InstallFiles_Rollback" Before="CA_WrightCCS_CA_After_InstallFiles"></Custom>
+			<Custom Action="CA_WrightCCS_CA_Before_InstallFinalize" Before="InstallFinalize"></Custom>
+			<Custom Action="CA_WrightCCS_CA_Before_InstallFinalize_Rollback" Before="CA_WrightCCS_CA_Before_InstallFinalize"></Custom>
+			<RemoveExistingProducts After="InstallInitialize"/>
+		</InstallExecuteSequence>
+
+	</Product>
+</Wix>

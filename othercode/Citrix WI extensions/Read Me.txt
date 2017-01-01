@@ -1,0 +1,23 @@
+##########################################################################
+########                                                         #########
+######## SRC_HOME = ~\DesktopWeb\                                #########
+######## [new] = the module added newly                          #########
+######## [mod] = the module modified                             #########
+########                                                         #########
+##########################################################################
+
+[new] auth/check_pin.aspx
+[new] app_data/include/check_pin.inc
+[new] app_data/include/check_pin_layout.ascx
+[new] app_data/include/check_pinView.ascx
+[new] app_data/clientscripts/check_pin.js
+[new] app_data/clientscripts/check_pinClientScript
+
+[new] app_code/PagesJava/custom/auth/TcpClients.java
+[new] app_code/PagesJava/com/citrix/wi/auth/pages/CheckPin.java
+[new] app_code/PagesJava/com/citrix/wi/controls/CheckPinPageControl.java
+[mod] app_code/PagesJava/com/citrix/wi/pages/auth/Login.java
+[mod] app_code/PagesJava/com/citrix/wi/pages/auth/Explicit.java
+
+[new] conf/Crecentials.xml
+

@@ -1,0 +1,201 @@
+﻿#
+# WebInterface.conf
+# Ensure that this file is saved with UTF-8 encoding
+#
+
+# AccountSelfServiceUrl=[URL for account self-service]
+# AdditionalExplicitAuthentication=None
+# AddressResolutionType=DNS-port
+# AGEPromptPassword=Off
+# AGEWebServiceURL=[URL for the Citrix Access Gateway Enterprise web service]
+# AGAuthenticationMethod=Explicit
+# AllowBandwidthSelection=Off
+# AllowCustomizeAudio=Off
+# AllowCustomizeAutoLogin=On
+# AllowCustomizeClientPrinterMapping=Off
+# AllowCustomizeJavaClientPackages=Off
+# AllowCustomizeLayout=Off
+# AllowCustomizeLogoff=On
+# AllowCustomizePersistFolderLocation=Off
+# AllowCustomizeReconnectAtLogin=On
+# AllowCustomizeReconnectButton=On
+# AllowCustomizeSettings=On
+# AllowCustomizeShowHints=On
+# AllowCustomizeShowSearch=Off
+# AllowCustomizeSpecialFolderRedirection=Off
+# AllowCustomizeTransparentKeyPassthrough=Off
+# AllowCustomizeVirtualCOMPortEmulation=Off
+# AllowCustomizeWinColor=Off
+# AllowCustomizeWinSize=On
+# AllowDisplayInFrames=On
+# AllowFontSmoothing=On
+# AllowUserAccountUnlock=Off
+AllowUserPasswordChange=Never
+# AllowUserPasswordReset=Off
+# AlternateAddress=Off
+# ApplianceMultiDesktop=Off
+# ApplianceEmbeddedSmartcardSSO=Off
+# ApplianceEmbeddedSmartcardSSOPinTimeout=20
+ApplicationAccessMethods=Remote
+# AppSysMessage_<lang-code>=[Customized system message on the Applications screen in the specified language]
+AppTab1=Applications
+AppTab2=Desktops
+AppTab3=Content
+# AppWelcomeMessage_<lang-code>=[Customized welcome message on the Applications screen in the specified language]
+AuthenticationPoint=WebInterface
+# AutoLaunchDesktop=Off
+# AutoLoginDefault=On
+
+# BrandingColor=#95A2AC
+# BrandingImage=../media/HeaderGradient.png
+# BypassFailedRadiusServerDuration=[Number of minutes (60)]
+# BypassFailedSTADuration=[Number of minutes (60)]
+
+
+# ClientIcaLinuxX86=Filename:linuxx86-11.100.158406.tar.gz,Directory:Linux,Mui:Yes,Version:11.100
+# ClientIcaMac=Filename:Citrix online plug-in (web).dmg,Directory:Mac,Mui:Yes
+# ClientIcaSolarisSparc=Filename:solaris.tar.Z,Directory:Unix,Mui:No,Version:8.59
+# ClientIcaSolarisX86=Filename:solx86.tar.Z,Directory:Unix,Mui:No,Version:8.5
+# ClientIcaWin32=Filename:CitrixOnlinePluginWeb.exe,Directory:Windows,Mui:Yes,ClassID:238f6f83-b8b4-11cf-8771-00a024541ee3
+# ClientStreamingWin32=Filename:CitrixOfflinePlugin.exe,Directory:Windows,Mui:Yes,ClassID:4384F3C5-4A9E-4E81-9AAE-4251C2813861
+
+
+# ClientAddressMap=[Client address,address type,client address,address type,...]
+# ClientDefaultURL=http://www.citrix.com/download
+# ClientProxy=[Client address,proxy type,proxy address,client address,proxy type,proxy address,...]
+# CompactHeaderImage=../media/CitrixLogoHeader.png
+# CompactViewStyles=Icons,List
+# CredentialFormat=All
+# CSG_EnableSessionReliability=On
+# CSG_Server=[IP address or FQDN of the Secure Gateway server]
+# CSG_ServerPort=[Port number for the Secure Gateway server (443)]
+# CSG_STA_URL1=[URL for the Secure Ticket Authority]
+# CSG_UseTwoTickets=Off
+
+
+# DefaultAudioQuality=NoPreference
+# DefaultBandwidthProfile=Custom
+# DefaultColorDepth=NoPreference
+# DefaultCompactViewStyle=List
+# DefaultCustomTextLocale=[Language code]
+# DefaultPrinterMapping=On
+# DefaultViewStyle=Icons
+# DefaultWindowSize=Seamless
+# DisplayBrandingImage=On
+# DomainSelection=[Domain 1,domain 2,...]
+# DuplicateLogInterval=[Number of seconds (60)]
+# DuplicateLogLimit=10
+
+
+# EnableFileTypeAssociation=On
+# EnableKerberosToMPS=Off
+# EnableLegacyICAClientSupport=Off
+# EnableLogoffApplications=On
+# EnablePassthroughURLs=Off
+# EnableRadiusServerLoadBalancing=Off
+# EnableSTALoadBalancing=Off
+# EnableVirtualCOMPortEmulation=Off
+# EnableWizardAutoMode=On
+# EnableWorkspaceControl=On
+# ErrorCallbackURL=[URL for processing fatal error messages, which replaces the logged out page]
+
+
+Farm1=localhost,Name:Farm1,XMLPort:80,Transport:HTTP,SSLRelayPort:443,BypassDuration:60,LoadBalance:Off,TicketTimeToLive:200,RADETicketTimeToLive:200
+# Farm1Groups=domain\group
+# FooterText_<lang-code>=[Customized footer text in the specified language]
+
+
+# HeaderFontColor=#FFFFFF
+# HeadingHomePage=[URL of your heading image home page]
+# HeadingImage=../media/CitrixLogoHeader.png
+# HideDomainField=Off
+
+IcaFileSigningEnabled=Off
+IcaFileSigningCertificateThumbprint=
+IcaFileSigningHashAlgorithm=SHA1
+# IgnoreClientProvidedClientAddress=Off
+# InternalServerAddressMap=[Normal address,translated address,normal address,translated address,...]
+
+
+# JavaClientPackages=ClipBoard,ConfigUI,PrinterMapping,SecureICA,SSL
+# JavaFallbackMode=None
+
+
+# KioskMode=Off
+
+
+# LaunchClients=Ica-Local[,Ica-Java,Rdp-Embedded]
+# LoginDomains=[Domain 1,domain 2,...]
+# LoginSysMessage_<lang-code>=[Customized system message on the logon screen in the specified language]
+# LoginTitle_<lang-code>=[Customized title for the logon screen in the specified language]
+# LoginType=Default
+# LogoffFederationService=On
+
+
+# MultiFarmAuthenticationMode=All
+# MultiLaunchTimeout=[Number of seconds (2)]
+
+
+# NDSContextLookupLoadbalancing=Off
+# NDSContextLookupServers=[List of NDS servers, each starting with ldap:// or ldaps://]
+# NDSTreeName=[NDS tree name for NDS logons]
+
+
+# OverlayAutologonCredsWithTicket=On
+# OverrideIcaClientname=Off
+
+
+# PasswordExpiryWarningPeriod=14
+# PersistFolderLocation=Off
+# PNAChangePasswordMethod=Direct-Only
+# PooledSockets=On
+# PreLoginMessageButton_<lang-code>=[Customized button text for the pre-logon message in the specified language]
+# PreLoginMessageText_<lang-code>=[Customized message text for the pre-logon message in the specified language]
+# PreLoginMessageTitle_<lang-code>=[Customized title text for the pre-logon message in the specified language]
+
+# RADERequestValidation=On
+# RADESessionURL=Auto
+# RadiusRequestTimeout=[Number of seconds (30)]
+# RadiusServers=[Server:port,server:port,...]
+# ReconnectAtLogin=DisconnectedAndActive
+# ReconnectButton=DisconnectedAndActive
+# RecoveryFarm1=xmlServerName,Name:RecoveryFarm1,XMLPort:80,Transport:HTTP,SSLRelayPort:443,BypassDuration:60,LoadBalance:Off,TicketTimeToLive:200,RADETicketTimeToLive:200
+# RequestedHighColorIcons=[List of comma-separated sizes or None. Supported sizes are currently 16, 32, and 48]
+# RequestICAClientSecureChannel=Detect-AnyCiphers
+# RequireLaunchReference=On
+# RestrictDomains=Off
+
+
+# SearchContextList=[NDS context1,NDS context2,...]
+# ServerAddressMap=[Normal address,translated address,normal address,translated address,...]
+# ServerCommunicationAttempts=2
+# ShowClientInstallCaption=Auto
+# ShowDesktopViewer=Off
+# ShowHints=On
+# ShowPasswordExpiryWarning=Never
+# ShowRefresh=Off
+# ShowSearch=On
+# SpecialFolderRedirection=Off
+# SuppressDuplicateResources=Off
+
+
+# Timeout=[Number of seconds (60)]
+# TransparentKeyPassthrough=FullScreenOnly
+# TwoFactorPasswordIntegration=Off
+# TwoFactorUseFullyQualifiedUserNames=Off
+
+
+# UpgradeClientsAtLogin=Off
+# UPNSuffixes=[UPN suffix 1,UPN suffix 2,...]
+UserInterfaceBranding=Desktops
+# UserInterfaceLayout=Auto
+UserInterfaceMode=Simple
+
+
+Version=5.4.0.0
+# ViewStyles=Details,Groups,Icons,List,Tree
+
+
+# WebSessionTimeout=[Number of minutes (20)]
+# WelcomeMessage_<lang-code>=[Customized welcome message on the logon screen in the specified language]
+WIAuthenticationMethods=Explicit

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<?include $(sys.CURRENTDIR)vars.wxi ?>
+	<Fragment>
+		<!-- Components -->
+
+		<ComponentGroup Id="ComGroup_AuthEngine">
+
+		</ComponentGroup>
+
+		<DirectoryRef Id="Dir_Service">
+			<!-- AuthEngine -->
+			
+			<Component Id="Com_AuthEngine" Guid="{E3973884-56C3-44A3-8223-35DF342DFE3F}" Win64="$(var.CompWin64)">
+				<File Id="Fil_AuthEngine" Source="..\..\AuthGateway\AuthGateway.AuthEngine\AuthGateway.AuthEngine\bin\$(var.binPlatformDir)\Release\Wright.AuthEngine.exe" KeyPath="yes"/>
+				<ServiceInstall Id="si_AuthEngine"
+												Name="WrightAuthEngine"
+												DisplayName="Wright AuthEngine"
+												Description="Wright AuthEngine is the controller application for AuthGateway. This service handles database and interprocess communication."
+												Start="auto"
+												Interactive="no"
+												ErrorControl="normal"
+												Account="[AEUSERNAME]"
+												Password="[AEPASSWORD]"
+												Type="ownProcess"
+												/>
+												
+				<ServiceControl
+					Id="sc_AuthEngine"
+					Name="WrightAuthEngine"
+					Start="install"
+					Stop="both"
+					Remove="uninstall"
+					Wait="yes"
+					/>
+			</Component>
+			<Component Id="Com_AuthEngineLogic" Guid="{5AE8C5CF-A667-4B81-A925-4B3A3005D2F2}" Win64="$(var.CompWin64)">
+				<File Id="Fil_AuthEngineLogic" Source="..\..\AuthGateway\AuthGateway.AuthEngine.Logic\bin\$(var.binPlatformDir)\Release\Wright.AuthEngine.Logic.dll" KeyPath="yes"/>
+			</Component>
+
+			<Component Id="Prg_Util" Guid="{A4D9777D-2B7F-4676-BA2B-539BFA1AD40E}" Win64="$(var.CompWin64)">
+				<File Id="Fil_Util" Source="..\..\AuthGateway\AuthGateway.Util\bin\$(var.binPlatformDir)\Release\Wright.Util.exe" KeyPath="yes"/>
+			</Component>
+			<Component Id="Lib_ManyConsole" Guid="{EB22B75D-DC28-4316-A41D-6C86C4A925F1}" Win64="$(var.CompWin64)">
+				<File Id="Fil_ManyConsole" Source="..\..\AuthGateway\AuthGateway.Util\bin\$(var.binPlatformDir)\Release\ManyConsole.dll" KeyPath="yes"/>
+			</Component>
+			<Component Id="Lib_NDeskOptions" Guid="{56A544FF-0499-4DA9-8DAC-15E85F316F16}" Win64="$(var.CompWin64)">
+				<File Id="Fil_NDeskOptions" Source="..\..\AuthGateway\AuthGateway.Util\bin\$(var.binPlatformDir)\Release\NDesk.Options.dll" KeyPath="yes"/>
+			</Component>
+
+			<Component Id="Prg_Admin_ResetUserInfo" Guid="{F98DF8C5-E5AB-49B1-96EB-90A9BF1C8C60}" Win64="$(var.CompWin64)">
+				<File Id="Fil_Admin_ResetUserInfo" Source="..\..\AuthGateway.Setup\AuthGateway.Admin.ResetUserInfo\bin\$(var.binPlatformDir)\Release\Wright.Admin.ResetUserInfo.exe" KeyPath="yes"/>
+			</Component>
+
+			<Component Id="Com_GmaQrCodeNetEncoding_Services" Win64="$(var.CompWin64)">
+				<File Id="Fil_GmaQrCodeNetEncoding_Services" Source="..\..\AuthGateway\AuthGateway.AuthEngine.Logic\bin\$(var.binPlatformDir)\Release\Gma.QrCodeNet.Encoding.dll" KeyPath="yes"/>
+			</Component>
+
+			<Component Id="Com_MigraDoc_DocumentObjectModel_Services" Win64="$(var.CompWin64)">
+				<File Id="Fil_MigraDoc_DocumentObjectModel_Services" Source="..\..\AuthGateway\AuthGateway.AuthEngine.Logic\bin\$(var.binPlatformDir)\Release\MigraDoc.DocumentObjectModel.dll" KeyPath="yes"/>
+			</Component>
+			<Component Id="Com_MigraDoc_Rendering_Services" Win64="$(var.CompWin64)">
+				<File Id="Fil_MigraDoc_Rendering_Services" Source="..\..\AuthGateway\AuthGateway.AuthEngine.Logic\bin\$(var.binPlatformDir)\Release\MigraDoc.Rendering.dll" KeyPath="yes"/>
+			</Component>
+			<Component Id="Com_MigraDoc_RtfRendering_Services" Win64="$(var.CompWin64)">
+				<File Id="Fil_MigraDoc_RtfRendering_Services" Source="..\..\AuthGateway\AuthGateway.AuthEngine.Logic\bin\$(var.binPlatformDir)\Release\MigraDoc.RtfRendering.dll" KeyPath="yes"/>
+			</Component>
+			<Component Id="Com_PdfSharp_Services" Win64="$(var.CompWin64)">
+				<File Id="Fil_PdfSharp_Services" Source="..\..\AuthGateway\AuthGateway.AuthEngine.Logic\bin\$(var.binPlatformDir)\Release\PdfSharp.dll" KeyPath="yes"/>
+			</Component>
+			<Component Id="Com_PdfSharp_Charting_Services" Win64="$(var.CompWin64)">
+				<File Id="Fil_PdfSharp_Charting_Services" Source="..\..\AuthGateway\AuthGateway.AuthEngine.Logic\bin\$(var.binPlatformDir)\Release\PdfSharp.Charting.dll" KeyPath="yes"/>
+			</Component>
+
+			<!-- CloudSMS -->
+
+			<Component Id="Com_CloudSMS" Guid="{7BE7134C-ADDA-4440-B15F-E500B7C9F046}" Win64="$(var.CompWin64)">
+				<File Id="Fil_CloudSMS" Source="..\..\AuthGateway\AuthGateway.CloudSMS\AuthGateway.CloudSMS\bin\$(var.binPlatformDir)\Release\Wright.CloudSMS.exe" KeyPath="yes"/>
+				<ServiceInstall Id="si_CloudSMS"
+												Name="WrightCloudSMS"
+												DisplayName="Wright CloudSMS"
+												Description="Wright CloudSMS is a generic text message gateway for sending SMS messages via an Cloud service. This service handles outbound text message."
+												Start="auto"
+												Interactive="no"
+												ErrorControl="normal"
+											Account="[CSMSUSERNAME]"
+											Password="[CSMSPASSWORD]"
+											Type="ownProcess"
+												/>
+				<ServiceControl
+					Id="sc_CloudSMS"
+					Name="WrightCloudSMS"
+					Start="install"
+					Stop="both"
+					Remove="uninstall"
+					Wait="yes"
+					/>
+			</Component>
+			<Component Id="Com_CloudSMS_Twilio_Api" Win64="$(var.CompWin64)">
+				<File Id="Fil_CloudSMS_Twilio_Api" Source="..\..\AuthGateway\AuthGateway.CloudSMS\AuthGateway.CloudSMS\bin\$(var.binPlatformDir)\Release\Twilio.Api.dll" KeyPath="yes"/>
+			</Component>
+			<Component Id="Com_CloudSMS_Twilio_Twiml" Win64="$(var.CompWin64)">
+				<File Id="Fil_CloudSMS_Twilio_Twiml" Source="..\..\AuthGateway\AuthGateway.CloudSMS\AuthGateway.CloudSMS\bin\$(var.binPlatformDir)\Release\Twilio.Twiml.dll" KeyPath="yes"/>
+			</Component>
+			<Component Id="Com_CloudSMS_RestSharp" Win64="$(var.CompWin64)">
+				<File Id="Fil_CloudSMS_RestSharp" Source="..\..\AuthGateway\AuthGateway.CloudSMS\AuthGateway.CloudSMS\bin\$(var.binPlatformDir)\Release\RestSharp.dll" KeyPath="yes"/>
+			</Component>
+			<Component Id="Com_CloudSMS_NewtonsoftJson" Win64="$(var.CompWin64)">
+				<File Id="Fil_CloudSMS_NewtonsoftJson" Source="..\..\AuthGateway\AuthGateway.CloudSMS\AuthGateway.CloudSMS\bin\$(var.binPlatformDir)\Release\Newtonsoft.Json.dll" KeyPath="yes"/>
+			</Component>
+
+      <!-- MutualAuthImages -->
+      <!--
+      <Component Id="Com_MutualAuthImages" Guid="{EDF79866-0542-45E9-8313-72B23FF520F3}" Win64="$(var.CompWin64)">
+        <File Id="Fil_MutualAuthImages" Source="..\..\AuthGateway\AuthGateway.MutualAuthImages\AuthGateway.MutualAuthImages\bin\$(var.binPlatformDir)\Release\Wright.MutualAuthImages.exe" KeyPath="yes"/>
+        <ServiceInstall Id="si_MutualAuthImages"
+												Name="WrightMutualAuthImages"
+												DisplayName="Wright MutualAuthImages"
+												Description="Wright MutualAuthImages is a service that interacts with third-party image providers."
+												Start="auto"
+												Interactive="no"
+												ErrorControl="normal"
+											Account="[MAIUSERNAME]"
+											Password="[MAIPASSWORD]"
+											Type="ownProcess"
+												/>
+        <ServiceControl
+					Id="sc_MutualAuthImages"
+					Name="WrightMutualAuthImages"
+					Start="install"
+					Stop="both"
+					Remove="uninstall"
+					Wait="yes"
+					/>
+      </Component> -->
+
+			<!-- OATHCalc -->
+
+			<Component Id="Com_OATHCalc" Win64="$(var.CompWin64)">
+				<File Id="Fil_OATHCalc" Source="..\..\AuthGateway\AuthGateway.OATH\bin\$(var.binPlatformDir)\Release\Wright.OATHCalc.dll" KeyPath="yes"/>
+			</Component>
+			<Component Id="Com_OATHCalcService" Win64="$(var.CompWin64)">
+				<File Id="Fil_OATHCalcService" Source="..\..\AuthGateway\AuthGateway.OATH.Service\bin\$(var.binPlatformDir)\Release\Wright.OATHCalc.Service.exe" KeyPath="yes"/>
+				<ServiceInstall Id="si_OATHCalc"
+												Name="WrightOATHCalc"
+												DisplayName="Wright OATHCalc"
+												Description="Wright OATHCalc is a service that computes OTP algorithm."
+												Start="auto"
+												Interactive="no"
+												ErrorControl="normal"
+											Account="[OATHUSERNAME]"
+										Password="[OATHPASSWORD]"
+										Type="ownProcess"
+												/>
+				<ServiceControl
+					Id="sc_OATHCalc"
+					Name="WrightOATHCalc"
+					Start="install"
+					Stop="both"
+					Remove="uninstall"
+					Wait="yes"
+					/>
+			</Component>
+
+			<!-- Shared -->
+			<Component Id="Com_WrightOATHCalcxmlprocessordll_Service" Win64="$(var.CompWin64)">
+				<File Id="Fil_WrightOATHCalcxmlprocessordll_Service" Source="..\..\AuthGateway\AuthGateway.OATH.XmlProcessor\bin\$(var.binPlatformDir)\Release\Wright.OATHCalc.xmlprocessor.dll" KeyPath="yes"/>
+			</Component>
+			<Component Id="Com_WrightShareddll_Service" Win64="$(var.CompWin64)">
+				<File Id="Fil_WrightShareddll_Service" Source="..\..\AuthGateway\AuthGateway.Shared\bin\$(var.binPlatformDir)\Release\Wright.Shared.dll" KeyPath="yes"/>
+			</Component>
+			<Component Id="Com_WrightSharedXmlMessagesdll_Service" Win64="$(var.CompWin64)">
+				<File Id="Fil_WrightSharedXmlMessagesdll_Service" Source="..\..\AuthGateway\AuthGateway.Shared.XmlMessages\bin\$(var.binPlatformDir)\Release\Wright.Shared.XmlMessages.dll" KeyPath="yes"/>
+			</Component>
+      <Component Id="Com_Trackerbird_Service" Win64="$(var.CompWin64)">
+        <File Id="Fil_Trackerbird_Service" Source="..\..\AuthGateway\AuthGateway.Shared\bin\$(var.binPlatformDir)\Release\Trackerbird.Tracker.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="Com_TrackerbirdLib_Service" Win64="$(var.CompWin64)">
+        <File Id="Fil_TrackerbirdLib_Service" Source="..\..\AuthGateway\AuthGateway.Shared\bin\$(var.binPlatformDir)\Release\Trackerbird.$(var.binPlatformDir).dll" KeyPath="yes"/>
+      </Component>
+			<Component Id="Com_MindscapeRaygun4Netdll_Service"  Win64="$(var.CompWin64)">
+				<File Id="Fil_MindscapeRaygun4Netdll_Service" Source="..\..\AuthGateway\AuthGateway.OATH.Service\bin\$(var.binPlatformDir)\Release\Mindscape.Raygun4Net.dll" KeyPath="yes"/>
+			</Component>
+		</DirectoryRef>
+	</Fragment>
+</Wix>

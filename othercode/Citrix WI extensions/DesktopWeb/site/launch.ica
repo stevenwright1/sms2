@@ -1,0 +1,37 @@
+<%
+// launch.ica
+// Copyright (c) 2000 - 2010 Citrix Systems, Inc. All Rights Reserved.
+// [NFuseVersionAndBuildNumber]
+//
+// Page used for ICA launches
+%>
+
+<!--#include file="~/app_data/serverscripts/include.aspxf"-->
+
+<%
+if (!(new com.citrix.wi.pages.site.LaunchAsp(wiContext, new PerformanceMetrics(Constants.METRIC_START_LPWD))).perform()) {
+    return;
+}
+// A launch error occurred so we must return HTML
+LaunchControl viewControl = (LaunchControl)wiContext.getWebAbstraction().getRequestContextAttribute("viewControl");
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<!--#include file="~/app_data/include/cachedJavaScript.inc"-->
+    <script type="text/javascript">
+        <!--
+<%
+if (viewControl.redirectUrl != null) {
+%>
+        redirectToMainFrame('<%=viewControl.redirectUrl%>');
+<%
+}
+%>
+        // -->
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,77 @@
+;
+; bandwidth_low.ica
+;
+; ICA Override settings for low bandwidth connections.
+;
+; Please see default.ica for further details.
+
+[WFClient]
+Version=2
+RemoveICAFile=yes
+ProxyTimeout=30000
+ProxyFavorIEConnectionSetting=Yes
+ProxyUseFQDN=Off
+
+;-----------------------------------------------------------
+;The following are recommended settings for wWAN connections
+;-----------------------------------------------------------
+CDMAllowed=Off
+UpdatesAllowed=Off
+OutBufCountHost=118
+OutBufCountClient=118
+OutBufLength=512
+OutBufCountHost2=118
+OutBufCountClient2=118
+PersistentCacheEnabled=On
+MouseTimer=200
+KeyboardTimer=50
+;-----------------------------------------------------------
+
+
+[ApplicationServers]
+Application=
+
+[Application]
+Launcher=WI
+TransportDriver=TCP/IP
+DoNotUseDefaultCSL=On
+BrowserProtocol=HTTPonTCP
+LocHttpBrowserAddress=!
+WinStationDriver=ICA 3.0
+
+;-----------------------------------------------------------
+;The following are recommended settings for wWAN connections
+;-----------------------------------------------------------
+MaximumCompression=On
+Compress=On
+;-----------------------------------------------------------
+
+ProxyTimeout=30000
+AutologonAllowed=ON
+
+;-----------------------------------------------------------
+;The following are recommended settings for wWAN connections
+;-----------------------------------------------------------
+ZLKeyboardMode=1
+ZLMouseMode=1
+;-----------------------------------------------------------
+
+[EncRC5-0]
+DriverNameWin16=pdc0w.dll
+DriverNameWin32=pdc0n.dll
+
+[EncRC5-40]
+DriverNameWin16=pdc40w.dll
+DriverNameWin32=pdc40n.dll
+
+[EncRC5-56]
+DriverNameWin16=pdc56w.dll
+DriverNameWin32=pdc56n.dll
+
+[EncRC5-128]
+DriverNameWin16=pdc128w.dll
+DriverNameWin32=pdc128n.dll
+
+[Compress]
+DriverNameWin16=pdcompw.dll
+DriverNameWin32=pdcompn.dll

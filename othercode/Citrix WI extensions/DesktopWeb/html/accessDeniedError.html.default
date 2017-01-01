@@ -1,0 +1,16 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+  accessDeniedError.html
+  Copyright (c) 2002 - 2010 Citrix Systems, Inc. All Rights Reserved.
+-->
+<html>
+<head>
+<script type="text/javascript">
+<!--
+location = '../auth/accessDeniedError.aspx'
+//-->
+</script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,10 @@
+python {
+	mod_instantiate = radiusd_sms2
+	func_instantiate = instantiate
+	mod_authorize = radiusd_sms2
+	func_authorize = authorize
+	mod_authenticate = radiusd_sms2
+	func_authenticate = authenticate
+	mod_accounting = radiusd_sms2
+	func_accounting = accounting
+}

@@ -1,0 +1,20 @@
+﻿BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+GO
+UPDATE [Message] 
+SET
+	[text] = 'Your secure passcode is: {passcode}'
+WHERE 
+	[label] = 'Passcode E-mail Message'
+	AND [text] = 'Your secure One Time Token is: {passcode}'
+GO
+UPDATE [SETTINGS] SET [VALUE] = '2.2.8' WHERE [SETTING] = 'VERSION'
+GO
+COMMIT
+GO

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+	<?define Version="16.10.1701.1" ?>
+	<?define CitrixModDir="$(var.ProjectDir)\..\AuthGateway.Setup.CitrixIntegration\CitrixMod\" ?>
+	<?define MergeModulesCommon="c:\Program Files (x86)\Common Files\Merge Modules\" ?>
+	<?if $(var.Platform) = x86 ?>
+	<?define CompWin64="no" ?>
+	<?define UpgradeCode="{8231FBDB-B65B-48F4-BE85-70AF6034A5E2}" ?>
+	<?define binPlatformDir="x86"?>
+	<?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+	<?define Msvcr100merge = "Microsoft_VC110_CRT_x86.msm" ?>
+	<?else ?>
+	<?define CompWin64="yes" ?>
+	<?define UpgradeCode="{47914E06-4272-41E9-8ACE-FF5ECB199A43}" ?>
+	<?define binPlatformDir="x64"?>
+	<?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+	<?define Msvcr100merge = "Microsoft_VC110_CRT_x64.msm" ?>
+	<?endif?>
+</Include>

@@ -1,0 +1,106 @@
+<%
+// include.aspxf
+// Copyright (c) 2001 - 2010 Citrix Systems, Inc. All Rights Reserved.
+// Web Interface 5.4.0.0
+%>
+
+<%@ Import Namespace="java.util" %>
+<%@ Import Namespace="System.DirectoryServices" %>
+<%@ Import Namespace="System.Reflection" %>
+<%@ Import Namespace="com.citrix.authentication.tokens" %>
+<%@ Import Namespace="com.citrix.authentication.web" %>
+<%@ Import Namespace="com.citrix.wi" %>
+<%@ Import Namespace="com.citrix.wi.accountselfservice" %>
+<%@ Import Namespace="com.citrix.wi.authservice" %>
+<%@ Import Namespace="com.citrix.wi.config" %>
+<%@ Import Namespace="com.citrix.wi.config.client" %>
+<%@ Import Namespace="com.citrix.wi.config.auth" %>
+<%@ Import Namespace="com.citrix.wi.controls" %>
+<%@ Import Namespace="com.citrix.wi.controlutils" %>
+<%@ Import Namespace="com.citrix.wi.localization" %>
+<%@ Import Namespace="com.citrix.wi.metrics" %>
+<%@ Import Namespace="com.citrix.wi.mvc" %>
+<%@ Import Namespace="com.citrix.wi.mvc.asp" %>
+<%@ Import Namespace="com.citrix.wi.pageutils" %>
+<%@ Import Namespace="com.citrix.wi.tabs" %>
+<%@ Import Namespace="com.citrix.wi.types" %>
+<%@ Import Namespace="com.citrix.wi.ui" %>
+<%@ Import Namespace="com.citrix.wi.util" %>
+<%@ Import Namespace="com.citrix.wing" %>
+<%@ Import Namespace="com.citrix.wing.aspnetadaptor" %>
+<%@ Import Namespace="com.citrix.wing.types" %>
+<%@ Import Namespace="com.citrix.wing.util" %>
+<%@ Import Namespace="com.citrix.wing.util.serviceselector" %>
+<%@ Import Namespace="com.citrix.wing.webpn" %>
+<%@ Import Namespace="com.citrix.wi.clientdetect" %>
+<%@ Import Namespace="com.citrix.wing.config" %>
+
+<script runat="server">
+
+//==============================================
+// Global variables
+//==============================================
+
+/* Setup the WIContext */
+
+WIContext wiContext;
+public WIContext setupWIContext(WebAbstraction web, WIConfiguration wiConfig){
+
+    StaticEnvironmentAdaptor staticAdaptor = (StaticEnvironmentAdaptor)web.getApplicationAttribute(AppAttributeKey.STATIC_ADAPTOR);
+    ASPNetUserAdaptor userAdaptor = (ASPNetUserAdaptor)web.getRequestContextAttribute("com.citrix.wi.UserEnvAdaptor");
+    if(userAdaptor == null) {
+        userAdaptor = new ASPNetUserAdaptor(Context);
+        userAdaptor.setUserCookieName(Constants.USER_COOKIE_NAME);
+        userAdaptor.setUserStateIsPersistent(!wiConfig.getKioskMode());
+
+        // Reduce multi-site cookie count when integrated with Access Gateway.
+        userAdaptor.setShareDeviceState(AGEUtilities.isAGEIntegrationEnabled(wiConfig));
+
+        userAdaptor.initialize();
+
+        web.setRequestContextAttribute("com.citrix.wi.UserEnvAdaptor", userAdaptor);
+    }
+
+    return Include.constructWIContext(wiConfig,
+                                      web,
+                                      staticAdaptor,
+                                      userAdaptor,
+                                      new PlatformSpecificUtilsImpl());
+}
+</script>
+
+
+<%
+
+WebAbstraction _web = AspWebAbstraction.getInstance(Context);
+
+// Check whether we need to display the internal error page
+// We do this if a serious error happened during application startup
+java.lang.Boolean siteStartupOK = (java.lang.Boolean) _web.getApplicationAttribute(AppAttributeKey.SITE_STARTUP_OK);
+java.lang.Boolean nullUserAgent = (java.lang.Boolean) _web.getSessionAttribute(Include.SV_NULL_USER_AGENT);
+if (!java.lang.Boolean.TRUE.Equals(siteStartupOK) || java.lang.Boolean.TRUE.Equals(nullUserAgent)) {
+    _web.clientRedirectToUrl(Constants.PAGE_SERVER_ERROR);
+    return;
+}
+
+// No serious errors so now check whether the configuration parsed successfully
+WIConfiguration _wiConfig = CheckConfig.getConfiguration(_web);
+if (_wiConfig == null) {
+    CheckConfig.doMissingConfigurationResponse(_web);
+    return;
+}
+
+// set the WIContext after checking the config is valid
+wiContext = setupWIContext(_web, _wiConfig);
+
+if (!CheckConfig.isValidConfiguration(wiContext) || !RadiusConfig.isConfigurationValid()) {
+    _web.abandonSession();
+    CheckConfig.doMissingConfigurationResponse(_web);
+    return;
+}
+
+// Set the timeout for this session from the configuration (in minutes)
+// The session timeout is set to be 1 minute longer than specified in the configuration
+// so that WI can timeout after the expected interval, without the session timing out first.
+wiContext.getWebAbstraction().setSessionTimeoutMinutes(wiContext.getConfiguration().getWebSessionTimeout() + 1);
+%>

@@ -1,0 +1,76 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+  compactLoading.htm
+  Copyright (c) 2000 - 2010 Citrix Systems, Inc. All Rights Reserved.
+-->
+<html>
+    <head>
+        <title>Loading</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="ROBOTS" content="NOINDEX, NOFOLLOW, NOARCHIVE">
+        <style type="text/css" media="handheld,all">
+body {
+  font-family: Segoe UI, Tahoma,Verdana, Helvetica, Arial, sans-serif;
+  font-size: 70%;
+  text-align: center;
+  background: white;
+}
+
+/* Set the div height the same as the background image height */
+#mainPane {
+  color: black;
+}
+
+h3 {
+  font-size: 180%;
+  text-decoration: none;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+  padding-top: 50px;
+}
+
+p {
+  font-size: 120%;
+  letter-spacing: 2px;
+  padding: 0;
+  padding-bottom: 20px;
+  margin: 0;
+}
+        </style>
+    </head>
+    <body>
+      <div id="mainPane">
+        <h3>One Moment Please...</h3>
+        <p>Loading</p>
+      </div>
+      <script type="text/javascript">
+        <!--
+            function newXMLHttpRequest() {
+                try { return new XMLHttpRequest(); } catch(e) {}
+                try { return new ActiveXObject("Msxml2.XMLHTTP"); } catch (e) {}
+                try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch (e) {}
+                return null;
+            }
+            var req = newXMLHttpRequest();
+            if(req != null)
+            {
+                req.onreadystatechange = goToSilentDetection;
+                // need to request a page that doesn't
+                // cause much server load
+                req.open("GET", "auth/silentDetection.aspx", true);
+                req.send(null);
+            }
+            else
+            {
+                location="auth/silentDetection.aspx";
+            }
+            function goToSilentDetection()
+            {
+                if (req.readyState != 4)  { return; }
+                location='auth/silentDetection.aspx';
+            }
+          // -->
+        </script>
+    </body>
+</html>

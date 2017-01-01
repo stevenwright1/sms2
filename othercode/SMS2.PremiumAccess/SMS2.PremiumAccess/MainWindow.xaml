@@ -1,0 +1,202 @@
+﻿<Window x:Class="SMS2.PremiumAccess.MainWindow"
+				xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				Title="SMS2 - Premium Access" WindowStyle="None"
+				AllowsTransparency="True"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"
+				MouseDown="TitleBar_MouseDown" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+				SizeToContent="WidthAndHeight"
+				d:DesignHeight="300" d:DesignWidth="466" Loaded="Window_Loaded" 
+        Icon="sms.ico">
+	<Window.Resources>
+		<!--<Style x:Key="sms2style" TargetType="Button">
+			<Setter Property="Background" Value="Orange" />
+		</Style>-->
+		<Style x:Key="sms2style" TargetType="{x:Type Button}">
+			<Setter Property="Padding" Value="1"/>
+			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<Border Name="border" Background="{TemplateBinding Background}">
+							<ContentPresenter Name="content" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+																			Margin="{TemplateBinding Padding}"
+																			RecognizesAccessKey="True"
+																			SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+																			VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter TargetName="content" Property="RenderTransform" >
+									<Setter.Value>
+										<ScaleTransform ScaleX="1.1" ScaleY="1.1" />
+									</Setter.Value>
+								</Setter>
+							</Trigger>
+							<Trigger Property="IsPressed" Value="True">
+								<Setter TargetName="content" Property="RenderTransform" >
+									<Setter.Value>
+										<ScaleTransform ScaleX=".95" ScaleY=".95" />
+									</Setter.Value>
+								</Setter>
+							</Trigger>
+							<Trigger Property="IsFocused" Value="True">
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<Style x:Key="sms2bstyle" TargetType="{x:Type Button}">
+			<Setter Property="Padding" Value="1"/>
+			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="Cursor" Value="Hand" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<Border Name="border" Background="{TemplateBinding Background}">
+							<ContentPresenter Name="content" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+																			Margin="{TemplateBinding Padding}"
+																			RecognizesAccessKey="True"
+																			SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+																			VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter Property="FontWeight" Value="Bold" />
+							</Trigger>
+							<Trigger Property="IsPressed" Value="True">
+								<Setter TargetName="content" Property="RenderTransform" >
+									<Setter.Value>
+										<ScaleTransform ScaleX=".95" ScaleY=".95" />
+									</Setter.Value>
+								</Setter>
+							</Trigger>
+							<Trigger Property="IsFocused" Value="True">
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+	</Window.Resources>
+
+	<DockPanel x:Name="RootWindow" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+		<Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="Black" BorderThickness="2"
+						Padding="5,5,5,5">
+			<DockPanel x:Name="RootWindow2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+				<Grid Height="20" Name="gridTitle" DockPanel.Dock="Top">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="20"></ColumnDefinition>
+						<ColumnDefinition Width="20"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Center" TextAlignment="Left">SMS2 - Premium Access</TextBlock>
+					<Button Style="{StaticResource sms2style}" x:Name="MinButton" Width="20" Grid.Column="1" Click="MinimizeButton_Click">_</Button>
+					<Button Style="{StaticResource sms2style}" x:Name="CloseButton" Width="20" Grid.Column="2" Click="CloseButton_Click" >x</Button>
+				</Grid>
+				<StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+										Orientation="Horizontal">
+					<Grid Name="MainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="150" Width="200"
+								 ButtonBase.Click="MainGrid_Click"
+								>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="200" />
+							<ColumnDefinition Width="64*" />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="25"/>
+							<RowDefinition Height="25"/>
+							<RowDefinition Height="25"/>
+							<RowDefinition Height="25"/>
+							<RowDefinition Height="49"/>
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+						<TextBlock VerticalAlignment="Bottom" Name="tblockClientID" Text="Client ID" Margin="0,0,57,0" />
+						<DockPanel HorizontalAlignment="Right" VerticalAlignment="Bottom">
+							<Button DockPanel.Dock="Right" Style="{StaticResource sms2bstyle}" 
+										x:Name="btnAddClient" Width="30" Click="btnAddClient_Click">Add</Button>
+							<Button DockPanel.Dock="Right" Style="{StaticResource sms2bstyle}" 
+										x:Name="btnEditClient" Width="30" Click="btnEditClient_Click">Edit</Button>
+							<Button DockPanel.Dock="Right" Style="{StaticResource sms2bstyle}" 
+										x:Name="btnRemoveClient" Width="50"
+										Click="RemoveButton_Click"
+										>Remove</Button>
+						</DockPanel>
+						<ComboBox Grid.Row="1" Grid.Column="0" 
+										HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+										Name="cboxClientID" 
+										FontSize="12" FontWeight="Bold" BorderBrush="Black" BorderThickness="1"
+										ItemsSource="{Binding Path=ListOfClients}"
+										DisplayMemberPath="ID"
+										IsSynchronizedWithCurrentItem="True"
+                                  SelectedItem="{Binding SelectedClient}"
+						/>
+                        <!--SelectedItem="{Binding Path=*, Mode=TwoWay}" -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Name="tblockSecurityCode" Text="Security Code" />
+						<DockPanel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+							<Button DockPanel.Dock="Right" Style="{StaticResource sms2bstyle}" 
+										x:Name="btnRefresh" Width="45"
+										Click="RefreshButton_Click"
+										>Refresh</Button>
+						</DockPanel>
+						<TextBox IsReadOnly="True" 
+									 Grid.Row="3" Grid.Column="0" 
+									 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+									 Name="tboxSecurityCode" 
+									 FontSize="16" FontWeight="Bold" BorderBrush="Black" BorderThickness="1"
+									 Text="{Binding ElementName=cboxClientID, Path=SelectedItem.SecurityCode}"
+									 TextChanged="tboxSecurityCode_TextChanged"
+									 ></TextBox>
+						<Image Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Name="image1" Source="/SMS2.PremiumAccess;component/Images/logo.wright.png" Height="42" Width="194" Stretch="Uniform" Margin="5,7,1,0" />
+					</Grid>
+					<Grid Name="DetailGrid" Margin="5,0,5,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="200"
+								Visibility="Collapsed"
+								>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="190*" />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="25" />
+							<RowDefinition Height="25" />
+							<RowDefinition Height="25" />
+							<RowDefinition Height="25" />
+							<RowDefinition Height="25" />
+							<RowDefinition Height="25" />
+							<RowDefinition Height="25" />
+							<RowDefinition Height="25" />
+							<RowDefinition Height="25" />
+							<RowDefinition Height="25" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+						<TextBlock Grid.Row="0" Name="tblockClientId" Text="Client ID" VerticalAlignment="Bottom" />
+						<TextBox Grid.Row="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Name="tboxClientId" 
+										 Text="{Binding ElementName=cboxClientID, Path=SelectedItem.ID}"
+										 />
+						<TextBlock Grid.Row="2" Height="Auto" HorizontalAlignment="Left" Margin="0,12,0,0" Name="textBlock1" Text="OAth Type" VerticalAlignment="Top" Width="60" />
+						<ComboBox Grid.Row="3" Height="25" HorizontalAlignment="Left" Name="cbOathType" 
+											VerticalAlignment="Top" Width="200" 
+											ItemsSource="{Binding OAuthTypeValues}"
+											SelectedItem="{Binding ElementName=cboxClientID, Path=SelectedItem.Type}"
+											/>
+						<TextBlock Grid.Row="4" Name="textBlockSharedSecret" Text="Shared Secret" VerticalAlignment="Bottom"  />
+						<PasswordBox Grid.Row="5" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Name="tboxSharedSecret" 
+										 PasswordChar="*"  
+												 />
+						<TextBlock Grid.Row="6" Name="textBlockDigits" Text="Digits" VerticalAlignment="Bottom"  />
+						<TextBox Grid.Row="7" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Name="tboxDigits" 
+										 Text="{Binding ElementName=cboxClientID, Path=SelectedItem.Digits}" />
+						<TextBlock Grid.Row="8" Name="textBlockConfig" Text="Counter (HOTP) / Window secs. (TOTP)" VerticalAlignment="Bottom"  />
+						<TextBox Grid.Row="9" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Name="tboxConfig" 
+										 Text="{Binding ElementName=cboxClientID, Path=SelectedItem.Config}" 
+                                 TextChanged="tboxConfig_TextChanged"
+                                 />
+					</Grid>
+				</StackPanel>
+			</DockPanel>
+		</Border>
+	</DockPanel>
+</Window>

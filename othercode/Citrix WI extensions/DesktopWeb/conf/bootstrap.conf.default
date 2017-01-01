@@ -1,0 +1,11 @@
+#
+# bootstrap.conf
+# Ensure that this file is saved with UTF-8 encoding
+#
+
+ConfigurationLocation=[CONFIG_LOCATION]
+SiteName=[SITE_NAME]
+DefaultLocale=[DEFAULT_LOCALE]
+[AUTH_POINT]
+[AG_PROMPT_PASSWORD]
+[AG_AUTH_SERVICE_URL]

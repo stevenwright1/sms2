@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<?include $(sys.CURRENTDIR)vars.wxi ?>
+	<Fragment>
+		<ComponentGroup Id="Cg_CitrixMod">
+			<ComponentRef Id="cmp4BA8BB23B0A5D1103687F6E6088A5ADE"/>
+			<ComponentRef Id="cmp6668A6A6C69BC719E1686D777EA20542"/>
+			<ComponentRef Id="cmp49C9D6933994001F6F7767ADEE9AA298"/>
+			<ComponentRef Id="cmp170930B35EC8CFDCB8C3DF7AFCDA2211"/>
+			<ComponentRef Id="cmp234BCD490A7DC3B97D874E753EAEAC6E"/>
+			<ComponentRef Id="cmp600C4E4296FC7CC0389DBFE8A16FAEE9"/>
+			<ComponentRef Id="cmpBC2067019E3CB8CB45F481FAD71AEE81"/>
+			<ComponentRef Id="cmp5AF98744B59282A899825FB7EFC1482E"/>
+			<ComponentRef Id="cmpC9B02B872DB93D4DBD85181D7702E85C"/>
+			<ComponentRef Id="cmpB2EAB76A4958F8F32B966944FD30201F"/>
+			<ComponentRef Id="cmp8E23FC9BAF03C1C10FD984BA9CACEAA8"/>
+			<ComponentRef Id="cmpB7CD2C3A24A8FC041678553EAD6879BC"/>
+		</ComponentGroup>
+		<DirectoryRef Id="TARGETDIR">
+			<Directory Id="CITRIX_INSTALLDIR" Name="CitrixMod">
+				<Directory Id="dir9C4A5DDB375FB01A6208F7DC8F5D4156" Name="app_code">
+					<Directory Id="dirDB5A2C98D85DD47C142D98E8F9D83887" Name="PagesJava">
+						<Directory Id="dirD23744C71A4CD64C6E69E61D1B77C7D4" Name="com">
+							<Directory Id="dirC39934AC29BF22543E35A61C18B99620" Name="citrix">
+								<Directory Id="dir288B35D27D86C66C22C602E537CD5F90" Name="wi">
+									<Directory Id="dir442D92174190A6854FC09E621845F2EB" Name="controls">
+										<Component Id="cmp4BA8BB23B0A5D1103687F6E6088A5ADE" Guid="{41139F35-9110-4583-B908-92772E31C071}" Win64="$(var.CompWin64)">
+											<File Id="fil569AF31D1C31D166B0F0CEDF87E01D0C" KeyPath="yes" Source="$(var.CitrixModDir)\app_code\PagesJava\com\citrix\wi\controls\CheckPinPageControl.java" />
+										</Component>
+									</Directory>
+									<Directory Id="dir46B4EE595D5A73643B4727C0390CC596" Name="pages">
+										<Directory Id="dir705A3011ED875437F74B83C54E220AF0" Name="auth">
+											<Component Id="cmp6668A6A6C69BC719E1686D777EA20542" Guid="{032D9B5F-9568-4FC4-B76E-0C1E2BB9AFF1}" Win64="$(var.CompWin64)">
+												<RemoveFile Id="Remove_fil3E7F8C5FE3F72CE13A31308AC3752AB1" Name="CheckPin.java" On="both" />
+												<File Id="fil3E7F8C5FE3F72CE13A31308AC3752AB1" KeyPath="yes" Source="$(var.CitrixModDir)\app_code\PagesJava\com\citrix\wi\pages\auth\CheckPin.java" />
+											</Component>
+											<Component Id="cmp49C9D6933994001F6F7767ADEE9AA298" Guid="{0C1617DA-F64D-4ACC-9C19-C912DF0B107E}" Win64="$(var.CompWin64)">
+												<RemoveFile Id="Remove_filB12775F7E0D60B0C3DF0CF67F2A2988B" Name="Explicit.java" On="both" />
+												<File Id="filB12775F7E0D60B0C3DF0CF67F2A2988B" KeyPath="yes" Source="$(var.CitrixModDir)\app_code\PagesJava\com\citrix\wi\pages\auth\Explicit.java" />
+											</Component>
+											<Component Id="cmp170930B35EC8CFDCB8C3DF7AFCDA2211" Guid="{D2A4010B-2110-41F4-AEBE-A17CCE31879E}" Win64="$(var.CompWin64)">
+												<RemoveFile Id="Remove_filFC90E2F6815FC4B46BD3BFB297E9B655" On="both" Name="Login.java" />
+												<File Id="filFC90E2F6815FC4B46BD3BFB297E9B655" KeyPath="yes" Source="$(var.CitrixModDir)\app_code\PagesJava\com\citrix\wi\pages\auth\Login.java" />
+											</Component>
+										</Directory>
+									</Directory>
+								</Directory>
+							</Directory>
+						</Directory>
+						<Directory Id="dir4686E23683123B80315B60F2982D70E1" Name="custom">
+							<Directory Id="dir3EB7D9B0113AD4F1082D9EEBFE53BFCD" Name="auth">
+								<Component Id="cmp234BCD490A7DC3B97D874E753EAEAC6E" Guid="{98831C42-342A-4987-B558-EFBA15526A08}" Win64="$(var.CompWin64)">
+									<File Id="fil5A1020DA290996944FB170BA37AD9FD5" KeyPath="yes" Source="$(var.CitrixModDir)\app_code\PagesJava\custom\auth\TcpClients.java" />
+								</Component>
+								<Component Id="cmp600C4E4296FC7CC0389DBFE8A16FAEE9" Guid="{2CFC3BFE-09A6-4565-A0AA-9D8EA9B8B735}" Win64="$(var.CompWin64)">
+									<File Id="filC693696093EEB06FEFCAB296113CBB41" KeyPath="yes" Source="$(var.CitrixModDir)\app_code\PagesJava\custom\auth\ValidateUserRet.java" />
+								</Component>
+							</Directory>
+						</Directory>
+					</Directory>
+				</Directory>
+				<Directory Id="dir0D6B2F4F7C85C466F3D8DCD981A6283B" Name="app_data">
+					<Directory Id="dir73FDB590B041A6C68DDC0D2AD30B512E" Name="clientscripts">
+						<Component Id="cmpBC2067019E3CB8CB45F481FAD71AEE81" Guid="{F232209C-4323-4FF7-B302-E6E16765F13E}" Win64="$(var.CompWin64)">
+							<File Id="fil20637A979C097C015C6B9EC03876C32C" KeyPath="yes" Source="$(var.CitrixModDir)\app_data\clientscripts\check_pin.js" />
+						</Component>
+						<Component Id="cmp5AF98744B59282A899825FB7EFC1482E" Guid="{127A18DD-896F-4FC6-8F36-8667EDD58D14}" Win64="$(var.CompWin64)">
+							<File Id="fil46E791330A242787FA3C3D750D538BD8" KeyPath="yes" Source="$(var.CitrixModDir)\app_data\clientscripts\check_pinClientScript.ascx" />
+						</Component>
+					</Directory>
+					<Directory Id="dir6EE43C251BEB91329BBB42295D3C3B78" Name="include">
+						<Component Id="cmpC9B02B872DB93D4DBD85181D7702E85C" Guid="{F6D20083-726A-41BC-A101-FF598C676D7E}" Win64="$(var.CompWin64)">
+							<File Id="filFC93A90FDDBE5F80C400A5469FF02EFD" KeyPath="yes" Source="$(var.CitrixModDir)\app_data\include\check_pin.inc" />
+						</Component>
+						<Component Id="cmpB2EAB76A4958F8F32B966944FD30201F" Guid="{A303A136-6CFB-4B83-844E-359C5DD20E9B}" Win64="$(var.CompWin64)">
+							<File Id="fil4E84221B366D7E00024C86F54CF55509" KeyPath="yes" Source="$(var.CitrixModDir)\app_data\include\check_pinView.ascx" />
+						</Component>
+						<Component Id="cmp8E23FC9BAF03C1C10FD984BA9CACEAA8" Guid="{F4F00621-3927-472B-BF49-FEC709B60B05}" Win64="$(var.CompWin64)">
+							<File Id="fil1B8A8541C4FBAEF5A43117FF0F7B4CCD" KeyPath="yes" Source="$(var.CitrixModDir)\app_data\include\check_pin_layout.ascx" />
+						</Component>
+					</Directory>
+				</Directory>
+				<Directory Id="dir1E3EEF49F6AD85E3A53720CDC82B6428" Name="auth">
+					<Component Id="cmpB7CD2C3A24A8FC041678553EAD6879BC" Guid="{8004C0C7-DB5D-4A66-975E-378E76953588}" Win64="$(var.CompWin64)">
+						<File Id="fil6EBB59D52D78FA62D4EB5C612E9FE95F" KeyPath="yes" Source="$(var.CitrixModDir)\auth\check_pin.aspx" />
+					</Component>
+				</Directory>
+			</Directory>
+		</DirectoryRef>
+	</Fragment>
+</Wix>

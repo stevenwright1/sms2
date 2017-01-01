@@ -1,0 +1,732 @@
+<!-- Copyright 1999 - 2010 Citrix Systems, Inc.                             -->
+
+<!-- DTD for the NFuse protocol                                             -->
+<!-- Version 5.4, 8 January 2010                                            -->
+<!--                                                                        -->
+
+<!--  <!DOCTYPE NFuseProtocol [  -->
+
+
+  <!ELEMENT NFuseProtocol (
+    RequestProtocolInfo |
+    ResponseProtocolInfo |
+    RequestAppData |
+    ResponseAppData |
+    RequestDiscSessionData |
+    ResponseDiscSessionData |
+    RequestServerData |
+    ResponseServerData |
+    RequestServerFarmData |
+    ResponseServerFarmData |
+    RequestAddress |
+    ResponseAddress |
+    RequestDesktopAssignment |
+    ResponseDesktopAssignment |
+    RequestAltAddress |
+    ResponseAltAddress |
+    RequestAccountInfo |
+    ResponseAccountInfo |
+    RequestTicket |
+    ResponseTicket |
+    RequestReconnectSessionData |
+    ResponseReconnectSessionData |
+    RequestLogoffUserSessions |
+    ResponseLogoffUserSessions |
+    RequestDisconnectUserSessions |
+    ResponseDisconnectUserSessions |
+    RequestValidateCredentials |
+    ResponseValidateCredentials |
+    RequestUserInfo |
+    ResponseUserInfo |
+    RequestCapabilities |
+    ResponseCapabilities |
+    RequestLaunchRef |
+    ResponseLaunchRef |
+    ResponseError )>
+
+  <!ATTLIST NFuseProtocol
+    version CDATA #REQUIRED>               <!--   1 | 1.1 | 1.2 | 
+                                                  4.0 | 4.1 | 4.2 | 4.3 | 4.4 | 4.5 | 4.6 | 4.7 |
+                                                  5.0 | 5.1 | 5.2 | 5.3 | 5.4 -->
+
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!--                   Protocol message declarations                      -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+  <!ELEMENT RequestProtocolInfo (
+    ServerAddress )>
+
+  <!ELEMENT ResponseProtocolInfo (
+    ServerAddress
+    | (ErrorId, BrowserError?, MPSError?, RemedyHint*) )>
+
+  <!ELEMENT RequestAppData (
+    Scope,
+    DesiredDetails*,
+    DesiredIconData*,
+    AppName*,
+    ServerType+,
+    ClientType+,
+    (Group | Credentials?),
+    ClientName?,
+    ClientAddress?,
+    SessionContext?,
+    CRC? )>
+
+  <!ELEMENT ResponseAppData (
+    (AppDataSet*,
+     CRC?)
+    | (ErrorId, BrowserError?, MPSError?, RemedyHint*) )>
+
+  <!ELEMENT RequestDiscSessionData (
+    Scope,
+    (ClientName? | DeviceId?),
+    Credentials? )>
+
+  <!ELEMENT ResponseDiscSessionData (
+    AppDataSet*
+    | (ErrorId, BrowserError?, MPSError?, RemedyHint*) )>
+
+  <!ELEMENT RequestServerData (
+    ServerType+,
+    ClientType+ )>
+
+  <!ELEMENT ResponseServerData (
+    ServerData*
+    | (ErrorId, BrowserError?, MPSError?, RemedyHint*) )>
+
+  <!ELEMENT RequestServerFarmData (
+    Nil )>
+
+  <!ELEMENT ResponseServerFarmData (
+    ServerFarmData*
+    | (ErrorId, BrowserError?, MPSError?, RemedyHint*) )>
+
+  <!ELEMENT RequestAddress (
+    Name,
+    ClientName?,
+    ClientAddress?,
+    ServerAddress,
+    Flags*,
+    Credentials?,
+    ClientType?,
+    ClientCookie*,
+    SessionContext?,
+    RetryKey?,
+    SessionSettings?,
+    DeviceId?
+    )>
+
+  <!ELEMENT ResponseAddress (
+    (ServerAddress,
+     ServerType,
+     ConnectionType,
+     ClientType,
+     TicketTag,
+     DisconnectedSession?,
+     FarmLoadHint?,
+     SSLRelayAddress?,
+     CGPAddress?,
+     SessionSharingKey?)
+    | (ErrorId, BrowserError?, MPSError?, RemedyHint*, RetryDelayHint?, RetryReason?, RetryKey?) )>
+
+  <!ELEMENT RequestDesktopAssignment (
+    Name,
+    ClientName?,
+    ClientAddress?,
+    Credentials?,
+    ClientCookie*,
+    SessionContext? )>
+
+  <!ELEMENT ResponseDesktopAssignment (
+    DesktopHostName
+    | (ErrorId, BrowserError?, MPSError?, RemedyHint*) )>
+
+  <!ELEMENT RequestAltAddress (
+    ServerAddress )>
+
+  <!ELEMENT ResponseAltAddress (
+    ServerAddress
+    | (ErrorId, BrowserError?, MPSError?, RemedyHint*) )>
+
+  <!ELEMENT RequestLaunchRef (
+    (LaunchRefType,
+     DeviceId?,
+     SessionContext?,
+     Credentials?,
+     TicketTag,
+     TimetoLive?) )>
+
+  <!ELEMENT ResponseLaunchRef (
+    LaunchRef
+    | (ErrorId, MPSError?, BrowserError?, RemedyHint*) )>
+
+  <!ELEMENT RequestAccountInfo (
+    ID+ )>
+
+  <!ELEMENT ResponseAccountInfo (
+    AccountInfo+
+    | (ErrorId, MPSError?, BrowserError?, RemedyHint*)  )>
+
+  <!ELEMENT RequestTicket (
+    Credentials,
+    TicketType,
+    TicketTag,
+    TimetoLive?,
+    LaunchRef?,
+    SessionContext? )>
+
+  <!ELEMENT ResponseTicket (
+    Ticket
+    | (ErrorId, BrowserError?, MPSError?, RemedyHint*) )>
+
+  <!ELEMENT RequestReconnectSessionData (
+    Credentials,
+    ClientName,
+    DeviceId?,
+    ServerType+,
+    ClientType+,
+    SessionType+,
+    SessionContext? )>
+
+  <!ELEMENT ResponseReconnectSessionData (
+    (AppDataSet*,
+     CRC?)
+    | (ErrorId, BrowserError?, MPSError?, RemedyHint*) )>
+
+  <!ELEMENT RequestLogoffUserSessions (
+    Credentials,
+    ClientName,
+    DeviceId?,
+    ServerType+,
+    ClientType+,
+    SessionContext?,
+    Tickets?)>
+
+  <!ELEMENT ResponseLogoffUserSessions (
+    (ErrorId, BrowserError?, MPSError?, RemedyHint*)? )>
+
+  <!ELEMENT RequestDisconnectUserSessions (
+    Credentials,
+    ClientName,
+    DeviceId?,
+    ServerType+,
+    ClientType+,
+    SessionContext?,
+    Tickets?)>
+
+  <!ELEMENT ResponseDisconnectUserSessions (
+    (ErrorId, BrowserError?, MPSError?, RemedyHint*)? )>
+
+  <!ELEMENT RequestValidateCredentials (
+    Credentials, DesiredInfo? )>
+
+  <!ELEMENT ResponseValidateCredentials (
+    ( (DaysUntilPasswordExpiry, ShowPasswordExpiryWarning)?, UserIdentityInfo? )
+    | (ErrorId, MPSError?, BrowserError?, RemedyHint*) )>
+
+  <!ELEMENT RequestUserInfo (
+    Credentials, DesiredInfo )>
+  
+  <!ELEMENT ResponseUserInfo (
+   (UserIdentityInfo)
+   | (ErrorId, MPSError?, BrowserError?, RemedyHint*) )>
+
+  <!ELEMENT ResponseError (
+    ErrorId, BrowserError?, MPSError?, RemedyHint*)>
+
+  <!ELEMENT RequestCapabilities (
+    Nil )>
+
+  <!ELEMENT ResponseCapabilities (
+    CapabilityId*
+    | (ErrorId, MPSError?, BrowserError?, RemedyHint*) )>
+
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!--                        Data type declarations                        -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+  <!ELEMENT AccessList (
+    AnonymousUser
+    | (User*,
+       Group*))>
+
+  <!ELEMENT AccountInfo (
+     ID+, ErrorId?, MPSError? )>
+
+  <!ELEMENT AnonymousUser EMPTY>
+
+  <!ELEMENT AppData (
+    InName, FName?,
+    ((Details*,
+      IconData*,
+      SeqNo?,
+      ServerType,
+      ClientType+,
+      RadeOfflineMode?,
+      Permissions?)
+     |
+     (DataType,
+      ServerType,
+      ClientType+,
+      HostId?,
+      SessionId?)) )>
+  <!ATTLIST AppData
+    type CDATA "app">
+
+  <!ELEMENT AppDataSet (
+    Scope,
+    AppData*,
+    ClientCookie*,
+    RadeLicenseType?,
+    (ErrorId, BrowserError?, MPSError?)? )>
+
+  <!ELEMENT AppName (#PCDATA)>
+
+  <!ELEMENT AppOnDesktop (#PCDATA)>
+  <!ATTLIST AppOnDesktop value (true | false) "false">
+
+  <!ELEMENT AppInStartmenu (#PCDATA)>
+  <!ATTLIST AppInStartmenu
+    value (true | false) "false"
+    root CDATA "">                                  <!-- <empty> | programs -->
+
+  <!ELEMENT AudioQuality (#PCDATA)>
+
+  <!ELEMENT BrowserError (#PCDATA)>       <!-- string of the mapped browser
+                                                error code, e.g. 0x00000021 -->
+
+  <!ELEMENT CapabilityId (#PCDATA)>          <!-- accepts-client-identity-for-power-off |
+                                                  full-icon-data |
+                                                  full-icon-hash |
+                                                  integrated-authentication |
+                                                  launch-reference |
+                                                  multi-image-icons |
+                                                  rade-session-proxy |
+                                                  separate-credentials-validation |
+                                                  session-sharing |
+                                                  sid-enumeration |
+                                                  user-identity -->
+
+  <!ELEMENT CGPAddress (#PCDATA)>
+  <!ATTLIST CGPAddress
+    addresstype CDATA #REQUIRED>            <!-- dot-port | dns-port | port -->
+
+  <!ELEMENT ClientAddress (#PCDATA)>
+  <!ATTLIST ClientAddress
+    addresstype CDATA #REQUIRED>        <!-- no-change | dot | dns |
+                                             dot-port | dns-port | uri      -->
+
+  <!ELEMENT ClientCookie (#PCDATA)>
+  <!ATTLIST ClientCookie
+    name   CDATA #REQUIRED
+    target CDATA #IMPLIED>                                        <!-- next -->
+
+  <!ELEMENT RadeLicenseType (#PCDATA)>  <!-- online | offline | online-streaming | offline-streaming -->
+
+  <!ELEMENT ClientName (#PCDATA)>
+
+  <!ELEMENT ClientType (#PCDATA)>               <!-- ica30 | rdp | viewsoft
+                                                            | content | rade | all -->
+
+  <!ELEMENT ClientPrinterPortMapping (#PCDATA)>
+
+  <!ELEMENT ClientPrinterSpooling (#PCDATA)>
+
+  <!ELEMENT ColorDepth (#PCDATA)>
+
+  <!ELEMENT COMPortMapping (#PCDATA)>
+
+  <!ELEMENT ConnectionType (#PCDATA)>   <!-- tcp | ssl | socks | http-tunnel-->
+
+  <!ELEMENT ContentAddress (#PCDATA)>                              <!-- uri -->
+
+  <!ELEMENT ContentSettings (
+    Folder,
+    Description?,
+    ContentAddress,
+    AppOnDesktop,
+    AppInStartmenu,
+    NamedValue*,
+    RemoteAccessEnabled? )>
+
+  <!ATTLIST ContentSettings
+    appisdisabled (true | false) "false">
+
+  <!ELEMENT Credentials (
+    LinkAuthenticated
+    | ID+
+    | AnonymousUser
+    | (UserName,
+       Password?,
+       Domain?))>
+
+  <!ELEMENT DataType EMPTY>
+
+  <!ATTLIST DataType
+    value CDATA #REQUIRED>              <!-- app | server                   -->
+
+  <!ELEMENT DaysUntilPasswordExpiry (#PCDATA)> <!-- Integer range 0-999 -->
+
+  <!ELEMENT DesiredInfo (#PCDATA)>
+
+  <!ELEMENT Description (#PCDATA)>
+
+  <!ELEMENT DesiredDetails (#PCDATA)>   <!-- <null> | defaults | icon | icon-info |
+                                             access-list | file-type | rade-offline-mode |
+                                             permissions | full-icon-data | full-icon-hash | 
+                                             desktop-info | all  -->
+
+  <!ELEMENT DesiredIconData EMPTY>
+
+  <!-- size: 16 | 32 | 48 | 128 | 256 -->
+  <!-- bpp: 4 | 8 | 16 | 32 -->
+  <!-- format: raw | png -->
+  <!ATTLIST DesiredIconData
+    size CDATA #IMPLIED
+    bpp CDATA #IMPLIED
+    format CDATA #IMPLIED>
+
+  <!ELEMENT DesktopInfo (
+    DesktopAssignmentType,
+    DesktopHostName? )>
+
+  <!ELEMENT DesktopAssignmentType (#PCDATA)> <!-- shared | assigned | assign-on-first-use -->
+
+  <!ELEMENT DesktopHostName (#PCDATA)>
+
+  <!ELEMENT Details (
+    Settings | ContentSettings | Icon | AccessList | FileType |
+    DesktopInfo | FullIconData | FullIconHash)*>
+
+  <!ELEMENT DeviceId (#PCDATA)>
+
+  <!ELEMENT DisconnectedSession EMPTY>
+
+  <!ELEMENT DisplaySize (#PCDATA)>
+
+  <!ELEMENT Domain (#PCDATA)>
+  <!ATTLIST Domain
+    type (NT|UNIX|NDS) "NT">
+
+  <!ELEMENT DomainName (#PCDATA)>
+
+  <!ELEMENT EnableSessionSharing (#PCDATA)>          <!-- On | Off          -->  
+
+  <!ELEMENT Encryption (#PCDATA)>       <!-- basic | rc5-login | rc5-40
+                                             rc5-56 | rc5-128               -->
+
+  <!ATTLIST Encryption minimum (true | false) "false">
+
+  <!ELEMENT EncryptionLevel (#PCDATA)>
+
+  <!ELEMENT ErrorId (#PCDATA)>          <!-- 
+                                             account-disabled |
+                                             account-locked-out |
+                                             active-session-limit-reached |
+                                             bad-request |
+                                             connection-auth-failed |
+                                             connection-auth-required |
+                                             connection-refused |
+                                             expired-credentials |
+                                             failed-credentials |
+                                             FolderEnumeration-Disabled |
+                                             GroupEnumeration-Disabled |
+                                             invalid-logon-hours |
+                                             mfserver-overloaded |
+                                             must-change-credentials |
+                                             no-alt-address |
+                                             no-available-workstation |
+                                             no-server |
+                                             not-found |
+                                             not-licensed |
+                                             not-trusted |
+                                             parser-error |
+                                             retry-required |
+                                             service-unavailable |
+                                             sid-enumeration-denied |
+                                             sid-enumeration-failed |
+                                             Ticketing-Disabled |
+                                             unspecified |
+                                             unsupported-address-type |
+                                             unsupported-client-type |
+                                             version-mismatch |
+                                             workspace-reconnect-incomplete |
+                                             workstation-in-maintenance
+                                             -->
+
+  <!ELEMENT FarmLoadHint (#PCDATA)>              <!-- Integer range 0-1xxxx -->
+
+  <!ELEMENT FarmName (#PCDATA)>
+
+  <!ELEMENT FileExtension (#PCDATA)>
+
+  <!ELEMENT FileType (Description?,
+                      FileExtension*,
+                      MimeType*,
+                      Parameters?)>
+
+  <!ATTLIST FileType
+    name CDATA #REQUIRED
+    isdefault (true | false) "false"
+    overwrite (true | false) "false">
+
+  <!ELEMENT Folder (#PCDATA)>
+
+  <!ELEMENT Flags (#PCDATA)>            <!-- alt-addr | no-load-bias        -->
+
+  <!ELEMENT FName (#PCDATA)>
+
+  <!ELEMENT FullIconData (#PCDATA)>
+
+  <!ELEMENT FullIconHash (#PCDATA)>
+
+  <!ELEMENT Group (
+    GroupName+,
+    Domain )>
+
+  <!ELEMENT GroupName (#PCDATA)>
+
+  <!ELEMENT HasClientHostedApps (#PCDATA)>                <!-- true | false -->
+
+  <!ELEMENT HostId (#PCDATA)>
+  <!ATTLIST HostId
+   type CDATA #REQUIRED>                                   <!-- ima-host-id -->
+
+  <!ELEMENT Icon (#PCDATA)>
+
+  <!ELEMENT IconData EMPTY>
+
+  <!-- size: 16 | 32 | 48 | 128 | 256 -->
+  <!-- bpp: 4 | 8 | 16 | 32 -->
+  <!-- format: raw | png -->
+  <!ATTLIST IconData
+    size CDATA #REQUIRED
+    bpp CDATA #REQUIRED
+    format CDATA #REQUIRED>
+
+  <!ELEMENT ID (#PCDATA)>
+
+  <!ATTLIST ID
+    type CDATA #REQUIRED>               <!-- type: SAM | SID | UPN          -->
+
+  <!ELEMENT InName (#PCDATA)>
+
+  <!ELEMENT LaunchRef (#PCDATA)>                <!-- reference number
+                                                     (base-64 encoded)      -->
+
+  <!ELEMENT LaunchRefType (#PCDATA)>                        <!-- ICA | RADE -->
+
+  <!ELEMENT LinkAuthenticated EMPTY>
+
+  <!ELEMENT MimeType (#PCDATA)>
+
+  <!ELEMENT MPSError (#PCDATA)>                       <!-- error code (hex) -->
+  <!ATTLIST MPSError
+    type CDATA #REQUIRED>                                    <!-- IMA | MFU -->
+
+  <!ELEMENT Name (
+    UnspecifiedName
+    | ServerName
+    | ServerFarmName
+    | AppName
+    | SessionName )>
+
+  <!ELEMENT NamedValue (#PCDATA)>
+
+  <!ATTLIST NamedValue
+    name    CDATA #REQUIRED
+    type    CDATA #REQUIRED
+    section CDATA #IMPLIED>               <!-- type: string|boolean|int|uri -->
+
+  <!ELEMENT Nil EMPTY>
+
+  <!ELEMENT Parameters (#PCDATA)>
+
+  <!ELEMENT Password (#PCDATA)>
+
+  <!ATTLIST Password
+    encoding CDATA #REQUIRED>           <!-- cleartext | ctx1 |
+                                              rsa56 | rsa128                -->
+
+  <!ELEMENT Permissions (PermissionId*)>
+
+  <!ELEMENT PermissionId (#PCDATA)>       <!-- machine-poweroff -->
+
+  <!ELEMENT PublisherName (#PCDATA)>
+
+  <!ELEMENT RadeExtraCmdLine (#PCDATA)>
+
+  <!ELEMENT RadeInitialApp (#PCDATA)>
+
+  <!ELEMENT RadeOfflineMode (#PCDATA)>               <!-- none | immediate
+                                                            | launch -->
+
+  <!ELEMENT RadeRunSaferLevel (#PCDATA)>
+
+  <!ELEMENT RemedyHint (#PCDATA)>         <!-- restart-desktop -->
+
+  <!ELEMENT RemoteAccessEnabled (#PCDATA)>                <!-- true | false -->
+
+  <!ELEMENT RetryDelayHint (#PCDATA)>
+
+  <!ELEMENT RetryReason (#PCDATA)>
+
+  <!ELEMENT RetryKey (#PCDATA)>
+
+  <!ELEMENT SessionContext (SessionContextEntry*)>
+
+  <!ELEMENT SessionContextEntry (#PCDATA)>
+
+  <!ATTLIST SessionContextEntry
+    name CDATA #REQUIRED>
+
+  <!ELEMENT Settings (
+    Folder,
+    Description?,
+    WinWidth,
+    WinHeight,
+    WinColor,
+    WinType,
+    WinScale,
+    SoundType,
+    VideoType,
+    Encryption,
+    AppOnDesktop,
+    AppInStartmenu,
+    NamedValue*,
+    PublisherName?,
+    SSLEnabled?,
+    RemoteAccessEnabled?,
+    RadeInitialApp?,
+    RadeExtraCmdLine?,
+    RadeRunSaferLevel?,
+    HasClientHostedApps? )>
+
+  <!ATTLIST Settings
+    appisdisabled (true | false) "false"
+    appisdesktop  (true | false) "false">
+
+  <!ELEMENT Scope (#PCDATA)>
+
+  <!ATTLIST Scope
+    traverse (onelevel | subtree) "onelevel"
+    type (PNFolder | IMADName ) "PNFolder">
+
+  <!ELEMENT SeqNo (#PCDATA)>
+
+  <!ELEMENT ServerAddress (#PCDATA)>
+
+  <!ATTLIST ServerAddress
+    addresstype CDATA #REQUIRED>        <!-- no-change | dot | dns |
+                                             dot-port | dns-port | uri      -->
+
+  <!ELEMENT ServerData (
+    ServerName,
+    ServerType,
+    ClientType )>
+
+  <!ELEMENT ServerFarmData (ServerFarmName?)>
+
+  <!ELEMENT ServerFarmName (#PCDATA)>
+
+  <!ELEMENT ServerName (#PCDATA)>
+
+  <!ELEMENT ServerType (#PCDATA)>       <!-- win32 | videoframe | x |
+                                             java | viewsoft | all          -->
+
+  <!ELEMENT SessionSharingKey (#PCDATA)>
+
+  <!ELEMENT SessionId (#PCDATA)>
+
+  <!ELEMENT SessionName (
+    InName?,
+    HostId,
+    SessionId )>
+
+  <!ELEMENT SessionSettings (
+    ColorDepth?,
+    EncryptionLevel?,
+    AudioQuality?,
+    DomainName?,
+    UserName?,
+    FarmName?,
+    SpecialFolderRedirection?,
+    VirtualCOMPortEmulation?,
+    COMPortMapping?,
+    ClientPrinterPortMapping?,
+    ClientPrinterSpooling?,
+    DisplaySize?,
+    TWIDisableSessionSharing?,
+    EnableSessionSharing? )>
+
+  <!ELEMENT SessionType (#PCDATA)>      <!-- active | disconnected          -->
+
+  <!ELEMENT ShowPasswordExpiryWarning (#PCDATA)>
+  <!ATTLIST ShowPasswordExpiryWarning value (true | false) "false">
+
+  <!ELEMENT SoundType (#PCDATA)>        <!-- none | basic                   -->
+
+  <!ATTLIST SoundType
+    minimum (true | false) "false">
+
+  <!ELEMENT SpecialFolderRedirection (#PCDATA)>
+
+  <!ELEMENT SSLEnabled (#PCDATA)>       <!-- true | false                   -->
+
+  <!ELEMENT SSLRelayAddress (#PCDATA)>
+
+  <!ATTLIST SSLRelayAddress
+    addresstype CDATA #REQUIRED>        <!-- dns | dns-port                 -->
+
+  <!ELEMENT CRC (#PCDATA)>
+
+  <!ELEMENT Tickets (Ticket*)>
+
+  <!ELEMENT Ticket (#PCDATA)>
+
+  <!ATTLIST Ticket
+    tag CDATA #REQUIRED>
+
+  <!ELEMENT TicketTag (#PCDATA)>
+
+  <!ELEMENT TicketType (#PCDATA)>
+
+  <!ATTLIST TicketType type CDATA "CtxLogon">
+
+  <!ELEMENT TimetoLive (#PCDATA)>
+
+  <!ELEMENT TWIDisableSessionSharing (#PCDATA)>      <!-- On | Off          -->
+
+  <!ELEMENT UnspecifiedName (#PCDATA)>
+
+  <!ELEMENT User (
+    UserName,
+    Domain? )>
+
+  <!ELEMENT UserIdentityInfo (
+    ID+
+    | ( ErrorId, MPSError )
+  )>
+
+  <!ELEMENT UserName (#PCDATA)>
+
+  <!ELEMENT VideoType (#PCDATA)>        <!-- none | basic                   -->
+
+  <!ATTLIST VideoType
+    minimum (true | false) "false">
+
+  <!ELEMENT VirtualCOMPortEmulation (#PCDATA)>
+
+  <!ELEMENT WinColor (#PCDATA)>
+
+  <!ELEMENT WinHeight (#PCDATA)>
+
+  <!ELEMENT WinScale (#PCDATA)>
+
+  <!ELEMENT WinType (#PCDATA)>          <!-- pixels | percent |
+                                             seamless | fullscreen          -->
+
+  <!ELEMENT WinWidth (#PCDATA)>
+
+<!--  ]> -->

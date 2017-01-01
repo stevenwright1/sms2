@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Wright.AdminGUI</name>
+    </assembly>
+    <members>
+        <member name="T:AuthGateway.AdminGUI.My.Resources.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:AuthGateway.AdminGUI.My.Resources.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:AuthGateway.AdminGUI.My.Resources.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:AuthGateway.AdminGUI.Program">
+            <summary>
+            Class with program entry point.
+            </summary>
+        </member>
+        <member name="M:AuthGateway.AdminGUI.Program.Main(System.String[])">
+            <summary>
+            Program entry point.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,4 @@
+<!--#include file="~/app_data/clientDetection/include/include.aspxf" -->
+<%
+    WizardContext wizardContext = new WizardContext(AspWebAbstraction.getInstance(Context));
+%>

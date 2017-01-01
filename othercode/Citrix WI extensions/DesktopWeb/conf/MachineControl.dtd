@@ -1,0 +1,100 @@
+<!-- Copyright 2008 - 2010 Citrix Systems, Inc.                             -->
+
+<!-- DTD for the Machine Control protocol                                   -->
+<!-- Version 1.1, 10 January 2010                                           -->
+<!--                                                                        -->
+
+<!--  <!DOCTYPE MachineControlProtocol [  -->
+
+<!ELEMENT MachineControlProtocol (
+    RequestPowerOffMachine |
+    ResponsePowerOffMachine |
+    ResponseError )>
+
+  <!ATTLIST MachineControlProtocol
+    version CDATA #REQUIRED>               <!-- 1.0 -->
+
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!--                   Protocol message declarations                      -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+  <!ELEMENT RequestPowerOffMachine (
+    MachineName,
+    ClientName?,
+    ClientAddress?,
+    Credentials,
+    SessionContext? )>
+
+  <!ELEMENT ResponsePowerOffMachine (
+    (ErrorId, ErrorValue?)? )>
+
+  <!ELEMENT ResponseError (
+    ErrorId, ErrorValue? )>
+
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!--                Machine Control Data type declarations                -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+
+  <!ELEMENT ErrorId (#PCDATA)>          <!-- failed-credentials | no-server |
+                                             version-mismatch | parser-error |
+                                             unspecified | not-permitted |
+                                             not-trusted | not-licensed |
+                                             not-supported | no-machine |
+                                             service-unavailable |
+                                             -->
+
+  <!ELEMENT ErrorValue (#PCDATA)>                       <!-- error code (hex) -->
+  <!ATTLIST ErrorValue
+    type CDATA #REQUIRED>                                    <!-- IMA | MFU -->
+
+  <!ELEMENT MachineName (#PCDATA)>
+
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!--                NFuse Data type declarations                -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+  <!ELEMENT AnonymousUser EMPTY>
+
+  <!ELEMENT ClientAddress (#PCDATA)>
+  <!ATTLIST ClientAddress
+    addresstype CDATA #REQUIRED>        <!-- no-change | dot | dns |
+                                             dot-port | dns-port | uri      -->
+
+  <!ELEMENT ClientName (#PCDATA)>
+
+  <!ELEMENT Credentials (
+    LinkAuthenticated
+    | ID+
+    | AnonymousUser
+    | (UserName,
+       Password?,
+       Domain?))>
+
+  <!ELEMENT Domain (#PCDATA)>
+  <!ATTLIST Domain
+    type (NT|UNIX|NDS) "NT">
+
+  <!ELEMENT ID (#PCDATA)>
+
+  <!ATTLIST ID
+    type CDATA #REQUIRED>               <!-- type: SAM | SID | UPN          -->
+
+  <!ELEMENT LinkAuthenticated EMPTY>
+
+  <!ELEMENT Password (#PCDATA)>
+
+  <!ATTLIST Password
+    encoding CDATA #REQUIRED>           <!-- cleartext | ctx1 |
+                                              rsa56 | rsa128                -->
+
+  <!ELEMENT SessionContext (SessionContextEntry*)>
+
+  <!ELEMENT SessionContextEntry (#PCDATA)>
+
+  <!ATTLIST SessionContextEntry
+    name CDATA #REQUIRED>
+
+  <!ELEMENT UserName (#PCDATA)>
+
+<!--  ]> -->

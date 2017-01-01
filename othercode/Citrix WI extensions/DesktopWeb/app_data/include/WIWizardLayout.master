@@ -1,0 +1,193 @@
+﻿<%
+// WIWizardLayout.master
+// Copyright (c) 2000 - 2010 Citrix Systems, Inc. All Rights Reserved.
+// Web Interface 5.4.0.0
+%>
+<%@ Master Language="C#" AutoEventWireup="true" Inherits="com.citrix.wi.ui.BaseMasterPage" %>
+<%@ Register TagPrefix="wizard" TagName="Help" Src="~/app_data/clientDetection/include/helpView.ascx" %>
+<%@ Register TagPrefix="wi" TagName="Header" Src="headerView.ascx" %>
+<%@ Register TagPrefix="wi" TagName="Footer" Src="footerView.ascx" %>
+<%@ Register TagPrefix="wi" TagName="Feedback" Src="feedbackView.ascx" %>
+<script runat="server">
+    private bool runClientScript = false;
+
+    private ClientInfo sClientInfo = null;
+    private WizardContext wizardContext = null;
+    void Page_Load(object sender, System.EventArgs e)
+    {
+        ContentPlaceHolder clientScriptControl = (ContentPlaceHolder)this.FindControl("ClientScriptPlaceHolder");
+        runClientScript = (clientScriptControl != null) && clientScriptControl.HasControls();
+
+        wizardContext = new WizardContext(AspWebAbstraction.getInstance(Context));
+        sClientInfo = wizardContext.getClientInfo();
+
+        if (PageID != null || PageID != "")
+        {
+            help.PageID = PageID;
+        }
+    }
+</script>
+<!--#include file="../serverscripts/include.aspxf"-->
+<%
+// need the feedback control for feedback.js
+FeedbackControl feedbackControl = new FeedbackControl();
+feedbackControl.setTimeoutAlert(wiContext.getWebAbstraction());
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW, NOARCHIVE">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <link rel="SHORTCUT ICON" href="../media/<%=Images.getFavoritesIcon(wiContext)%>" type="image/vnd.microsoft.icon">
+    <title>
+        <%=PageTitle%>
+    </title>
+    <script type="text/javascript" src="../auth/<%=UIUtils.getJavascriptURL(wiContext)%>"></script>
+    <script type="text/javascript">
+    <!--
+    // Ensure every page has an onLoadLayout function. If a page defines its own
+    // onLoadLayout function, it will override this one.
+    function onLoadLayout() {
+      return;
+    }
+    function getFrameSuffix() {
+      return "<%=Include.getFrameSuffix(wiContext.getUserEnvironmentAdaptor())%>";
+    }
+    function getSessionToken() {
+      return "<%=SessionToken.get(wiContext)%>";
+    }
+    // -->
+    </script>
+    <script type="text/javascript">
+      <!--
+      <asp:ContentPlaceHolder id="ClientScriptPlaceHolder" runat="server" />
+      <% if (!Include.isCompactLayout(wiContext)) { %>
+           <!--#include file="../clientscripts/fullUtils.js" -->
+      <% } %>
+        <!--#include file="../clientscripts/commonUtils.js" -->
+        <!--#include file="../clientscripts/layout.js" -->
+        <!--#include file="../clientscripts/popups.js" -->
+        <!--#include file="../clientscripts/feedback.js" -->
+        <%// override the following so on timeout you get redirected to the correct page %>
+        function getLogoutPage() {
+        <%if(Include.isLoggedIn(wiContext.getWebAbstraction())) {%>
+           return "../site/<%=Constants.PAGE_LOGOUT%>";
+        <%} else {%>
+            return "../auth/<%=Constants.PAGE_LOGIN%>";
+        <%}%>
+        }
+      // -->
+    </script>
+    <!--#include file="styleVars.inc" -->
+    <!--#include file="~/app_data/clientDetection/include/styleWizard.inc" -->
+    <link rel="stylesheet" type="text/css"  media="handheld,all" href="../auth/<%=UIUtils.getStyleSheetURL(wiContext)%>">
+</head><%
+// Build the onLoad Script
+string onLoadScript = runClientScript ? "onLoadLayout();" : "";
+onLoadScript += "putInTopFrame();wizard_setup_popup_behaviour();updateLayout();";
+// don't want session timeout on pages that users spend a long time waiting
+if (!TransientPage)
+{
+    onLoadScript += "resetSessionTimeout()";
+}
+
+// If we are using IE then we include the client capabilities so we can query the browser.
+string clientCapabilitesForIE = "";
+if(wiContext.getClientInfo().isIE()) {
+    clientCapabilitesForIE = "style=\"behavior:url(#default#clientCaps)\" id=\"oClientCaps\"";
+}
+
+bool useHorizonLayout = HorizonLayoutPage && !Include.isCompactLayout(wiContext);
+string bodyClass = useHorizonLayout ? "class=\"horizonPage\"" : "";
+
+%><body <%=bodyClass%> onload="<%=onLoadScript%>" <%=clientCapabilitesForIE %> ><%
+// Set up any required controls, as this master page does not derive from StandardLayout
+    wiContext.getWebAbstraction().setRequestContextAttribute(Constants.CTRL_HEADER, new HeaderControl());
+    wiContext.getWebAbstraction().setRequestContextAttribute(Constants.CTRL_LAYOUT, new LayoutControl());
+    wiContext.getWebAbstraction().setRequestContextAttribute(Constants.CTRL_FOOTER, new FooterControl());
+    wiContext.getWebAbstraction().setRequestContextAttribute(Constants.CTRL_FEEDBACK, new FeedbackControl());
+    wiContext.getWebAbstraction().setRequestContextAttribute(Constants.CTRL_SEARCH_BOX, new SearchBoxControl());
+    NavControl navControl = new NavControl();
+    navControl.setShowLogout(wizardContext.getInputs().allowLogout() && !AGEUtilities.isAGEEmbeddedOrIndirectMode(wiContext));
+    wiContext.getWebAbstraction().setRequestContextAttribute(Constants.CTRL_NAV, navControl);
+%>
+
+<% if (!TransientPage) { %>
+  <div id="overallWrapper">
+    <div id="pageContent">
+  <% if (useHorizonLayout) {
+    String brandingImg = (Include.getSiteBranding(wiContext) == UserInterfaceBranding.DESKTOPS) ? "CitrixXenDesktop.png" : "CitrixXenApp.png";
+    brandingImg = ClientInfoUtilities.getImageName(wiContext.getClientInfo(), brandingImg);
+  %>
+      <div id="horizonTop"><img src="../media/<%=brandingImg%>" alt=""></div>
+      <div id="horizonMainPane" class="mainPane">
+        <table class="carbonBox" cellpadding="0" cellspacing="0">
+          <tr><td class="carbonBoxBottom">
+            <table class="glowBox dynamicGlowBoxMargin" cellpadding="0" cellspacing="0" align="center">
+              <tr>
+                <td class="glowBoxTop glowBoxLeft glowBoxTopLeft"></td>
+                <td class="glowBoxTop glowBoxTopMid"><div class="leftGradient"><div class="rightGradient"><div class="centerGradient"></div></div></div></td>
+                <td class="glowBoxTop glowBoxRight glowBoxTopRight"></td>
+              </tr>
+              <tr>
+                <td class="glowBoxLeft glowBoxMidLeft"></td>
+                <td class="glowBoxMid loginTableMidWidth">
+                  <div class="actionPane">
+  <% } else { %>
+      <wi:Header runat="server" />
+      <div class="spacer"></div>
+      <div class="mainPane" id="commonMainPane">
+        <wi:Feedback runat="server" />
+        <div id="commonBox" class="WizardBox">
+  <% } %>
+<% } %>
+
+    <asp:ContentPlaceHolder id="ViewPlaceHolder" runat="server" />
+
+<% if (!TransientPage) { %>
+  <% if (useHorizonLayout) { %>
+                    <div class="spacer"></div>
+                  </div> <% // End actionPane %>
+                </td>
+                <td class="glowBoxRight glowBoxMidRight"></td>
+              </tr>
+              <tr>
+                <td class="glowBoxFooter glowBoxLeft glowBoxFooterLeft"></td>
+                <td class="glowBoxFooter glowBoxFooterMid"></td>
+                <td class="glowBoxFooter glowBoxRight glowBoxFooterRight"></td>
+              </tr>
+              <tr>
+                <td class="glowBoxLeft"></td>
+                <td></td>
+                <td class="glowBoxRight"></td>
+              </tr>
+            </table>
+          </td></tr>
+        </table>
+        <h3 id="horizonTagline"><%=wiContext.getString("HorizonTagline")%></h3>
+      </div><% // End mainPane %>
+  <% } else { %>
+        <div class="spacer"></div>
+    <%  if (Include.getSiteBranding(wiContext) != UserInterfaceBranding.DESKTOPS) { %>
+        <wizard:Help id="help" runat="server" />
+    <% } %>
+          <div class="bottomFiller"><!-- --></div><% // Empty comment required for IE %>
+          <div class="spacer"></div>
+        </div> <% // End commonBox %>
+      </div> <% //End mainPane %>
+  <% } %>
+    </div><% // End pageContent %>
+    <div id="heightFiller"><!-- --></div> <% // Empty comment required for IE %>
+  <% if (!Include.isCompactLayout(wiContext)) { %>
+    <wi:Footer runat="server" />
+  <% } %>
+  </div><% // End overallWrapper %>
+<% }
+   // The hidden frame for session timeout warnings
+   string _frameSuffix = Include.getFrameSuffix(wiContext.getUserEnvironmentAdaptor());
+%>
+   <iframe width="0" height="0" class="HiddenIframe" id="<%=Constants.ID_FRAME_TIMEOUT + _frameSuffix%>" name="<%=Constants.ID_FRAME_TIMEOUT + _frameSuffix%>" title="<%=wiContext.getString("TimeoutFrameTitle")%>" src="<%=Constants.PAGE_DUMMY%>"></iframe>
+</body>
+</html>

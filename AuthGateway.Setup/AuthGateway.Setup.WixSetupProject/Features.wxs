@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+		<!-- Features -->
+		<FeatureGroup Id="AllFeatures">
+			<Feature Id="WrightCCS" Title="WrightCCS" Level="1" ConfigurableDirectory="INSTALLLOCATION">
+				<Feature Id="Services" Title="Services" Level="1">
+					<Feature Id="AuthEngine" Title="AuthEngine" Description="Core service." Level="1">
+						<ComponentRef Id="Com_AuthEngine"/>
+						<ComponentRef Id="Com_AuthEngineLogic"/>
+						<ComponentRef Id="Com_GmaQrCodeNetEncoding_Services"/>
+						<ComponentRef Id="Com_MigraDoc_DocumentObjectModel_Services"/>
+						<ComponentRef Id="Com_MigraDoc_Rendering_Services"/>
+						<ComponentRef Id="Com_MigraDoc_RtfRendering_Services"/>
+						<ComponentRef Id="Com_PdfSharp_Services"/>
+						<ComponentRef Id="Com_PdfSharp_Charting_Services"/>
+						<ComponentRef Id="Prg_Util"/>
+						<ComponentRef Id="Lib_ManyConsole"/>
+						<ComponentRef Id="Lib_NDeskOptions"/>
+						<ComponentRef Id="Prg_Admin_ResetUserInfo"/>
+						<ComponentRef Id="Com_MindscapeRaygun4Netdll_Service" />
+						<ComponentRef Id="Com_WrightShareddll_Service"/>
+						<ComponentRef Id="Com_WrightSharedXmlMessagesdll_Service"/>
+						<ComponentRef Id="Com_WrightOATHCalcxmlprocessordll_Service"/>
+            <ComponentRef Id="Com_Trackerbird_Service"/>
+            <ComponentRef Id="Com_TrackerbirdLib_Service"/>
+						<ComponentRef Id="Com_Dir_Settings"/>
+						<ComponentRef Id="Com_Dir_Logs"/>
+					</Feature>
+					<Feature Id="CloudSMS" Title="CloudSMS" Description="Needed to use SMS authentication." Level="1">
+						<ComponentRef Id="Com_CloudSMS"/>
+						<ComponentRef Id="Com_CloudSMS_Twilio_Api"/>
+						<ComponentRef Id="Com_CloudSMS_Twilio_Twiml"/>
+						<ComponentRef Id="Com_CloudSMS_RestSharp"/>
+						<ComponentRef Id="Com_CloudSMS_NewtonsoftJson"/>
+						<ComponentRef Id="Com_MindscapeRaygun4Netdll_Service" />
+						<ComponentRef Id="Com_WrightShareddll_Service"/>
+						<ComponentRef Id="Com_WrightSharedXmlMessagesdll_Service"/>
+						<ComponentRef Id="Com_WrightOATHCalcxmlprocessordll_Service"/>
+            <ComponentRef Id="Com_Trackerbird_Service"/>
+            <ComponentRef Id="Com_TrackerbirdLib_Service"/>
+						<ComponentRef Id="Com_Dir_Settings"/>
+						<ComponentRef Id="Com_Dir_Logs"/>
+					</Feature>
+          <!--<Feature Id="MutualAuthImages" Title="MutualAuthImages" Description="Handles images used for mutual authentication." Level="1">
+            <ComponentRef Id="Com_MutualAuthImages"/>
+            <ComponentRef Id="Com_WrightShareddll_Service"/>
+            <ComponentRef Id="Com_WrightSharedXmlMessagesdll_Service"/>
+            <ComponentRef Id="Com_Trackerbird_Service"/>
+            <ComponentRef Id="Com_TrackerbirdLib_Service"/>
+            <ComponentRef Id="Com_Dir_Settings"/>
+            <ComponentRef Id="Com_Dir_Logs"/>
+          </Feature>  -->
+					<Feature Id="OATHCalc" Title="OATHCalc" Description="Needed to use OATH authentication." Level="1">
+						<ComponentRef Id="Com_OATHCalc"/>
+						<ComponentRef Id="Com_OATHCalcService"/>
+						<ComponentRef Id="Com_MindscapeRaygun4Netdll_Service" />
+						<ComponentRef Id="Com_WrightShareddll_Service"/>
+						<ComponentRef Id="Com_WrightSharedXmlMessagesdll_Service"/>
+						<ComponentRef Id="Com_WrightOATHCalcxmlprocessordll_Service"/>
+            <ComponentRef Id="Com_Trackerbird_Service"/>
+            <ComponentRef Id="Com_TrackerbirdLib_Service"/>
+						<ComponentRef Id="Com_Dir_Settings"/>
+						<ComponentRef Id="Com_Dir_Logs"/>
+					</Feature>
+				</Feature>
+				<Feature Id="AdminGUI" Title="SMS2 Administration Console" Description="Main user configuration program." Level="1">
+					<ComponentRef Id="Com_AdminGUI"/>
+					<ComponentRef Id="Com_Sc_AdminGUI"/>
+					<ComponentRef Id="Com_GmaQrCodeNetEncoding"/>
+					<ComponentRef Id="Com_MigraDoc_DocumentObjectModel"/>
+					<ComponentRef Id="Com_MigraDoc_Rendering"/>
+					<ComponentRef Id="Com_MigraDoc_RtfRendering"/>
+					<ComponentRef Id="Com_PdfSharp"/>
+					<ComponentRef Id="Com_PdfSharp_Charting"/>
+					<ComponentRef Id="Com_WrightAdminGUIexeConfig"/>
+					<ComponentRef Id="Com_MindscapeRaygun4Netdll_AdminGui"/>
+					<ComponentRef Id="Com_WrightShareddll_AdminGui"/>
+					<ComponentRef Id="Com_WrightSharedXmlMessagesdll_AdminGui"/>
+          <ComponentRef Id="Com_Trackerbird_AdminGui"/>
+          <ComponentRef Id="Com_TrackerbirdLib_AdminGui"/>
+					<ComponentRef Id="Com_Dir_SettingsPublic"/>
+					<ComponentRef Id="Com_Dir_Logs"/>
+				</Feature>
+				<Feature Id="Clients" Title="Clients" Level="3">
+					<Feature Id="IasRadius" Title="IAS/NPS Radius Client" Description="IAS/NPS plugin to handle RADIUS authentication." Level="3">
+						<MergeRef Id="Msvcr100msm"/>
+						<ComponentRef Id="Com_Dir_Logs"/>
+						<ComponentRef Id="Com_Dir_SettingsPublic"/>
+						<ComponentRef Id="Com_MindscapeRaygun4Netdll_Client" />
+            <ComponentRef Id="Com_Trackerbird_Client" />
+            <ComponentRef Id="Com_TrackerbirdLib_Client" />
+						<ComponentRef Id="Com_WrightShareddll_Client"/>
+						<ComponentRef Id="Com_WrightSharedXmlMessagesdll_Client"/>
+						<ComponentRef Id="Com_IasRADIUSCSharp"/>
+						<ComponentRef Id="Com_IasRADIUSC"/>
+					</Feature>
+					<Feature Id="WiCustom" Title="Citrix Web Interface Customization" Description="Customizations to Citrix WI to include SMS2 authentication." Level="3">
+						<ComponentGroupRef Id="Cg_CitrixMod"/>
+						<ComponentRef Id="Com_Dir_SettingsPublic"/>
+						<ComponentRef Id="Com_Dir_Logs"/>
+					</Feature>
+					<Feature Id="GuiClient" Title="GUI Client" Description="A simple GUI test client. Can be used to test/debug authentications." Level="3">
+						<ComponentRef Id="Com_GuiClient"/>
+						<ComponentRef Id="Com_GuiClientConf"/>
+						<ComponentRef Id="Com_MindscapeRaygun4Netdll_Client" />
+						<ComponentRef Id="Com_WrightShareddll_Client"/>
+						<ComponentRef Id="Com_WrightSharedXmlMessagesdll_Client"/>
+						<ComponentRef Id="Com_Dir_SettingsPublic"/>
+						<ComponentRef Id="Com_Dir_Logs"/>
+					</Feature>
+					<Feature Id="Sms2PremiumAccess" Title="SMS2 PremiumAccess OATH Token generator"
+									 Description="A simple GUI OATH token generator." 
+									 Level="3">
+						<ComponentRef Id="Com_Sms2PremiumAccess"/>
+					</Feature>
+          <!--					<Feature Id="OathCmdClient" Title="OATHCalc Command-line Token generator" Description="A simple command-line OATH token generator. Can be used to test/debug authentications." Level="3">
+						<ComponentRef Id="Com_OATHCalcGenClient"/>
+						<ComponentRef Id="Com_OATHCalcClient"/>
+						<ComponentRef Id="Com_MindscapeRaygun4Netdll_Client" />
+						<ComponentRef Id="Com_WrightShareddll_Client"/>
+						<ComponentRef Id="Com_WrightSharedXmlMessagesdll_Client"/>
+						<ComponentRef Id="Com_Dir_SettingsPublic"/>
+						<ComponentRef Id="Com_Dir_Logs"/>
+					</Feature> -->
+					<Feature Id="GsmGuiClient" Title="GSM Test GUI Client" Description="A simple GSM test client. Can be used to test/debug communicatin with the modem." Level="3">
+						<ComponentRef Id="Com_GsmGuiClient"/>
+						<ComponentRef Id="Com_GsmCloudSMS"/>
+						<ComponentRef Id="Com_GsmCloudSMS_Twilio_Api"/>
+						<ComponentRef Id="Com_GsmCloudSMS_Twilio_Twiml"/>
+						<ComponentRef Id="Com_GsmCloudSMS_RestSharp"/>
+						<ComponentRef Id="Com_GsmCloudSMS_NewtonsoftJson"/>
+						<ComponentRef Id="Com_MindscapeRaygun4Netdll_Client" />
+						<ComponentRef Id="Com_WrightShareddll_Client"/>
+						<ComponentRef Id="Com_WrightSharedXmlMessagesdll_Client"/>
+						<ComponentRef Id="Com_Dir_SettingsPublic"/>
+						<ComponentRef Id="Com_Dir_Logs"/>
+					</Feature>
+				</Feature>
+					<!--
+				<Feature Id="MassUserSetup" 
+								 Title="Mass user setup Utility" 
+								 Description="An utility to setup multiple users at once." 
+								 Level="3">
+					<ComponentRef Id="Com_MassUserSetup"/>
+					<ComponentRef Id="Com_WrightShareddll_Client"/>
+					<ComponentRef Id="Com_WrightSharedClientdll_Client"/>
+					<ComponentRef Id="Com_WrightSharedXmlMessagesdll_Client"/>
+					<ComponentRef Id="Com_Dir_SettingsPublic"/>
+					<ComponentRef Id="Com_Dir_Logs"/>
+				</Feature>
+					-->
+			</Feature>
+		</FeatureGroup>
+	</Fragment>
+</Wix>

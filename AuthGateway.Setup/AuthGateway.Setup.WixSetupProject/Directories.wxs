@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<?include $(sys.CURRENTDIR)vars.wxi ?>
+	<Fragment>
+		<!-- Directories -->
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="$(var.PlatformProgramFilesFolder)">
+				<Directory Id="INSTALLLOCATION" Name="WrightCCS2">
+					<Directory Id="Dir_Client" Name="Client"></Directory>
+					<Directory Id="Dir_AdminGUI" Name="AdminGUI"></Directory>
+					<Directory Id="Dir_Service" Name="Service"></Directory>
+					<Directory Id="Dir_Settings" Name="Settings">
+					</Directory>
+					<Directory Id="Dir_SettingsPublic" Name="SettingsPublic">
+					</Directory>
+					<Directory Id="Dir_Logs" Name="Logs">
+					</Directory>
+				</Directory>
+			</Directory>
+			<Directory Id="ProgramMenuFolder">
+				<Directory Id="Dir_Sc_WrightCCS" Name="WrightCCS - SMS2"></Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+</Wix>

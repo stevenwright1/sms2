@@ -1,0 +1,17 @@
+- Edit radiusd_sms2/radiusd_sms2.py, change TCP_IP accordingly
+
+- Copy radiusd_sms2/radiusd_sms2.py inside your current python site-packages, IE: /usr/lib64/python2.7/site-packages/
+  cp radiusd_sms2/radiusd_sms2.py /usr/lib64/python2.7/site-packages/
+
+- Copy etc/raddb files inside /etc/raddb/
+  cp etc/raddb/modules/python
+  cp etc/raddb/sites-available/default.sms2
+
+- Remove symlink /etc/raddb/sites-enabled/default
+  rm /etc/raddb/sites-enabled/default
+
+- Create a symlink inside /etc/raddb/sites-enabled pointing to /etc/raddb/sites-available/default.sms2
+  ln -s /etc/raddb/sites-available/default.sms2 /etc/raddb/sites-enabled/default.sms2
+
+- Restart server
+  

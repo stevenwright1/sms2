@@ -1,0 +1,62 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+  noConfiguration.html
+  Copyright (c) 2004 - 2010 Citrix Systems, Inc. All Rights Reserved.
+-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW, NOARCHIVE">
+<title>Invalid System Configuration</title>
+
+<script type="text/javascript">
+<!--
+var names = new Array(
+    'timeoutFrameWI_',
+    'reconnectFrameWI_',
+    'retryPopulatorFrameWI_',
+    'launchFrameWI_'
+);
+function getTopFrame(w) {
+    for (var n in names) {
+        if(w.name.indexOf(names[n]) == 0) {
+            if(w.parent) {
+                return w.parent;
+            }
+        }
+    }
+    return null;
+}
+function redirectTop() {
+    var topFr = getTopFrame(window);
+    if (topFr != null) {
+        topFr.location.href = window.location.href;
+    }
+}
+// -->
+</script>
+<link rel="stylesheet" type="text/css" href="styles/basicStyle.css" >
+</head>
+
+<body onLoad="redirectTop()" dir="ltr">
+  <div id="overallWrapper">
+    <div id="pageContent">
+	  <div id="headerWrapper">
+        <div id="header">
+          <img src="../media/CitrixLogoHeader.gif" alt="Page header">
+        </div>
+	    <div class="spacer"><!-- --></div>
+	  </div>
+      <div class="mainPane">
+        <div id="welcome">
+          <h4 id="welcomeTitle" class="error">Invalid System Configuration</h4>
+        </div>
+        <div id="commonBox">
+          <p>The system configuration is invalid or unavailable. We apologize for any inconvenience.</p>
+          <p>The error may only be temporary. Try reconnecting and, if the problem persists, contact your system administrator.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

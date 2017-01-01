@@ -1,0 +1,235 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <PathDelim Value="\"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasTitleStatement Value="False"/>
+      </Flags>
+      <MainUnit Value="0"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+      <Icon Value="0"/>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <i18n>
+      <EnableI18N LFM="False"/>
+    </i18n>
+    <VersionInfo>
+      <StringTable ProductVersion=""/>
+    </VersionInfo>
+    <BuildModes Count="1" Active="Default">
+      <Item1 Name="Default" Default="True"/>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+      </local>
+    </RunParams>
+    <Units Count="4">
+      <Unit0>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Project1"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="116"/>
+        <CursorPos X="43" Y="135"/>
+        <UsageCount Value="78"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="..\..\..\..\Downloads\terecs_u1.pp"/>
+        <UnitName Value="terecs_u1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="39"/>
+        <CursorPos X="15" Y="30"/>
+        <UsageCount Value="4"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="..\..\..\..\programs\lazarus\fpc\2.6.0\source\packages\winunits-jedi\src\jwaauthif.pas"/>
+        <UnitName Value="JwaAuthif"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="596"/>
+        <CursorPos X="5" Y="606"/>
+        <UsageCount Value="39"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\..\..\..\programs\lazarus\fpc\2.6.0\source\rtl\inc\systemh.inc"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="920"/>
+        <CursorPos X="11" Y="939"/>
+        <UsageCount Value="36"/>
+        <Loaded Value="True"/>
+      </Unit3>
+    </Units>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="94" Column="40" TopLine="77"/>
+      </Position1>
+      <Position2>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="97" Column="33" TopLine="77"/>
+      </Position2>
+      <Position3>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="98" Column="60" TopLine="77"/>
+      </Position3>
+      <Position4>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="105" Column="36" TopLine="81"/>
+      </Position4>
+      <Position5>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="57" Column="43" TopLine="38"/>
+      </Position5>
+      <Position6>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="109" Column="85" TopLine="90"/>
+      </Position6>
+      <Position7>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="107" Column="30" TopLine="88"/>
+      </Position7>
+      <Position8>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="57" Column="37" TopLine="38"/>
+      </Position8>
+      <Position9>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="104" Column="9" TopLine="85"/>
+      </Position9>
+      <Position10>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="16" Column="36" TopLine="1"/>
+      </Position10>
+      <Position11>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="10" Column="11" TopLine="1"/>
+      </Position11>
+      <Position12>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="105" Column="43" TopLine="86"/>
+      </Position12>
+      <Position13>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="106" Column="18" TopLine="86"/>
+      </Position13>
+      <Position14>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="38" Column="38" TopLine="13"/>
+      </Position14>
+      <Position15>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="4" Column="15" TopLine="1"/>
+      </Position15>
+      <Position16>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="6" Column="17" TopLine="1"/>
+      </Position16>
+      <Position17>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="36" Column="33" TopLine="17"/>
+      </Position17>
+      <Position18>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="41" Column="32" TopLine="22"/>
+      </Position18>
+      <Position19>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="138" Column="33" TopLine="104"/>
+      </Position19>
+      <Position20>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="18" Column="3" TopLine="1"/>
+      </Position20>
+      <Position21>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="20" Column="43" TopLine="1"/>
+      </Position21>
+      <Position22>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="3" Column="14" TopLine="1"/>
+      </Position22>
+      <Position23>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="142" Column="29" TopLine="115"/>
+      </Position23>
+      <Position24>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="149" Column="23" TopLine="129"/>
+      </Position24>
+      <Position25>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="143" Column="9" TopLine="119"/>
+      </Position25>
+      <Position26>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="151" Column="8" TopLine="125"/>
+      </Position26>
+      <Position27>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="144" Column="6" TopLine="131"/>
+      </Position27>
+      <Position28>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="140" Column="27" TopLine="130"/>
+      </Position28>
+      <Position29>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="80" Column="35" TopLine="53"/>
+      </Position29>
+      <Position30>
+        <Filename Value="WrightIasRadius.lpr"/>
+        <Caret Line="135" Column="30" TopLine="116"/>
+      </Position30>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="9"/>
+    <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="WrightIasRadius"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Linking>
+      <Options>
+        <ExecutableType Value="Library"/>
+      </Options>
+    </Linking>
+    <Other>
+      <CompilerMessages>
+        <UseMsgFile Value="True"/>
+      </CompilerMessages>
+      <CompilerPath Value="$(CompPath)"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

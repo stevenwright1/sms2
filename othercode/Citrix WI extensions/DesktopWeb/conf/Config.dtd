@@ -1,0 +1,92 @@
+<!-- Copyright (c) 2004 - 2010 Citrix Systems, Inc. All Rights Reserved.           -->
+
+<!-- DTD for the Citrix Proxied Configuration protocol.                     -->
+<!-- This protocol allows MetaFrame components to register themselves with  -->
+<!-- a centralized configuration store and request configuration data.      -->
+<!--                                                                        -->
+<!-- Version 1.0  25/03/2004                                                -->
+<!-- Draft 1                                                                -->
+<!--                                                                        -->
+
+
+<!--  <!DOCTYPE ConfigProtocol [  -->
+
+
+  <!ELEMENT ConfigProtocol (
+    RequestRegistration |
+    ResponseRegistration |
+    RequestConfiguration |
+    ResponseConfiguration |
+    RequestChunkIds |
+    ResponseChunkIds |
+    ResponseError )>
+
+  <!ATTLIST AdminProtocol version CDATA #REQUIRED>        <!-- version: 1.0 -->
+
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!--                   Protocol message declarations                      -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+  <!ELEMENT RequestRegistration (
+    ComponentInstanceId,
+    ComponentVersion,
+    ComponentRegInfo* )>
+
+  <!ELEMENT ResponseRegistration (
+    ErrorId? )>
+
+  <!ELEMENT RequestConfiguration (
+    ComponentInstanceId,
+    ComponentVersion,
+    ConfigurationChunkId* )>
+
+  <!ELEMENT ResponseConfiguration (
+    ( ConfigurationChunk*, ChunkUnavailable* ) |
+    NotRegistered |
+    ErrorId )>
+
+  <!ELEMENT RequestChunkIds (
+    ComponentInstanceId,
+    ComponentVersion )>
+
+  <!ELEMENT ResponseChunkIds (
+    ConfigurationChunkId* |
+    NotRegistered |
+    ErrorId )>
+
+  <!ELEMENT ResponseError (
+    ErrorId )>
+
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!--                        Data type declarations                        -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+  <!ELEMENT ChunkUnavailable EMPTY>
+
+  <!ATTLIST ChunkUnavailable
+    Id CDATA #REQUIRED>
+
+  <!ELEMENT ConfigurationChunk (#PCDATA)>       <!-- Opaque string -->
+
+  <!ATTLIST ConfigurationChunk
+    id CDATA #REQUIRED>
+
+  <!ELEMENT ConfigurationChunkId (#PCDATA)>     <!-- Opaque string -->
+
+  <!ELEMENT ComponentRegInfo (#PCDATA)>         <!-- Opaque string -->
+
+  <!ATTLIST ComponentRegInfo
+    key CDATA #REQUIRED>
+
+  <!ELEMENT ErrorId (#PCDATA)>                  <!-- bad-request | protocol-version-not-supported | unspecified -->
+
+  <!ELEMENT NotRegistered EMPTY>
+
+  <!ELEMENT ComponentInstanceId (#PCDATA)>      <!-- Opaque string -->
+
+  <!ELEMENT ComponentVersion (#PCDATA)>         <!-- Opaque string -->
+
+  <!ELEMENT Unavailable (#PCDATA)>              <!-- not-registered | not-configured -->
+
+<!--  ]> -->
+

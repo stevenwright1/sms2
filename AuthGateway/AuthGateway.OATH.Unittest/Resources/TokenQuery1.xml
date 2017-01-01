@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tokenquery>
+  <key>12345678901234567890</key>
+  <hash>hotp</hash>
+  <hexhash>0</hexhash>
+  <counter>1</counter>
+  <digits>6</digits>
+  <aftervalues>0</aftervalues>
+  <beforevalues>0</beforevalues> 
+  <window>30</window>
+</tokenquery>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+	<?include $(sys.CURRENTDIR)vars.wxi ?>
+	<Fragment>
+		<!-- Components -->
+		
+		<DirectoryRef Id="Dir_Client">
+			<!-- GuiClient -->
+			<Component Id="Com_GuiClient" Win64="$(var.CompWin64)">
+				<File Id="Fil_GuiClient" Source="..\..\AuthGateway\AuthGateway.GUIClient\bin\$(var.binPlatformDir)\Release\AuthGateway.GUIClient.exe" KeyPath="yes"/>
+			</Component>
+			<Component Id="Com_GuiClientConf" Win64="$(var.CompWin64)">
+				<File Id="Fil_GuiClientConf" Source="..\..\AuthGateway\AuthGateway.GUIClient\bin\$(var.binPlatformDir)\Release\AuthGateway.GUIClient.exe.config" KeyPath="yes"/>
+			</Component>
+
+			<Merge Id='Msvcr100msm' SourceFile='$(var.MergeModulesCommon)$(var.Msvcr100merge)' Language='1033' DiskId='1' />
+			
+			<!-- GSM Gui Test Client -->
+
+			<Component Id="Com_GsmGuiClient" Win64="$(var.CompWin64)">
+				<File Id="Fil_GsmGuiClient" Source="..\..\AuthGateway\AuthGateway.GSM.Gui\bin\$(var.binPlatformDir)\Release\AuthGateway.GSM.Gui.exe" KeyPath="yes"/>
+			</Component>
+			<!-- GSM CloudSMS Ref -->
+			<Component Id="Com_GsmCloudSMS" Win64="$(var.CompWin64)">
+				<File Id="Fil_GsmCloudSMS" Source="..\..\AuthGateway\AuthGateway.CloudSMS\AuthGateway.CloudSMS\bin\$(var.binPlatformDir)\Release\Wright.CloudSMS.exe" KeyPath="yes"/>
+			</Component>
+			<Component Id="Com_GsmCloudSMS_Twilio_Api" Win64="$(var.CompWin64)">
+				<File Id="Fil_GsmCloudSMS_Twilio_Api" Source="..\..\AuthGateway\AuthGateway.CloudSMS\AuthGateway.CloudSMS\bin\$(var.binPlatformDir)\Release\Twilio.Api.dll" KeyPath="yes"/>
+			</Component>
+			<Component Id="Com_GsmCloudSMS_Twilio_Twiml" Win64="$(var.CompWin64)">
+				<File Id="Fil_GsmCloudSMS_Twilio_Twiml" Source="..\..\AuthGateway\AuthGateway.CloudSMS\AuthGateway.CloudSMS\bin\$(var.binPlatformDir)\Release\Twilio.Twiml.dll" KeyPath="yes"/>
+			</Component>
+			<Component Id="Com_GsmCloudSMS_RestSharp" Win64="$(var.CompWin64)">
+				<File Id="Fil_GsmCloudSMS_RestSharp" Source="..\..\AuthGateway\AuthGateway.CloudSMS\AuthGateway.CloudSMS\bin\$(var.binPlatformDir)\Release\RestSharp.dll" KeyPath="yes"/>
+			</Component>
+			<Component Id="Com_GsmCloudSMS_NewtonsoftJson" Win64="$(var.CompWin64)">
+				<File Id="Fil_GsmCloudSMS_NewtonsoftJson" Source="..\..\AuthGateway\AuthGateway.CloudSMS\AuthGateway.CloudSMS\bin\$(var.binPlatformDir)\Release\Newtonsoft.Json.dll" KeyPath="yes"/>
+			</Component>
+			
+			<!-- 
+			IAS Radius 
+			othercode\Ias.RADIUS.C\bin\x64\Release
+			-->
+			<Component Id="Com_IasRADIUSC" Win64="$(var.CompWin64)">
+				<ServiceControl Id="IASNPS" Name="IAS" Stop="both" Start="both" Wait="no"/>
+				<File Id="Fil_IasRADIUSC" Source="..\..\othercode\Ias.RADIUS.C\bin\$(var.binPlatformDir)\Release\Ias.RADIUS.C.dll" KeyPath="yes"/>
+				<RegistryKey Root="HKLM"
+									 Key="System\CurrentControlSet\Services\AuthSrv\Parameters"
+						ForceCreateOnInstall="yes">
+					<RegistryValue Name="ExtensionDLLs" Value="[#Fil_IasRADIUSC]" Type="multiString" Action="append"/>
+					<RegistryValue Name="AuthorizationDLLs" Value="[#Fil_IasRADIUSC]" Type="multiString" Action="append"/>
+				</RegistryKey>
+			</Component>
+			<Component Id="Com_IasRADIUSCSharp" Win64="$(var.CompWin64)">
+				<File Id="Fil_IasRADIUSCSharp" Source="..\..\othercode\Ias.RADIUS.CSharp\bin\$(var.binPlatformDir)\Release\Ias.RADIUS.CSharp.dll" KeyPath="yes"/>
+			</Component>
+			
+			<!-- OATHCalc Generator -->
+			<!--<Component Id="Com_OATHCalcGenClient" Win64="$(var.CompWin64)">
+        <File Id="Fil_OATHCalcGenClient" Source="..\..\othercode\oath\once.upon.a.vb.time\once.upon.a.vb.time.cmd\bin\$(var.binPlatformDir)\Release\Wright.OATHCalc.Generator.exe" KeyPath="yes"/>
+			</Component>
+			<Component Id="Com_OATHCalcClient" Win64="$(var.CompWin64)">
+        <File Id="Fil_OATHCalcClient" Source="..\..\othercode\oath\once.upon.a.vb.time\once.upon.a.vb.time\bin\$(var.binPlatformDir)\Release\Wright.OATHCalc.dll" KeyPath="yes"/>
+			</Component> -->
+			
+			<!-- Mass User Setup 
+			<Component Id="Com_MassUserSetup" Win64="$(var.CompWin64)">
+				<File Id="Fil_MassUserSetup" Source="..\..\AuthGateway\AuthGateway.MassUserSetup\bin\$(var.binPlatformDir)\Release\AuthGateway.MassUserSetup.exe" KeyPath="yes"/>
+			</Component>
+			-->
+			
+			<!-- Shared -->
+			<Component Id="Com_WrightShareddll_Client" Win64="$(var.CompWin64)">
+				<File Id="Fil_WrightShareddll_Client" Source="..\..\AuthGateway\AuthGateway.Shared\bin\$(var.binPlatformDir)\Release\Wright.Shared.dll" KeyPath="yes"/>
+			</Component>
+			<!--
+			<Component Id="Com_WrightSharedClientdll_Client" Win64="$(var.CompWin64)">
+				<File Id="Fil_WrightSharedClientdll_Client" Source="..\..\AuthGateway\AuthGateway.Shared.Client\bin\$(var.binPlatformDir)\Release\Wright.Shared.Client.dll" KeyPath="yes"/>
+			</Component>
+			-->
+			<Component Id="Com_WrightSharedXmlMessagesdll_Client" Win64="$(var.CompWin64)">
+				<File Id="Fil_WrightSharedXmlMessagesdll_Client" Source="..\..\AuthGateway\AuthGateway.Shared.XmlMessages\bin\$(var.binPlatformDir)\Release\Wright.Shared.XmlMessages.dll" KeyPath="yes"/>
+			</Component>
+
+      <Component Id="Com_Trackerbird_Client" Win64="$(var.CompWin64)">
+        <File Id="Fil_Trackerbird_Client" Source="..\..\AuthGateway\AuthGateway.Shared\bin\$(var.binPlatformDir)\Release\Trackerbird.Tracker.dll" KeyPath="yes"/>
+      </Component>
+      <Component Id="Com_TrackerbirdLib_Client" Win64="$(var.CompWin64)">
+        <File Id="Fil_TrackerbirdLib_Client" Source="..\..\AuthGateway\AuthGateway.Shared\bin\$(var.binPlatformDir)\Release\Trackerbird.$(var.binPlatformDir).dll" KeyPath="yes"/>
+      </Component>
+			
+			<Component Id="Com_MindscapeRaygun4Netdll_Client"  Win64="$(var.CompWin64)">
+				<File Id="Fil_MindscapeRaygun4Netdll_Client" Source="..\..\AuthGateway\AuthGateway.OATH.Service\bin\$(var.binPlatformDir)\Release\Mindscape.Raygun4Net.dll" KeyPath="yes"/>
+			</Component>
+			
+			<!-- SMS2 PremiumAccess -->
+			<Component Id="Com_Sms2PremiumAccess" Win64="$(var.CompWin64)">
+				<File Id="Fil_Sms2PremiumAccess" Source="..\..\othercode\SMS2.PremiumAccess\SMS2.PremiumAccess\bin\$(var.binPlatformDir)\Release\SMS2.PremiumAccess.exe" KeyPath="yes"/>
+			</Component>
+		</DirectoryRef>
+
+		<!--
+		<ComponentGroup Id="AdminGUI">
+		-->
+		<!-- ADMINGUI -->
+			<DirectoryRef Id="Dir_AdminGUI">				
+				<Component Id="Com_AdminGUI" Win64="$(var.CompWin64)">
+					<File Id="Fil_AdminGUI" Source="..\..\AuthGateway\AuthGateway.AdminGUI\bin\$(var.binPlatformDir)\Release\Wright.AdminGUI.exe" KeyPath="yes">
+						<Shortcut Id="SM_Fil_AdminGUI"
+								Directory="Dir_Sc_WrightCCS"
+								Advertise="yes"
+								Name="SMS2 Administration Console"
+								WorkingDirectory="Dir_AdminGUI"
+								>
+						</Shortcut>
+					</File>
+					<RemoveFolder Id="DeleteShortcutFolder"
+								Directory="Dir_Sc_WrightCCS"
+								On="uninstall" />
+				</Component>
+				<Component Id="Com_GmaQrCodeNetEncoding" Win64="$(var.CompWin64)">
+					<File Id="Fil_GmaQrCodeNetEncoding" Source="..\..\AuthGateway\AuthGateway.AdminGUI\bin\$(var.binPlatformDir)\Release\Gma.QrCodeNet.Encoding.dll" KeyPath="yes"/>
+				</Component>
+
+				<Component Id="Com_MigraDoc_DocumentObjectModel" Win64="$(var.CompWin64)">
+					<File Id="Fil_MigraDoc_DocumentObjectModel" Source="..\..\AuthGateway\AuthGateway.AdminGUI\bin\$(var.binPlatformDir)\Release\MigraDoc.DocumentObjectModel.dll" KeyPath="yes"/>
+				</Component>
+				<Component Id="Com_MigraDoc_Rendering" Win64="$(var.CompWin64)">
+					<File Id="Fil_MigraDoc_Rendering" Source="..\..\AuthGateway\AuthGateway.AdminGUI\bin\$(var.binPlatformDir)\Release\MigraDoc.Rendering.dll" KeyPath="yes"/>
+				</Component>
+				<Component Id="Com_MigraDoc_RtfRendering" Win64="$(var.CompWin64)">
+					<File Id="Fil_MigraDoc_RtfRendering" Source="..\..\AuthGateway\AuthGateway.AdminGUI\bin\$(var.binPlatformDir)\Release\MigraDoc.RtfRendering.dll" KeyPath="yes"/>
+				</Component>
+				<Component Id="Com_PdfSharp" Win64="$(var.CompWin64)">
+					<File Id="Fil_PdfSharp" Source="..\..\AuthGateway\AuthGateway.AdminGUI\bin\$(var.binPlatformDir)\Release\PdfSharp.dll" KeyPath="yes"/>
+				</Component>
+				<Component Id="Com_PdfSharp_Charting" Win64="$(var.CompWin64)">
+					<File Id="Fil_PdfSharp_Charting" Source="..\..\AuthGateway\AuthGateway.AdminGUI\bin\$(var.binPlatformDir)\Release\PdfSharp.Charting.dll" KeyPath="yes"/>
+				</Component>
+				
+				<Component Id="Com_WrightAdminGUIexeConfig" Win64="$(var.CompWin64)">
+					<File Id="Fil_WrightAdminGUIexeConfig" Source="..\..\AuthGateway\AuthGateway.AdminGUI\bin\$(var.binPlatformDir)\Release\Wright.AdminGUI.exe.config" KeyPath="yes"/>
+				</Component>
+				<Component Id="Com_WrightShareddll_AdminGui" Win64="$(var.CompWin64)">
+					<File Id="Fil_WrightShareddll_AdminGui" Source="..\..\AuthGateway\AuthGateway.Shared\bin\$(var.binPlatformDir)\Release\Wright.Shared.dll" KeyPath="yes"/>
+				</Component>
+				<Component Id="Com_WrightSharedXmlMessagesdll_AdminGui" Win64="$(var.CompWin64)">
+					<File Id="Fil_WrightSharedXmlMessagesdll_AdminGui" Source="..\..\AuthGateway\AuthGateway.Shared.XmlMessages\bin\$(var.binPlatformDir)\Release\Wright.Shared.XmlMessages.dll" KeyPath="yes"/>
+				</Component>
+        <Component Id="Com_Trackerbird_AdminGui" Win64="$(var.CompWin64)">
+          <File Id="Fil_Trackerbird_AdminGui" Source="..\..\AuthGateway\AuthGateway.Shared\bin\$(var.binPlatformDir)\Release\Trackerbird.Tracker.dll" KeyPath="yes"/>
+        </Component>
+        <Component Id="Com_TrackerbirdLib_AdminGui" Win64="$(var.CompWin64)">
+          <File Id="Fil_TrackerbirdLib_AdminGui" Source="..\..\AuthGateway\AuthGateway.Shared\bin\$(var.binPlatformDir)\Release\Trackerbird.$(var.binPlatformDir).dll" KeyPath="yes"/>
+        </Component>
+				<Component Id="Com_MindscapeRaygun4Netdll_AdminGui"  Win64="$(var.CompWin64)">
+					<File Id="Fil_MindscapeRaygun4Netdll_AdminGui" Source="..\..\AuthGateway\AuthGateway.OATH.Service\bin\$(var.binPlatformDir)\Release\Mindscape.Raygun4Net.dll" KeyPath="yes"/>
+				</Component>
+			</DirectoryRef>
+			<DirectoryRef Id="Dir_Sc_WrightCCS">
+				<Component Id="Com_Sc_AdminGUI" Guid="{3635ED0A-0EFC-4427-AAF2-5768494ED6F9}">
+					<Shortcut Advertise="no" Id="Sc_AdminGUI" Name="SMS2 Administration Console" Description="This is the interface to configure SMS2 user configuration." Target="[Dir_AdminGUI]Wright.AdminGUI.exe"></Shortcut>
+					<Shortcut Advertise="no" Id="Sc_Uinstall" Name="Uninstall SMS2" Description="Uninstall SMS2" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]"></Shortcut>
+					<RemoveFolder Id="Remove_Sc_WrightCCS" On="uninstall"></RemoveFolder>
+					<RegistryValue Root="HKCU" Key="Software\Microsoft\WrightCCS" Name="installed" Type="integer" Value="1" KeyPath="yes"></RegistryValue>
+				</Component>
+			</DirectoryRef>
+		<!--</ComponentGroup>-->
+
+		<DirectoryRef Id="Dir_Logs">
+			<Component Id="Com_Dir_Logs" Guid="{5B914D45-0640-47A7-A6EA-C0CEDB8FACF9}" KeyPath="yes" Win64="$(var.CompWin64)">
+				<CreateFolder>
+					<Permission User="Everyone" Read="no" />
+					<util:PermissionEx User="[WIX_ACCOUNT_GUESTS]" GenericAll="no" Read="no" GenericRead="no" />
+					<util:PermissionEx User="[WIX_ACCOUNT_USERS]" GenericAll="no" Read="no" GenericRead="no" />
+					<util:PermissionEx User="[WIX_ACCOUNT_ADMINISTRATORS]" GenericAll="yes" Read="yes" ChangePermission="yes" Delete="yes" DeleteChild="yes" />
+					<util:PermissionEx User="[WIX_ACCOUNT_NETWORKSERVICE]" GenericAll="yes" Read="yes" ChangePermission="yes" Delete="yes" DeleteChild="yes" />
+					<util:PermissionEx User="[WIX_ACCOUNT_LOCALSERVICE]" GenericAll="yes" Read="yes" ChangePermission="yes" Delete="yes" DeleteChild="yes" />
+					<util:PermissionEx User="[WIX_ACCOUNT_LOCALSYSTEM]" GenericAll="yes" Read="yes" ChangePermission="yes" Delete="yes" DeleteChild="yes" />
+					<util:PermissionEx User="[AEUSERNAME]" GenericAll="yes" Read="yes" ChangePermission="yes" Delete="yes" DeleteChild="yes" />
+					<util:PermissionEx User="[CSMSUSERNAME]" GenericAll="yes" Read="yes" ChangePermission="yes" Delete="yes" DeleteChild="yes" />
+          <util:PermissionEx User="[MAIUSERNAME]" GenericAll="yes" Read="yes" ChangePermission="yes" Delete="yes" DeleteChild="yes" />
+          <util:PermissionEx User="[OATHUSERNAME]" GenericAll="yes" Read="yes" ChangePermission="yes" Delete="yes" DeleteChild="yes" />
+				</CreateFolder>
+			</Component>
+		</DirectoryRef>
+		<DirectoryRef Id="Dir_Settings">
+			<Component Id="Com_Dir_Settings" Guid="{49623A70-4B02-4E31-A7E2-C6F54DADFE39}" KeyPath="yes" Win64="$(var.CompWin64)">
+				<CreateFolder>
+					<Permission User="Everyone" Read="no" />
+					<util:PermissionEx User="[WIX_ACCOUNT_GUESTS]" GenericAll="no" Read="no" GenericRead="no" />
+					<util:PermissionEx User="[WIX_ACCOUNT_USERS]" GenericAll="no" Read="no" GenericRead="no" />
+					<util:PermissionEx User="[WIX_ACCOUNT_ADMINISTRATORS]" GenericAll="yes" Read="yes" ChangePermission="yes" Delete="yes" DeleteChild="yes" />
+					<util:PermissionEx User="[WIX_ACCOUNT_NETWORKSERVICE]" GenericAll="yes" Read="yes" ChangePermission="yes" Delete="yes" DeleteChild="yes" />
+					<util:PermissionEx User="[WIX_ACCOUNT_LOCALSERVICE]" GenericAll="yes" Read="yes" ChangePermission="yes" Delete="yes" DeleteChild="yes" />
+					<util:PermissionEx User="[WIX_ACCOUNT_LOCALSYSTEM]" GenericAll="yes" Read="yes" ChangePermission="yes" Delete="yes" DeleteChild="yes" />
+					<util:PermissionEx User="[AEUSERNAME]" GenericAll="yes" Read="yes" ChangePermission="yes" Delete="yes" DeleteChild="yes" />
+					<util:PermissionEx User="[MAIUSERNAME]" GenericAll="yes" Read="yes" ChangePermission="yes" Delete="yes" DeleteChild="yes" />
+          <util:PermissionEx User="[CSMSUSERNAME]" GenericAll="yes" Read="yes" ChangePermission="yes" Delete="yes" DeleteChild="yes" />
+          <util:PermissionEx User="[OATHUSERNAME]" GenericAll="yes" Read="yes" ChangePermission="yes" Delete="yes" DeleteChild="yes" />
+				</CreateFolder>
+				<CopyFile Id="cf_ConfigurationXML" Delete="no" SourceDirectory="Dir_Settings" SourceName="Configuration.xml" DestinationDirectory="Dir_Settings" DestinationName="Configuration.xml.bak" />
+			</Component>
+			<!--
+			<Component Id="Com_License" Guid="{E64CB8D7-4AA3-4821-B27F-C2EFAE9442C5}" Win64="$(var.CompWin64)">
+				<File Id="Fil_License" Source="..\..\AuthGateway.Resources\License\License.xml"/>
+			</Component>
+			-->
+		</DirectoryRef>
+		<DirectoryRef Id="Dir_SettingsPublic">
+			<Component Id="Com_Dir_SettingsPublic" Guid="{92F39707-09F4-4147-99D1-DE408FB8A1AD}" KeyPath="yes" Win64="$(var.CompWin64)">
+				<CreateFolder>
+					
+				</CreateFolder>
+			</Component>
+		</DirectoryRef>
+	</Fragment>
+</Wix>

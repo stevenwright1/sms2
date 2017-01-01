@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!-- CtxConnInfo.dtd                                                      -->
+<!-- Copyright (c) 2002 - 2010 Citrix Systems, Inc. All Rights Reserved.  -->
+<!-- DTD for the CtxConnInfo protocol                                     -->
+<!-- Version 1.0   23 Jul 2002                                            -->
+<!--                                                                      -->
+<!--  <!DOCTYPE CtxConnInfo [                                             -->
+
+<!ELEMENT CtxConnInfo (
+                          ServerAddress,
+                          UserName,
+                          UserDomain,
+                          ApplicationName,
+                          Protocol
+                      )>
+
+<!ATTLIST CtxConnInfo  version CDATA  #REQUIRED >        <!-- 1.0      -->
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!--                   Protocol message declarations                      -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!--                        Data type declarations                        -->
+<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+<!ELEMENT ServerAddress (#PCDATA)>           <!-- A-Z or 0-9
+                                                  max length of 256
+                                                  -->
+<!ELEMENT UserName (#PCDATA)>                <!-- A-Z or 0-9
+                                                  max length of 256
+                                                  -->
+<!ELEMENT UserDomain (#PCDATA)>              <!-- A-Z or 0-9
+                                                  max length of 256
+                                                  -->
+<!ELEMENT ApplicationName (#PCDATA)>         <!-- A-Z or 0-9
+                                                  max length of 256
+                                                  -->
+<!ELEMENT Protocol (#PCDATA)>                <!-- ICA | RDP -->
+
+<!--  ]> -->

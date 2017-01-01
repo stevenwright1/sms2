@@ -1,0 +1,67 @@
+﻿<%
+// wizardLayout.master
+// Copyright (c) 2000 - 2010 Citrix Systems, Inc. All Rights Reserved.
+// Web Interface 5.4.0.0
+%>
+
+<%@ Import namespace="com.citrix.wi.util" %>
+<%@ Import namespace="com.citrix.wi.mvc.asp" %>
+<%@ Import namespace="com.citrix.wi.mvc" %>
+<%@ Import namespace="com.citrix.wi.clientdetect" %>
+
+<%@ Master Language="C#" AutoEventWireup="true" Inherits="com.citrix.wi.ui.BaseMasterPage" %>
+<%@ Register TagPrefix="wizard" TagName="Help" Src="helpView.ascx" %>
+
+
+<script runat="server">
+    private bool runClientScript = false;
+    private ClientInfo sClientInfo = null;
+    private string clientCapabilitesForIE = "";
+    private WizardContext wizardContext = null;
+    void Page_Load(object sender, System.EventArgs e)
+    {
+        ContentPlaceHolder clientScriptControl = (ContentPlaceHolder)this.FindControl("ClientScriptPlaceHolder");
+        runClientScript = (clientScriptControl != null) && clientScriptControl.HasControls();
+
+        wizardContext = new WizardContext(AspWebAbstraction.getInstance(Context));
+        sClientInfo = wizardContext.getClientInfo();
+
+        if (PageID != null || PageID != "")
+        {
+            help.PageID = PageID;
+        }
+
+        // If we are using IE then we include the client capabilities so we can query the browser.
+        if (sClientInfo.isIE())
+        {
+            clientCapabilitesForIE = "style=\"behavior:url(#default#clientCaps)\" id=\"oClientCaps\"";
+        }
+    }
+
+</script>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW, NOARCHIVE">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <title>
+        <%=PageTitle%>
+    </title>
+    <script type="text/javascript">
+      <!--
+      <asp:ContentPlaceHolder id="ClientScriptPlaceHolder" runat="server" />
+      // -->
+    </script>
+
+    <!--#include file="~/app_data/clientDetection/include/styleVarsWizard.inc" -->
+    <!--#include file="~/app_data/clientDetection/include/styleWizard.inc" -->
+</head>
+<body onload="<%= runClientScript ? "onLoadLayout()" : "" %>" <%=clientCapabilitesForIE%> >
+    <asp:ContentPlaceHolder ID="ViewPlaceHolder" runat="server" />
+    <wizard:Help id="help" runat="server" />
+    <div class="spacer"></div>
+</body>
+</html>

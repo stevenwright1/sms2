@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+  CloseThisWindow.html
+  Copyright (c) 2001 - 2010 Citrix Systems, Inc. All Rights Reserved.
+-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW, NOARCHIVE">
+<title>[CloseWindow]</title>
+<script type="text/javascript">
+  <!--
+  window.close();
+  // -->
+</script>
+<link rel="stylesheet" type="text/css" href="styles/basicStyle.css" >
+</head>
+<body>
+  <div id="overallWrapper">
+    <div id="pageContent">
+	  <div id="headerWrapper">
+        <div id="header">
+          <img src="../media/CitrixLogoHeader.gif" alt="[HeadingImage]">
+        </div>
+	    <div class="spacer"><!-- --></div>
+	  </div>
+      <div class="mainPane">
+        <div id="welcome">
+          <h4 id="welcomeTitle" class="warning">[CloseWindow]</h4>
+        </div>
+        <div id="commonBox">
+          <p>[CloseWindowDesc]</p>
+          <p>[CloseWindowAction]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
